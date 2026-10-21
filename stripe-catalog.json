@@ -3,9 +3,68 @@
   "livemode": true,
   "created_at": "2026-10-21T20:21:44+02:00",
   "items": [
-    {"sku": "landing_page", "name": "Landing Page in 48h", "product_id": "prod_VU2DN9c0CzWtWv", "price_id": "price_1UT48yITWxIMUnKVVLILMyJH", "unit_amount": 39000, "currency": "usd", "type": "one_time", "payment_link_id": "plink_1UT49GITWxIMUnKV19ZrQlRA", "payment_link_url": "https://buy.stripe.com/3cIeVebOc8eCaEPbIycjS00"},
-    {"sku": "thumbnail_pack", "name": "Thumbnail Pack", "product_id": "prod_VU2DU9scXrr3Y5", "price_id": "price_1UT494ITWxIMUnKVbhAQCojI", "unit_amount": 7900, "currency": "usd", "type": "one_time", "payment_link_id": "plink_1UT49NITWxIMUnKVtcmBinFp", "payment_link_url": "https://buy.stripe.com/9B6bJ2aK8amK9AL4g6cjS01"},
-    {"sku": "logo_pack", "name": "Logo Pack", "product_id": "prod_VU2DrTgJHWtDE7", "price_id": "price_1UT497ITWxIMUnKVQTLsNHct", "unit_amount": 14900, "currency": "usd", "type": "one_time", "payment_link_id": "plink_1UT49QITWxIMUnKVYGrx3SgS", "payment_link_url": "https://buy.stripe.com/00w14obOc9iG9AL9AqcjS02"},
-    {"sku": "upkeep", "name": "Website Upkeep", "product_id": "prod_VU2DpuUiJxg09n", "price_id": "price_1UT499ITWxIMUnKVB4zDgO7r", "unit_amount": 4900, "currency": "usd", "type": "recurring", "interval": "month", "payment_link_id": "plink_1UT49TITWxIMUnKV2IeoPNE6", "payment_link_url": "https://buy.stripe.com/6oUeVedWk9iG8wHdQGcjS03"}
-  ]
+    {
+      "sku": "landing_page",
+      "name": "Landing Page in 48h",
+      "product_id": "prod_VU2DN9c0CzWtWv",
+      "price_id": "price_1UT48yITWxIMUnKVVLILMyJH",
+      "unit_amount": 39000,
+      "currency": "usd",
+      "type": "one_time",
+      "payment_link_id": "plink_1UT49GITWxIMUnKV19ZrQlRA",
+      "payment_link_url": "https://buy.stripe.com/3cIeVebOc8eCaEPbIycjS00",
+      "after_completion": {
+        "type": "redirect",
+        "redirect_url": "https://shipdaystudio.com/thanks/?product=landing"
+      }
+    },
+    {
+      "sku": "thumbnail_pack",
+      "name": "Thumbnail Pack",
+      "product_id": "prod_VU2DU9scXrr3Y5",
+      "price_id": "price_1UT494ITWxIMUnKVbhAQCojI",
+      "unit_amount": 7900,
+      "currency": "usd",
+      "type": "one_time",
+      "payment_link_id": "plink_1UT49NITWxIMUnKVtcmBinFp",
+      "payment_link_url": "https://buy.stripe.com/9B6bJ2aK8amK9AL4g6cjS01",
+      "after_completion": {
+        "type": "redirect",
+        "redirect_url": "https://shipdaystudio.com/thanks/?product=thumbnails"
+      }
+    },
+    {
+      "sku": "logo_pack",
+      "name": "Logo Pack",
+      "product_id": "prod_VU2DrTgJHWtDE7",
+      "price_id": "price_1UT497ITWxIMUnKVQTLsNHct",
+      "unit_amount": 14900,
+      "currency": "usd",
+      "type": "one_time",
+      "payment_link_id": "plink_1UT49QITWxIMUnKVYGrx3SgS",
+      "payment_link_url": "https://buy.stripe.com/00w14obOc9iG9AL9AqcjS02",
+      "after_completion": {
+        "type": "redirect",
+        "redirect_url": "https://shipdaystudio.com/thanks/?product=logo"
+      }
+    },
+    {
+      "sku": "upkeep",
+      "name": "Website Upkeep",
+      "product_id": "prod_VU2DpuUiJxg09n",
+      "price_id": "price_1UT499ITWxIMUnKVB4zDgO7r",
+      "unit_amount": 4900,
+      "currency": "usd",
+      "type": "recurring",
+      "interval": "month",
+      "payment_link_id": "plink_1UT49TITWxIMUnKV2IeoPNE6",
+      "payment_link_url": "https://buy.stripe.com/6oUeVedWk9iG8wHdQGcjS03",
+      "after_completion": {
+        "type": "redirect",
+        "redirect_url": "https://shipdaystudio.com/thanks/?product=upkeep"
+      }
+    }
+  ],
+  "thank_you_page": "https://shipdaystudio.com/thanks/",
+  "redirects_updated_at": "2026-10-21T23:25:00+02:00"
 }
