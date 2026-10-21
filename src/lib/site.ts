@@ -162,7 +162,7 @@ export const cases: CaseStudy[] = [
     headline: "A calm, tactile launch page for a one-person pottery studio",
     summary: "Pre-order page for a small-batch ceramics drop, built around photography and a waitlist.",
     brief:
-      "A solo potter wanted one page to announce a spring collection, explain the making process and collect waitlist sign-ups before the shop opened.",
+      "Imagined brief: a solo potter wants one page to announce a spring collection, explain the making process and collect waitlist sign-ups before the shop opens.",
     approach: [
       "Warm clay-and-sand palette with plenty of whitespace so the pieces carry the page.",
       "Process told in three short beats: throw, glaze, fire.",
@@ -171,7 +171,7 @@ export const cases: CaseStudy[] = [
     palette: ["#F4EDE4", "#C8734A", "#2E2A26", "#9DB4A0"],
     image: "/work/landing/northdrift-ceramics.svg",
     stats: [
-      { label: "Turnaround", value: "48h" },
+      { label: "Package turnaround", value: "48h" },
       { label: "Sections", value: "6" },
       { label: "Revision rounds", value: "1" },
     ],
@@ -183,16 +183,16 @@ export const cases: CaseStudy[] = [
     headline: "A crisp product page for an AI newsletter-drafting tool",
     summary: "Dark, focused SaaS landing page with a product mock, three benefits and pricing teaser.",
     brief:
-      "A two-founder team needed a credible page to share on launch day: what the product does, why it's different and an email capture for early access.",
+      "Imagined brief: a two-founder team needs a credible page to share on launch day: what the product does, why it's different and an email capture for early access.",
     approach: [
       "Dark UI with a single violet accent to feel technical without being cold.",
       "Hero shows the product, not stock art: a drafted newsletter mid-edit.",
-      "Social proof slots ready to fill once beta users report back.",
+      "Social proof slots left empty, ready for real beta feedback.",
     ],
     palette: ["#0F0E17", "#7C5CFF", "#E8E6F3", "#2CE6B5"],
     image: "/work/landing/quillbyte.svg",
     stats: [
-      { label: "Turnaround", value: "48h" },
+      { label: "Package turnaround", value: "48h" },
       { label: "Sections", value: "7" },
       { label: "Revision rounds", value: "1" },
     ],
@@ -202,9 +202,9 @@ export const cases: CaseStudy[] = [
     brand: "Fennel & Fig",
     kind: "Creator course",
     headline: "A friendly sales page for a meal-prep creator's first course",
-    summary: "Course landing page with curriculum, creator bio, testimonials and a single price.",
+    summary: "Course landing page with curriculum, creator bio, review placeholders and a single price.",
     brief:
-      "A food creator with a growing YouTube audience wanted a page to sell a 4-week meal-prep course, linking from video descriptions.",
+      "Imagined brief: a food creator with a YouTube audience wants a page to sell a 4-week meal-prep course, linking from video descriptions.",
     approach: [
       "Fresh greens and fig purple, rounded shapes and big friendly type.",
       "Curriculum laid out week by week so buyers know exactly what they get.",
@@ -213,7 +213,7 @@ export const cases: CaseStudy[] = [
     palette: ["#F7F5EC", "#3F7D4E", "#7A3B69", "#F2B84B"],
     image: "/work/landing/fennel-and-fig.svg",
     stats: [
-      { label: "Turnaround", value: "48h" },
+      { label: "Package turnaround", value: "48h" },
       { label: "Sections", value: "8" },
       { label: "Revision rounds", value: "1" },
     ],

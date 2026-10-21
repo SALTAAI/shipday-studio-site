@@ -92,7 +92,7 @@ function fennel() {
 <text x="80" y="340" font-size="68" fill="${green}" font-weight="800">Eat well all week.</text>
 <text x="80" y="410" font-size="21" fill="#333">Two hours on Sunday, ten real meals. No fancy kit, no sad salads.</text>
 <rect x="80" y="450" width="240" height="60" rx="30" fill="${green}"/><text x="200" y="487" font-size="18" fill="#fff" text-anchor="middle" font-weight="700">Start the course</text>
-<text x="350" y="487" font-size="16" fill="#555">★★★★★  from 300+ students</text>
+<text x="350" y="487" font-size="16" fill="#555">★★★★★  reviews go here</text>
 <circle cx="900" cy="340" r="230" fill="${sun}" opacity=".3"/>
 <circle cx="900" cy="340" r="170" fill="#fff"/><circle cx="900" cy="340" r="150" fill="#EFE9D8"/>
 <circle cx="850" cy="300" r="48" fill="${fig}"/><circle cx="960" cy="320" r="38" fill="${sun}"/><circle cx="900" cy="410" r="44" fill="#D9573F"/>
@@ -103,8 +103,8 @@ ${["Week 1 · The base kit", "Week 2 · Sauces that carry", "Week 3 · Batch &am
 <circle cx="230" cy="1330" r="90" fill="${sun}"/><circle cx="230" cy="1310" r="34" fill="#7a5a1c"/><path d="M170 1390 Q230 1340 290 1390" fill="#7a5a1c"/>
 <text x="370" y="1290" font-size="32" fill="#fff" font-weight="800">Hi, I'm Mara.</text>
 ${lines(370, 1320, 640, 4, "#5E9A6C", 28, 12)}
-<text x="80" y="1580" font-size="40" fill="#1E2A20" font-weight="800">Students say</text>
-${[0, 1, 2].map((i) => `<g transform="translate(${80 + i * 355} 1620)"><rect width="330" height="190" rx="22" fill="#fff"/><text x="28" y="50" font-size="18" fill="${sun}">★★★★★</text>${lines(28, 75, 270, 3, "#ECE7D8", 22, 10)}<text x="28" y="165" font-size="16" fill="#333" font-weight="600">${["Jo, Leeds", "Sam, Austin", "Priya, Berlin"][i]}</text></g>`).join("")}
+<text x="80" y="1580" font-size="40" fill="#1E2A20" font-weight="800">Student reviews (placeholder)</text>
+${[0, 1, 2].map((i) => `<g transform="translate(${80 + i * 355} 1620)"><rect width="330" height="190" rx="22" fill="#fff"/><text x="28" y="50" font-size="18" fill="${sun}">★★★★★</text>${lines(28, 75, 270, 3, "#ECE7D8", 22, 10)}<text x="28" y="165" font-size="16" fill="#333" font-weight="600">${"Review placeholder"}</text></g>`).join("")}
 <rect x="80" y="1870" width="1040" height="230" rx="32" fill="${fig}"/>
 <text x="140" y="1955" font-size="38" fill="#fff" font-weight="800">One price. Lifetime access.</text>
 <text x="140" y="2000" font-size="18" fill="#fff" opacity=".8">30-day money-back guarantee, no questions asked.</text>

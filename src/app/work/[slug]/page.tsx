@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const c = cases.find((x) => x.slug === slug);
   if (!c) return {};
-  return pageMeta({ path: `/work/${c.slug}`, title: `${c.brand}: sample landing page`, description: `${c.summary} Concept work for a fictional brand.` });
+  return pageMeta({ path: `/work/${c.slug}`, title: `${c.brand}: sample landing page`, description: `${c.summary} Sample concept for a fictional brand, not a client project.` });
 }
 
 export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -26,13 +26,13 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
   return (
     <article className="container-x py-14 sm:py-20">
-      <Link href="/#work" className="text-sm text-muted hover:text-accent">← All sample work</Link>
+      <Link href="/#work" className="text-sm text-muted hover:text-accent">← All sample concepts</Link>
       <div className="mt-6 grid gap-12 lg:grid-cols-[1fr_1.2fr]">
         <div className="lg:sticky lg:top-24 lg:h-fit">
           <p className="eyebrow">{c.kind}</p>
           <h1 className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">{c.brand}</h1>
           <p className="mt-4 text-lg text-muted">{c.headline}</p>
-          <p className="mt-4 inline-block rounded-full bg-sun/40 px-3 py-1 text-xs font-semibold">Fictional brand · concept work</p>
+          <p className="mt-4 inline-block rounded-full bg-sun/40 px-3 py-1 text-xs font-semibold">Sample concept · fictional brand, not a client project</p>
 
           <dl className="mt-8 grid grid-cols-3 gap-4">
             {c.stats.map((s) => (
@@ -43,9 +43,9 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
             ))}
           </dl>
 
-          <h2 className="mt-10 font-bold">The brief</h2>
+          <h2 className="mt-10 font-bold">Concept brief (fictional)</h2>
           <p className="mt-2 text-muted">{c.brief}</p>
-          <h2 className="mt-8 font-bold">What we did</h2>
+          <h2 className="mt-8 font-bold">Design choices</h2>
           <ul className="mt-2 space-y-2 text-muted">
             {c.approach.map((a) => <li key={a} className="flex gap-2"><span aria-hidden="true" className="text-accent">✓</span>{a}</li>)}
           </ul>
@@ -69,7 +69,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
       </div>
 
       <section className="mt-20">
-        <h2 className="text-xl font-bold">More sample work</h2>
+        <h2 className="text-xl font-bold">More sample concepts</h2>
         <div className="mt-5 grid gap-6 sm:grid-cols-2">
           {others.map((o) => (
             <Link key={o.slug} href={`/work/${o.slug}/`} className="group flex gap-4 rounded-2xl border border-line bg-white p-4 hover:border-ink">

@@ -97,9 +97,9 @@ export default function Home() {
       {/* Work */}
       <section id="work" className="border-y border-line bg-white py-20">
         <div className="container-x">
-          <p className="eyebrow">Sample work</p>
+          <p className="eyebrow">Sample concepts</p>
           <h2 className="h2 mt-3">The kind of thing we ship</h2>
-          <p className="mt-3 max-w-2xl text-muted">These are concept pieces for fictional brands, made to show our style and range.</p>
+          <p className="mt-3 max-w-2xl text-muted">These are concept pieces made to show our style, not client projects. Every brand shown is fictional.</p>
 
           <h3 className="mt-12 text-lg font-bold">Landing pages</h3>
           <div className="mt-5 grid gap-6 md:grid-cols-3">
