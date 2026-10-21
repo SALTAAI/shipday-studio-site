@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env*
+!.env.example
+# local order submissions (contain personal data)
+data/orders.json
+.DS_Store

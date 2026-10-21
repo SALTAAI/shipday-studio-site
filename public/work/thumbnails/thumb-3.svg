@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="Inter, 'Helvetica Neue', Arial, sans-serif"><rect width="1280" height="720" fill="#052E16"/><path d="M0 720 L0 520 L250 470 L480 380 L700 400 L930 230 L1280 120 L1280 720Z" fill="#16A34A" opacity=".35"/><polyline points="60,600 300,540 520,450 740,470 980,300 1220,170" stroke="#4ADE80" stroke-width="18" fill="none" stroke-linejoin="round" stroke-linecap="round"/><circle cx="1220" cy="170" r="22" fill="#fff" stroke="#000" stroke-width="6"/>
+     <text x="70" y="170" font-size="120" font-weight="900" fill="#fff" stroke="#000" stroke-width="8.571428571428571" paint-order="stroke" stroke-linejoin="round" text-anchor="start" letter-spacing="-2">MY FIRST</text><text x="70" y="330" font-size="150" font-weight="900" fill="#4ADE80" stroke="#000" stroke-width="10.714285714285714" paint-order="stroke" stroke-linejoin="round" text-anchor="start" letter-spacing="-2">$1K MONTH</text><g transform="translate(1060 520) scale(0.85)">
+<path d="M-150 260 Q0 150 150 260 L150 320 L-150 320Z" fill="#111" opacity=".9"/>
+<ellipse cx="0" cy="0" rx="120" ry="140" fill="#C68642"/>
+<path d="M-125 -30 Q-120 -150 0 -150 Q120 -150 125 -30 Q90 -100 0 -95 Q-90 -100 -125 -30Z" fill="#111"/>
+<ellipse cx="-42" cy="0" rx="14" ry="10" fill="#1b1b1b"/><ellipse cx="42" cy="0" rx="14" ry="10" fill="#1b1b1b"/>
+<path d="M-70 -45 Q-42 -55 -15 -45" stroke="#111" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M70 -45 Q42 -55 15 -45" stroke="#111" stroke-width="9" fill="none" stroke-linecap="round"/>
+<path d="M-45 60 Q0 100 45 60" stroke="#5a1a1a" stroke-width="10" fill="none" stroke-linecap="round"/>
+</g>
+     <rect x="760" y="60" width="300" height="80" rx="40" fill="#FACC15" stroke="#000" stroke-width="6"/><text x="910" y="114" font-size="40" font-weight="900" text-anchor="middle">+412%</text></svg>

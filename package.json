@@ -1,0 +1,28 @@
+{
+  "name": "shipday-studio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "typecheck": "tsc --noEmit",
+    "assets": "node scripts/gen-assets.mjs",
+    "serve": "node scripts/serve-out.mjs out 4310",
+    "screens": "node scripts/screens.mjs",
+    "check-links": "node scripts/check-links.mjs"
+  },
+  "dependencies": {
+    "next": "16.4.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "playwright-core": "^1.64.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "^5"
+  }
+}

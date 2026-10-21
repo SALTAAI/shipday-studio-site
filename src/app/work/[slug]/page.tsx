@@ -1,0 +1,87 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { cases, getOffer, formatPrice } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
+import { BuyButton } from "@/components/BuyButton";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return cases.map((c) => ({ slug: c.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const c = cases.find((x) => x.slug === slug);
+  if (!c) return {};
+  return pageMeta({ path: `/work/${c.slug}`, title: `${c.brand}: sample landing page`, description: `${c.summary} Concept work for a fictional brand.` });
+}
+
+export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const c = cases.find((x) => x.slug === slug);
+  if (!c) notFound();
+  const others = cases.filter((x) => x.slug !== c.slug);
+
+  return (
+    <article className="container-x py-14 sm:py-20">
+      <Link href="/#work" className="text-sm text-muted hover:text-accent">← All sample work</Link>
+      <div className="mt-6 grid gap-12 lg:grid-cols-[1fr_1.2fr]">
+        <div className="lg:sticky lg:top-24 lg:h-fit">
+          <p className="eyebrow">{c.kind}</p>
+          <h1 className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">{c.brand}</h1>
+          <p className="mt-4 text-lg text-muted">{c.headline}</p>
+          <p className="mt-4 inline-block rounded-full bg-sun/40 px-3 py-1 text-xs font-semibold">Fictional brand · concept work</p>
+
+          <dl className="mt-8 grid grid-cols-3 gap-4">
+            {c.stats.map((s) => (
+              <div key={s.label} className="rounded-2xl border border-line bg-white p-4">
+                <dt className="text-xs text-muted">{s.label}</dt>
+                <dd className="text-2xl font-bold">{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <h2 className="mt-10 font-bold">The brief</h2>
+          <p className="mt-2 text-muted">{c.brief}</p>
+          <h2 className="mt-8 font-bold">What we did</h2>
+          <ul className="mt-2 space-y-2 text-muted">
+            {c.approach.map((a) => <li key={a} className="flex gap-2"><span aria-hidden="true" className="text-accent">✓</span>{a}</li>)}
+          </ul>
+          <h2 className="mt-8 font-bold">Palette</h2>
+          <div className="mt-3 flex gap-2">
+            {c.palette.map((p) => (
+              <span key={p} className="flex flex-col items-center gap-1 text-xs text-muted">
+                <span aria-hidden="true" className="h-10 w-10 rounded-full border border-line" style={{ background: p }} />{p}
+              </span>
+            ))}
+          </div>
+          <BuyButton offer={getOffer("landing")} className="btn-accent mt-10">Get a page like this · {formatPrice(getOffer("landing"))}</BuyButton>
+        </div>
+        <div className="overflow-hidden rounded-3xl border border-line bg-white shadow-xl">
+          <div className="flex items-center gap-1.5 border-b border-line px-4 py-3">
+            <span className="h-3 w-3 rounded-full bg-red-400" /><span className="h-3 w-3 rounded-full bg-yellow-400" /><span className="h-3 w-3 rounded-full bg-green-400" />
+            <span aria-hidden="true" className="ml-3 truncate rounded-md bg-paper px-3 py-1 text-xs text-muted">{c.slug}.example</span>
+          </div>
+          <img src={c.image} alt={`Full ${c.brand} sample landing page (fictional brand)`} width={1200} height={2200} fetchPriority="high" className="w-full" />
+        </div>
+      </div>
+
+      <section className="mt-20">
+        <h2 className="text-xl font-bold">More sample work</h2>
+        <div className="mt-5 grid gap-6 sm:grid-cols-2">
+          {others.map((o) => (
+            <Link key={o.slug} href={`/work/${o.slug}/`} className="group flex gap-4 rounded-2xl border border-line bg-white p-4 hover:border-ink">
+              <img src={o.image} alt="" width={1200} height={2200} loading="lazy" decoding="async" className="h-28 w-24 rounded-lg object-cover object-top" />
+              <span>
+                <span className="block text-sm text-muted">{o.kind}</span>
+                <span className="block font-bold group-hover:text-accent">{o.brand} →</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </article>
+  );
+}

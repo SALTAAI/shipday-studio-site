@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0E0E12;
+  --color-paper: #FAFAF7;
+  --color-muted: #5B5B66;
+  --color-line: #E7E5DF;
+  /* accent passes WCAG AA (>=4.5:1) on white/paper and with white text; flame is decorative only */
+  --color-accent: #C2410C;
+  --color-accent-dark: #9A3412;
+  --color-flame: #FF5A1F;
+  --color-sun: #FFD84D;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--color-paper); color: var(--color-ink); -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 3px solid var(--color-flame); outline-offset: 2px; border-radius: 6px; }
+
+@utility container-x { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition; }
+@utility btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition bg-ink text-paper hover:bg-accent; }
+@utility btn-accent { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition bg-accent text-white hover:bg-accent-dark; }
+@utility btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition border border-ink/15 hover:border-ink; }
+@utility eyebrow { @apply text-xs font-bold uppercase tracking-[0.2em] text-accent; }
+@utility h2 { @apply text-3xl font-extrabold tracking-tight sm:text-4xl; }
+
+@layer components {
+  .prose-legal h2 { @apply mt-10 text-xl font-bold text-ink; }
+  .prose-legal p, .prose-legal li { @apply mt-3 leading-relaxed text-muted; }
+  .prose-legal ul { @apply mt-2 list-disc pl-5; }
+  .prose-legal ol { @apply mt-2 list-decimal pl-5; }
+  .prose-legal address p { @apply text-ink; }
+  .prose-legal a { @apply underline underline-offset-2; }
+}
