@@ -23,7 +23,7 @@ export default function OrderPage() {
       <p className="eyebrow">Order</p>
       <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight sm:text-5xl">Pick a package and pay</h1>
       <p className="mt-4 max-w-2xl text-muted">
-        Prices are fixed and in USD. Turnaround starts once we have both your payment and your brief.
+        We work remotely with clients in any country and industry. Prices are fixed and in USD. Turnaround starts once we have both your payment and your brief.
       </p>
 
       <ol className="mt-8 grid gap-4 sm:grid-cols-3">

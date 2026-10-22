@@ -8,7 +8,7 @@ export function Footer() {
       <div className="container-x grid gap-8 py-12 sm:grid-cols-[2fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2 font-extrabold"><LogoMark className="h-7 w-7" /> {site.name}</div>
-          <p className="mt-3 max-w-xs text-sm text-muted">Fixed-price design for creators and founders. Based in {site.location}.</p>
+          <p className="mt-3 max-w-xs text-sm text-muted">Fixed-price design for businesses, creators and brands. Remote, working with clients worldwide.</p>
         </div>
         <div className="text-sm">
           <h2 className="font-semibold">Contact</h2>
@@ -33,7 +33,7 @@ export function Footer() {
         </div>
       </div>
       <div className="container-x border-t border-line py-6 text-xs text-muted">
-        © {new Date().getFullYear()} {site.name} · {site.location} · Prices in USD · Sample work shows fictional brands.
+        © {new Date().getFullYear()} {site.name} · {site.legal.country} · Prices in USD · Sample work shows fictional brands.
       </div>
     </footer>
   );

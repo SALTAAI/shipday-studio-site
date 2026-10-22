@@ -29,7 +29,7 @@ const jsonLd = {
   image: `${site.url}/og.png`,
   email: site.email,
   description: site.description,
-  areaServed: "Worldwide",
+  areaServed: { "@type": "Place", name: "Worldwide" },
   currenciesAccepted: "USD",
   paymentAccepted: "Credit card (Stripe)",
   address: { "@type": "PostalAddress", addressCountry: "CH" },

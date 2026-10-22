@@ -2,7 +2,7 @@ import Link from "next/link";
 import { OfferCards } from "@/components/OfferCards";
 import type { Metadata } from "next";
 import { BuyButton } from "@/components/BuyButton";
-import { cases, faq, logos, steps, thumbnails, site, getOffer, formatPrice, briefMailto } from "@/lib/site";
+import { cases, faq, industries, logos, steps, thumbnails, site, getOffer, formatPrice, briefMailto } from "@/lib/site";
 import { SampleGallery } from "@/components/SampleGallery";
 import { pageMeta } from "@/lib/seo";
 
@@ -23,14 +23,15 @@ export default function Home() {
         <div className="container-x grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-[1.1fr_1fr]">
           <div>
             <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1 text-xs font-semibold">
-              <span aria-hidden="true" className="h-2 w-2 rounded-full bg-green-500" /> Fixed prices in USD · no calls needed
+              <span aria-hidden="true" className="h-2 w-2 rounded-full bg-green-500" /> Remote · clients worldwide · fixed prices in USD
             </p>
             <h1 className="mt-6 text-balance text-5xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
               Your landing page, <span className="text-accent">shipped in 48 hours.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-muted">
-              Fixed-price design for creators and founders. Pick a package, pay online, email a short brief, and get
-              finished work by a clear deadline. No calls, no quotes, no scope creep.
+              Fixed-price design for businesses, creators and brands anywhere in the world, in any industry. Pick a
+              package, pay online, email a short brief, and get finished work by a clear deadline. No calls, no quotes,
+              no scope creep.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <BuyButton offer={getOffer("landing")} className="btn-accent">Get a landing page · {formatPrice(getOffer("landing"))}</BuyButton>
@@ -61,6 +62,23 @@ export default function Home() {
               className="absolute -right-3 -top-5 w-1/4 rotate-[6deg] rounded-2xl border-4 border-white shadow-xl"
             />
           </div>
+        </div>
+      </section>
+
+      {/* Who we work with */}
+      <section aria-labelledby="who-heading" className="pb-16 sm:pb-20">
+        <div className="container-x grid gap-6 lg:grid-cols-[1fr_2fr] lg:items-center lg:gap-10">
+          <div>
+            <p className="eyebrow">Who we work with</p>
+            <h2 id="who-heading" className="mt-3 text-balance text-2xl font-extrabold tracking-tight sm:text-3xl">Any business, any industry, anywhere.</h2>
+            <p className="mt-2 text-muted">{site.reach}</p>
+          </div>
+          <ul className="flex flex-wrap gap-2" aria-label="Industries we design for">
+            {industries.map((i) => (
+              <li key={i} className="rounded-full border border-line bg-white px-3.5 py-1.5 text-sm font-medium">{i}</li>
+            ))}
+            <li className="rounded-full border border-accent/30 bg-accent/5 px-3.5 py-1.5 text-sm font-semibold text-accent">…and whatever you sell</li>
+          </ul>
         </div>
       </section>
 

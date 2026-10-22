@@ -2,11 +2,11 @@ export const site = {
   name: "Shipday Studio",
   url: "https://shipdaystudio.com",
   email: "hello@shipdaystudio.com",
-  tagline: "Fixed-price design for creators and founders. Shipped in days, not weeks.",
+  tagline: "Fixed-price design for businesses, creators and brands worldwide. Shipped in days, not weeks.",
   description:
-    "Shipday Studio is a fixed-price design studio for creators and founders: landing pages in 48h, YouTube thumbnail packs in 24h, logo packs in 48h, and monthly upkeep. Clear prices in USD, no calls required.",
-  /** Public location shown in marketing copy. No personal name or street address is published anywhere on the site. */
-  location: "Switzerland",
+    "Remote, fixed-price design studio for businesses, creators and brands worldwide, in any industry. Landing pages and logos in 48h, thumbnails in 24h. USD, no calls.",
+  /** Marketing copy is remote and worldwide. The country appears only in the legal identity (site.legal). No personal name or street address is published anywhere on the site. */
+  reach: "Remote studio working with businesses, creators and brands worldwide, in any industry.",
   x: { handle: "@ShipdayStudio", url: "https://x.com/ShipdayStudio" },
   /** Public operator and data controller details for the legal pages. No personal name or street address. */
   legal: {
@@ -32,6 +32,21 @@ export function briefMailto(service?: string) {
   ].join("\n");
   return `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
+
+/** Sectors shown in the "Who we work with" strip. Illustrative of breadth, not a client list. */
+export const industries = [
+  "SaaS & tech",
+  "E-commerce",
+  "Restaurants & hospitality",
+  "Local services",
+  "Health & wellness",
+  "Coaches & consultants",
+  "Creators & YouTubers",
+  "Gaming",
+  "Finance",
+  "Real estate",
+  "Non-profits",
+];
 
 export type ServiceId = "landing" | "thumbnails" | "logo" | "upkeep";
 
@@ -112,7 +127,11 @@ export const steps = [
 export const faq = [
   {
     q: "Who is behind Shipday Studio?",
-    a: "Shipday Studio is an independent studio based in Switzerland. Production runs on an AI-assisted workflow, and every deliverable is reviewed by a human before delivery, which is how we keep prices fixed and turnaround short.",
+    a: "Shipday Studio is an independent, fully remote design studio. Production runs on an AI-assisted workflow, and every deliverable is reviewed by a human before delivery, which is how we keep prices fixed and turnaround short.",
+  },
+  {
+    q: "Do you work with clients in my country or industry?",
+    a: "Yes. We work with businesses, creators and brands in any country, market or industry, selling any product or service. Everything runs by email and Stripe checkout, so there are no calls to schedule across time zones.",
   },
   {
     q: "When does the clock start?",

@@ -1,6 +1,6 @@
 # Shipday Studio: shipdaystudio.com
 
-The marketing and order site for **Shipday Studio**, based in Switzerland (operator details: `/imprint`).
+The marketing and order site for **Shipday Studio**, a remote design studio working with businesses, creators and brands worldwide, in any industry (operator details: `/imprint`).
 It's a fixed-price design studio for creators and founders.
 
 Stack: Next.js 16 (App Router) + TypeScript + Tailwind CSS v4. Runtime dependencies: `next`, `react` and `react-dom`, nothing else.
@@ -38,5 +38,5 @@ Hosted on GitHub Pages (custom domain shipdaystudio.com). Payment Links live in 
 
 ## Notes
 - DNS is on Namecheap with email forwarding (hello@ -> owner). Never replace the MX / forwarding records when changing hosts.
-- Branding: marketing copy shows the location as "Switzerland" only; no personal name or city outside the legal pages.
+- Branding: marketing copy is remote, worldwide and for any industry; never limit it to one country or market. "Switzerland" appears only in the legal identity (imprint, terms, privacy, `site.legal`, footer legal line). No personal name, address, phone or personal email anywhere.
 - Legal: `/terms`, `/privacy` and `/imprint` are plain-English drafts, not legal advice; have them reviewed.
