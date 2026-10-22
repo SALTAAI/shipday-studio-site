@@ -84,7 +84,7 @@ export function WorkFilter({ kind }: { kind: Kind }) {
               <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm font-semibold">
                 {c.demo && (
                   <a href={c.demo} target="_blank" rel="noopener" className="underline decoration-2 underline-offset-4 hover:text-accent">
-                    Open live demo <span aria-hidden="true">↗</span><span className="sr-only"> ({c.brand}, new tab)</span>
+                    See the design <span aria-hidden="true">↗</span><span className="sr-only"> ({c.brand}, new tab)</span>
                   </a>
                 )}
                 <Link href={`/work/${c.slug}/`} className="text-muted hover:text-accent">

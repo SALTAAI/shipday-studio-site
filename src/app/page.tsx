@@ -53,7 +53,7 @@ export default function Home() {
             href={heroCase.demo ?? `/work/${heroCase.slug}/`}
             external={Boolean(heroCase.demo)}
             main={{ src: heroCase.image, alt: `${heroCase.brand} sample landing page (concept, fictional brand)`, width: heroW, height: heroH }}
-            srLabel={heroCase.demo ? ` Open the live ${heroCase.brand} concept demo (new tab)` : ` ${heroCase.brand} design notes`}
+            srLabel={heroCase.demo ? ` See the ${heroCase.brand} design (new tab)` : ` ${heroCase.brand} design notes`}
             secondary={{ src: heroThumb.small ?? heroThumb.file, width: 640, height: 360 }}
             logo={{ src: heroLogo.small ?? heroLogo.file, width: heroLogo.size[0] / 2, height: heroLogo.size[1] / 2 }}
           />

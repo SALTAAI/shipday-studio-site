@@ -73,7 +73,7 @@ export function LandingCard({ c, large }: { c: (typeof cases)[number]; large: bo
         <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
           {c.demo && (
             <a href={c.demo} target="_blank" rel="noopener" className="underline decoration-2 underline-offset-4 hover:text-accent">
-              Open live demo <span aria-hidden="true">↗</span>
+              See the design <span aria-hidden="true">↗</span>
               <span className="sr-only"> (opens the {c.brand} concept page in a new tab)</span>
             </a>
           )}
@@ -131,7 +131,7 @@ export function RedesignBlock() {
           <figcaption className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm">
             <span><span className="font-semibold">After</span> <span className="text-muted">· booking first, clear prices</span></span>
             <a href={redesign.after.demo} target="_blank" rel="noopener" className="font-semibold underline decoration-2 underline-offset-4 hover:text-accent">
-              Open live demo <span aria-hidden="true">↗</span><span className="sr-only"> (Pipewren concept, new tab)</span>
+              See the design <span aria-hidden="true">↗</span><span className="sr-only"> (Pipewren concept, new tab)</span>
             </a>
           </figcaption>
         </figure>

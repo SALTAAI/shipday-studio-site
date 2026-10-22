@@ -100,6 +100,7 @@ export function HeroSection({
   after,
   titleClass = heroTitleClass,
   body,
+  note,
   actions,
   ticks,
   stats,
@@ -112,6 +113,8 @@ export function HeroSection({
   after?: ReactNode;
   titleClass?: string;
   body: ReactNode;
+  /** Optional line under the body (e.g. the "sample concept" notice on design-notes pages). */
+  note?: ReactNode;
   actions: ReactNode;
   ticks: string[];
   stats: [string, string][];
@@ -130,6 +133,7 @@ export function HeroSection({
             {title}{accent ? <span className="text-accent">{accent}</span> : null}{after || null}
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted">{body}</p>
+          {note}
           <div className="mt-8 flex flex-wrap gap-3">{actions}</div>
           <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted" aria-label="Order guarantees">
             {ticks.map((t) => (
@@ -296,6 +300,66 @@ export function CtaSection({ heading, text, action }: { heading: string; text: R
         <h2 className="relative text-3xl font-extrabold tracking-tight sm:text-5xl">{heading}</h2>
         <p className="relative mx-auto mt-4 max-w-xl text-paper/80">{text}</p>
         {action}
+      </div>
+    </section>
+  );
+}
+
+/** Breadcrumb trail shown above the hero pill on deeper pages (service pages, sample design notes). */
+export function Breadcrumb({ items }: { items: { href?: string; label: string }[] }) {
+  return (
+    <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted">
+      {items.map((it, i) => (
+        <span key={it.label}>
+          {i > 0 && <> <span aria-hidden="true">/</span>{" "}</>}
+          {it.href ? <Link href={it.href} className="hover:text-accent">{it.label}</Link> : <span aria-current="page">{it.label}</span>}
+        </span>
+      ))}
+    </nav>
+  );
+}
+
+/** Generic content section in the homepage rhythm: eyebrow, h2, intro, then the page's own content. `band` = white full-width band like "How it works" and "Samples". */
+export function ContentSection({
+  id,
+  eyebrow,
+  heading,
+  intro,
+  band = false,
+  children,
+}: {
+  id?: string;
+  eyebrow: string;
+  heading: string;
+  intro?: ReactNode;
+  band?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <section id={id} className={band ? "border-y border-line bg-white py-20" : "py-20"}>
+      <div className="container-x">
+        <p className="eyebrow">{eyebrow}</p>
+        <h2 className="h2 mt-3">{heading}</h2>
+        {intro && <p className="mt-3 max-w-2xl text-muted">{intro}</p>}
+        {children}
+      </div>
+    </section>
+  );
+}
+
+/** Text-only hero for legal pages: same pill, title typography, glow and spacing as the homepage hero, without the collage. */
+export function TextHero({ pill, title, body }: { pill: string; title: ReactNode; body: ReactNode }) {
+  return (
+    <section className="relative overflow-hidden">
+      <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-flame/15 blur-3xl" />
+      <div className="container-x py-16 sm:py-24">
+        <div className="max-w-3xl">
+          <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1 text-xs font-semibold">
+            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-green-500" /> {pill}
+          </p>
+          <h1 className={heroTitleClass}>{title}</h1>
+          <p className="mt-6 max-w-xl text-lg text-muted">{body}</p>
+        </div>
       </div>
     </section>
   );

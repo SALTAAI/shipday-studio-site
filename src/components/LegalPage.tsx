@@ -1,12 +1,15 @@
+import { TextHero } from "@/components/HomeSections";
+
+/** Legal pages: the homepage hero typography, container and spacing, then a text-focused column. */
 export function LegalPage({ title, updated, children }: { title: string; updated: string; children: React.ReactNode }) {
   return (
-    <div className="container-x py-14 sm:py-20">
-      <div className="mx-auto max-w-3xl">
-        <p className="eyebrow">Legal</p>
-        <h1 className="mt-3 text-4xl font-extrabold tracking-tight">{title}</h1>
-        <p className="mt-2 text-sm text-muted">Last updated: {updated}</p>
-        <div className="prose-legal mt-8">{children}</div>
-      </div>
-    </div>
+    <>
+      <TextHero pill="Legal" title={title} body={<>Last updated: {updated}</>} />
+      <section className="border-t border-line bg-white py-16 sm:py-20">
+        <div className="container-x">
+          <div className="prose-legal max-w-3xl [&>*:first-child]:mt-0">{children}</div>
+        </div>
+      </section>
+    </>
   );
 }

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { offers, formatPrice, site, briefMailto } from "@/lib/site";
+import { offers, formatPrice, site, briefMailto, cases, faq, getOffer, logoSamples, thumbSamples } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
-import { BuyButton } from "@/components/BuyButton";
-import { turnaroundLabel } from "@/components/OfferCards";
+import { services } from "@/lib/services";
+import { CtaSection, FaqSection, HeroCollage, HeroSection, HowSection, PricingSection, heroTicks } from "@/components/HomeSections";
 
 export const metadata: Metadata = pageMeta({
   path: "/order",
@@ -53,57 +53,73 @@ const orderJsonLd = {
 };
 
 export default function OrderPage() {
+  const heroCase = cases.find((c) => c.slug === "maison-orrevel") ?? cases[0];
+  const [w, h] = heroCase.imageSize ?? [1200, 2200];
+  const heroThumb = thumbSamples.find((t) => t.id === "finance-a") ?? thumbSamples[0];
+  const heroLogo = logoSamples.find((l) => l.id === "maison-orrevel") ?? logoSamples[0];
   return (
-    <div className="container-x py-14 sm:py-20">
-      <p className="eyebrow">Order</p>
-      <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight sm:text-5xl">Pick a package and pay</h1>
-      <p className="mt-4 max-w-2xl text-muted">
-        We work remotely with clients in any country and industry. Prices are fixed and in USD. Turnaround starts once we have both your payment and your brief.
-      </p>
+    <>
+      <HeroSection
+        pill="Remote · clients worldwide · fixed prices in USD"
+        title="Pick a package "
+        accent="and pay"
+        body={
+          <>
+            We work remotely with clients in any country and industry. Prices are fixed and in USD. Turnaround starts once we have both your payment and your brief.
+          </>
+        }
+        actions={
+          <>
+            <a href="#offers" className="btn-accent">See the packages</a>
+            <a href={briefMailto()} className="btn-ghost">Email my brief</a>
+          </>
+        }
+        ticks={heroTicks}
+        stats={[["Landing page", formatPrice(getOffer("landing"))], ["Thumbnails", formatPrice(getOffer("thumbnails"))], ["Logo pack", formatPrice(getOffer("logo"))]]}
+        visual={
+          <HeroCollage
+            href={`/work/${heroCase.slug}/`}
+            main={{ src: heroCase.image, alt: `${heroCase.brand} sample landing page (concept, fictional brand)`, width: w, height: h }}
+            srLabel={` ${heroCase.brand} design notes`}
+            secondary={{ src: heroThumb.small ?? heroThumb.file, width: 640, height: 360 }}
+            logo={{ src: heroLogo.small ?? heroLogo.file, width: heroLogo.size[0] / 2, height: heroLogo.size[1] / 2 }}
+          />
+        }
+      />
 
-      <ol className="mt-8 grid gap-4 sm:grid-cols-3">
-        {howTo.map((s, i) => (
-          <li key={s.title} className="flex gap-3 rounded-2xl border border-line bg-white p-4 text-sm">
-            <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-bold text-paper">{i + 1}</span>
-            <span><span className="block font-semibold">{s.title}</span><span className="mt-1 block text-muted">{s.body}</span></span>
-          </li>
-        ))}
-      </ol>
+      <HowSection heading="Pay, send a brief, get your files. No meetings." steps={howTo} />
 
-      <ul className="mt-10 grid gap-4 sm:grid-cols-2">
-        {offers.map((o) => (
-          <li key={o.id} className="flex flex-col gap-4 rounded-3xl border border-line bg-white p-6">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <h2 className="text-lg font-bold">{o.name}</h2>
-                <p className="text-sm font-semibold text-accent">{turnaroundLabel(o.turnaround)}</p>
-              </div>
-              <span className="text-2xl font-extrabold">{formatPrice(o)}</span>
-            </div>
-            <p className="text-sm text-muted">{o.summary}</p>
-            <ul className="space-y-1 text-sm">
-              {o.includes.map((i) => (
-                <li key={i} className="flex gap-2"><span aria-hidden="true" className="text-accent">✓</span>{i}</li>
-              ))}
-            </ul>
-            <BuyButton offer={o} className={`${o.featured ? "btn-accent" : "btn-primary"} mt-auto w-full`} />
-          </li>
-        ))}
-      </ul>
+      <PricingSection
+        heading="Four packages. Fixed prices in USD."
+        intro="What you see is what you pay. Every one-off package includes one revision round, and turnaround starts once we have your payment and brief."
+        linksLabel="Details and samples by need:"
+        links={services.map((s) => ({ href: `/services/${s.slug}/`, label: s.label }))}
+      >
+        <div id="brief" className="mt-10 rounded-3xl border border-line bg-white p-6 sm:p-8">
+          <h3 className="text-xl font-bold">After paying: send your brief</h3>
+          <p className="mt-2 max-w-2xl text-muted">
+            Email <a className="font-semibold text-ink underline hover:text-accent" href={briefMailto()}>{site.email}</a> with what you do, who
+            it&apos;s for, any links and the files you want included. If anything is missing we&apos;ll ask, and the clock pauses until you reply.
+          </p>
+          <a href={briefMailto()} className="btn-primary mt-5">Email my brief</a>
+          <p className="mt-6 text-sm text-muted">
+            One revision round included on one-off packages. Full refund if we haven&apos;t started work. Upkeep can be cancelled any time by email.
+            See the <Link className="underline hover:text-accent" href="/terms/">Terms of Service</Link>.
+          </p>
+        </div>
+      </PricingSection>
 
-      <div className="mt-10 rounded-3xl border border-line bg-white p-6 sm:p-8">
-        <h2 className="text-xl font-bold">After paying: send your brief</h2>
-        <p className="mt-2 max-w-2xl text-muted">
-          Email <a className="font-semibold text-ink underline hover:text-accent" href={briefMailto()}>{site.email}</a> with what you do, who
-          it&apos;s for, any links and the files you want included. If anything is missing we&apos;ll ask, and the clock pauses until you reply.
-        </p>
-        <a href={briefMailto()} className="btn-primary mt-5">Email my brief</a>
-        <p className="mt-6 text-sm text-muted">
-          One revision round included on one-off packages. Full refund if we haven&apos;t started work. Upkeep can be cancelled any time by email.
-          See the <Link className="underline hover:text-accent" href="/terms/">Terms of Service</Link>.
-        </p>
-      </div>
+      <FaqSection
+        intro={<>Something else? Email <a className="underline hover:text-accent" href={`mailto:${site.email}`}>{site.email}</a>.</>}
+        faq={faq}
+      />
+
+      <CtaSection
+        heading="Ship it this week."
+        text={<>Pay online, then email your brief to {site.email}. The clock starts once we have both.</>}
+        action={<a href="#offers" className="btn-accent relative mt-8">Pick a package</a>}
+      />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orderJsonLd) }} />
-    </div>
+    </>
   );
 }

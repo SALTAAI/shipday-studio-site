@@ -3,6 +3,7 @@ import { BuyButton } from "@/components/BuyButton";
 import { turnaroundLabel } from "@/components/OfferCards";
 import { LandingCard, LogoFigure, PanelFooter, RedesignBlock, ThumbFigure } from "@/components/SampleCards";
 import {
+  Breadcrumb,
   CtaSection,
   FaqSection,
   HeroCollage,
@@ -76,7 +77,11 @@ function splitTitle(h1: string, accent?: string) {
 
 /** Hero collage in the homepage geometry, filled with this page's own samples. */
 function ServiceCollage({ s }: { s: Service }) {
-  const sets = [s.samples, ...(s.extras?.map((x) => x.samples) ?? [])];
+  return <SampleCollage sets={[s.samples, ...(s.extras?.map((x) => x.samples) ?? [])]} moreHref={s.moreHref} />;
+}
+
+/** Hero collage in the homepage geometry from any sample sets (landing pages, thumbnails or logos). Used by service, order and portfolio pages. */
+export function SampleCollage({ sets, moreHref }: { sets: SampleSet[]; moreHref: string }) {
   const lcases = sets.flatMap((x) => (x.kind === "landing" ? pickCases(x.slugs) : []));
   const thumbs = sets.flatMap((x) => (x.kind === "thumbnails" ? pickThumbs(x.ids) : []));
   const logos = sets.flatMap((x) => (x.kind === "logos" ? pickLogos(x.ids) : []));
@@ -102,7 +107,7 @@ function ServiceCollage({ s }: { s: Service }) {
   if (thumbs.length) {
     return (
       <HeroCollage
-        href={s.moreHref}
+        href={moreHref}
         srLabel=" See more thumbnail concepts"
         stack={thumbs.slice(0, 2).map((t) => ({ src: t.file, alt: t.alt, width: 1280, height: 720 }))}
         secondary={thumbs[2] ? { src: thumbs[2].small ?? thumbs[2].file, width: 640, height: 360 } : undefined}
@@ -111,7 +116,7 @@ function ServiceCollage({ s }: { s: Service }) {
   }
   return (
     <HeroCollage
-      href={s.moreHref}
+      href={moreHref}
       srLabel=" See more logo concepts"
       stack={logos.slice(0, 2).map((l) => ({ src: l.small ?? l.file, alt: l.alt, width: l.size[0] / 2, height: l.size[1] / 2 }))}
       secondary={logos[2] ? { src: logos[2].small ?? logos[2].file, width: logos[2].size[0] / 2, height: logos[2].size[1] / 2 } : undefined}
@@ -170,13 +175,7 @@ export function ServicePageView({ s }: { s: Service }) {
   return (
     <>
       <HeroSection
-        above={
-          <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted">
-            <Link href="/" className="hover:text-accent">Home</Link> <span aria-hidden="true">/</span>{" "}
-            <Link href="/services/" className="hover:text-accent">Services</Link> <span aria-hidden="true">/</span>{" "}
-            <span aria-current="page">{s.label}</span>
-          </nav>
-        }
+        above={<Breadcrumb items={[{ href: "/", label: "Home" }, { href: "/services/", label: "Services" }, { label: s.label }]} />}
         pill={s.eyebrow}
         title={t.title}
         accent={t.accent}
