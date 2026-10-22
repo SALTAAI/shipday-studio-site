@@ -40,7 +40,7 @@ h1{margin-top:18px;font-size:${size}px;line-height:1.05;font-weight:900;letter-s
 <div class="brand"><svg width="52" height="52" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1d1d24"/><path d="M14 40 L32 14 L50 40 Z" fill="#FF5A1F"/><rect x="12" y="44" width="40" height="7" rx="3.5" fill="#FAFAF7"/></svg>Shipday Studio</div>
 <div class="eyebrow">${esc(s.eyebrow)}</div>
 <h1>${esc(s.h1)}</h1></div>
-<div class="chips"><div class="chip">${esc(o.name)} <b>${priceLabel(o)}</b></div><div class="chip">Delivered in <b>${esc(o.turnaround)}</b></div><div class="chip">Fixed price · no calls</div></div>
+<div class="chips"><div class="chip">${esc(o.name)} <b>${priceLabel(o)}</b></div>${o.turnaround === "Ongoing" ? '<div class="chip">Billed <b>monthly</b></div><div class="chip">Cancel any time · no calls</div>' : `<div class="chip">Delivered in <b>${esc(o.turnaround)}</b></div><div class="chip">Fixed price · no calls</div>`}</div>
 <div class="url">shipdaystudio.com/services/${s.slug}/ · remote, clients worldwide, any industry</div></body></html>`;
 };
 

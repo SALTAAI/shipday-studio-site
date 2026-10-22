@@ -192,7 +192,7 @@ export function WhoSection({
   );
 }
 
-export function HowSection({ heading, steps }: { heading: string; steps: { title: string; body: string }[] }) {
+export function HowSection({ heading, steps, emailLabel = "Email your brief" }: { heading: string; steps: { title: string; body: string }[]; emailLabel?: string }) {
   return (
     <section id="how" className="border-y border-line bg-white py-20">
       <div className="container-x">
@@ -209,7 +209,7 @@ export function HowSection({ heading, steps }: { heading: string; steps: { title
         </ol>
         <p className="mt-8 text-sm text-muted">
           Already paid?{" "}
-          <a className="font-semibold text-ink underline hover:text-accent" href={briefMailto()}>Email your brief</a>{" "}
+          <a className="font-semibold text-ink underline hover:text-accent" href={briefMailto()}>{emailLabel}</a>{" "}
           from the address you used at checkout.
         </p>
       </div>
@@ -221,6 +221,7 @@ export function PricingSection({
   heading,
   intro,
   featured,
+  current,
   children,
   linksLabel,
   links,
@@ -228,6 +229,8 @@ export function PricingSection({
   heading: string;
   intro: ReactNode;
   featured?: ServiceId;
+  /** Slug of the /services/ page being rendered, so its own card doesn't link to itself. */
+  current?: string;
   children?: ReactNode;
   linksLabel: string;
   links: { href: string; label: string }[];
@@ -238,7 +241,7 @@ export function PricingSection({
         <p className="eyebrow">Pricing</p>
         <h2 className="h2 mt-3">{heading}</h2>
         <p className="mt-3 max-w-2xl text-muted">{intro}</p>
-        <div className="mt-12"><OfferCards featured={featured} /></div>
+        <div className="mt-12"><OfferCards featured={featured} current={current} /></div>
         {children}
         <p className="mt-8 text-sm text-muted">
           {linksLabel}{" "}

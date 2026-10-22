@@ -144,6 +144,9 @@ export function serviceJsonLd(s: Service) {
           name: o.name,
           price: o.price,
           priceCurrency: "USD",
+          ...(o.unit === "/month"
+            ? { priceSpecification: { "@type": "UnitPriceSpecification", price: o.price, priceCurrency: "USD", unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } }
+            : {}),
           availability: "https://schema.org/InStock",
           url: o.stripeLink,
           seller: { "@id": `${site.url}/#organization` },
@@ -172,6 +175,9 @@ export function ServicePageView({ s }: { s: Service }) {
   const turnaround = turnaroundLabel(o.turnaround);
   const related = s.related.map(getService).filter((r): r is Service => Boolean(r));
   const t = splitTitle(s.h1, s.h1Accent);
+  // Upkeep is a monthly subscription: no turnaround clock, no revision round (Terms §5), so its copy differs; the layout doesn't.
+  const monthly = o.unit === "/month";
+  const cta = monthly ? "Subscribe" : "Order now";
   return (
     <>
       <HeroSection
@@ -184,12 +190,12 @@ export function ServicePageView({ s }: { s: Service }) {
         body={s.intro[0]}
         actions={
           <>
-            <BuyButton offer={o} className="btn-accent">Order now · {price}</BuyButton>
+            <BuyButton offer={o} className="btn-accent">{cta} · {price}</BuyButton>
             <a href="#work" className="btn-ghost">See sample concepts</a>
           </>
         }
-        ticks={heroTicks}
-        stats={[["Turnaround", o.turnaround], ["Fixed price", price], ["Revision round", "Included"]]}
+        ticks={monthly ? ["Secure Stripe checkout", "Cancel any time by email", "Your site and accounts stay yours"] : heroTicks}
+        stats={monthly ? [["Billing", "Monthly"], ["Price", price], ["Cancel", "Any time"]] : [["Turnaround", o.turnaround], ["Fixed price", price], ["Revision round", "Included"]]}
         visual={<ServiceCollage s={s} />}
       />
 
@@ -204,24 +210,38 @@ export function ServicePageView({ s }: { s: Service }) {
       />
 
       <HowSection
-        heading="Pay, send a brief, get your files. No meetings."
-        steps={[
-          { title: "Pay securely", body: `Order through Stripe checkout: ${price}, fixed. No quote, no call.` },
-          { title: "Email your brief", body: `Send it to ${site.email} from the email you used at checkout.` },
-          { title: "Get it delivered", body: `${turnaround} after a complete brief, with one revision round included.` },
-        ]}
+        heading={monthly ? "Subscribe, email a change, it's handled. No meetings." : "Pay, send a brief, get your files. No meetings."}
+        emailLabel={monthly ? "Email your changes" : undefined}
+        steps={
+          monthly
+            ? [
+                { title: "Subscribe securely", body: `Stripe checkout: ${price} in USD, billed monthly in advance. No quote, no call.` },
+                { title: "Email your changes", body: `Send them to ${site.email} from the email you used at checkout.` },
+                { title: "We handle the edits", body: "Text and image swaps, small layout tweaks and dependency updates. Cancel any time by email." },
+              ]
+            : [
+                { title: "Pay securely", body: `Order through Stripe checkout: ${price}, fixed. No quote, no call.` },
+                { title: "Email your brief", body: `Send it to ${site.email} from the email you used at checkout.` },
+                { title: "Get it delivered", body: `${turnaround} after a complete brief, with one revision round included.` },
+              ]
+        }
       />
 
       <PricingSection
         heading={`${o.name}: ${price}, fixed price in USD.`}
-        intro="What you see is what you pay. One revision round is included, and turnaround starts once we have your payment and brief. The other packages are here too, at the same fixed prices."
+        intro={
+          monthly
+            ? "What you see is what you pay: billed monthly in advance by Stripe, cancel any time by email. Upkeep covers small edits and has no revision rounds. The one-off packages are here too, at the same fixed prices."
+            : "What you see is what you pay. One revision round is included, and turnaround starts once we have your payment and brief. The other packages are here too, at the same fixed prices."
+        }
         featured={s.offer}
+        current={s.slug}
         linksLabel="Related services:"
         links={[...related.map((r) => ({ href: `/services/${r.slug}/`, label: r.label })), { href: "/services/", label: "All services" }]}
       >
         <div className="mt-14 grid gap-6 lg:grid-cols-[2fr_1fr]">
           <div>
-            <h3 className="text-xl font-bold">What you get with the {o.name.toLowerCase()}</h3>
+            <h3 className="text-xl font-bold">What you get with {monthly ? o.name : `the ${o.name.toLowerCase()}`}</h3>
             <ul className="mt-6 grid gap-6 sm:grid-cols-2">
               {s.sections.map((x) => (
                 <li key={x.title} className="rounded-3xl border border-line bg-white p-6">
@@ -241,8 +261,8 @@ export function ServicePageView({ s }: { s: Service }) {
       </PricingSection>
 
       <WorkSection
-        heading="The kind of work you get"
-        intro="Concept pieces made to show our range of styles, not client projects. Every brand, channel and product shown is fictional."
+        heading={s.workHeading ?? "The kind of work you get"}
+        intro={s.workIntro ?? "Concept pieces made to show our range of styles, not client projects. Every brand, channel and product shown is fictional."}
       >
         <div className="mt-10">
           <Samples sm={s.samples} />
@@ -254,7 +274,7 @@ export function ServicePageView({ s }: { s: Service }) {
             </div>
           ))}
           {s.beforeAfter && <RedesignBlock />}
-          <PanelFooter offer={s.offer} cta="Order now" note={`${turnaround} after your brief, one revision round included.`} more={s.moreHref} moreLabel="See more examples" />
+          <PanelFooter offer={s.offer} cta={cta} note={monthly ? "Billed monthly, cancel any time by email." : `${turnaround} after your brief, one revision round included.`} more={s.moreHref} moreLabel="See more examples" />
         </div>
       </WorkSection>
 
@@ -269,8 +289,8 @@ export function ServicePageView({ s }: { s: Service }) {
 
       <CtaSection
         heading={`${o.name}, ${price}. ${turnaround}.`}
-        text={<>Remote, for clients worldwide, in any industry. Pay online, then email your brief to {site.email}.</>}
-        action={<BuyButton offer={o} className="btn-accent relative mt-8">Order now · {price}</BuyButton>}
+        text={monthly ? <>Remote, for clients worldwide, in any industry. Subscribe online, then email your changes to {site.email}.</> : <>Remote, for clients worldwide, in any industry. Pay online, then email your brief to {site.email}.</>}
+        action={<BuyButton offer={o} className="btn-accent relative mt-8">{cta} · {price}</BuyButton>}
       />
     </>
   );

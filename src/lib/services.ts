@@ -33,6 +33,9 @@ export type ServicePage = {
   /** Extra sample groups (e.g. thumbnails and a logo on a game page). */
   extras?: { title: string; note?: string; samples: SampleSet }[];
   moreHref: string;
+  /** Optional heading and intro for the samples section (defaults suit one-off packages). */
+  workHeading?: string;
+  workIntro?: string;
   faq: { q: string; a: string }[];
   related: string[];
 };
@@ -76,7 +79,7 @@ export const services: ServicePage[] = [
       { q: "Which industries do you design for?", a: "Any. We work remotely with businesses, creators and brands in any country and any industry. The samples on this page are concepts for fictional brands across SaaS, courses, restaurants, trades, luxury and games." },
       { q: "What if I want changes?", a: "One revision round is included: send one consolidated list of changes within 14 days of delivery. For ongoing edits after that, Upkeep is $49 a month and can be cancelled any time." },
     ],
-    related: ["landing-page-price", "saas-landing-page-design", "ecommerce-landing-page-design", "local-business-website-design", "indie-game-landing-page"],
+    related: ["landing-page-price", "saas-landing-page-design", "ecommerce-landing-page-design", "local-business-website-design", "indie-game-landing-page", "website-upkeep-price"],
   },
   {
     slug: "landing-page-price",
@@ -119,7 +122,7 @@ export const services: ServicePage[] = [
       { q: "What if I change my mind before you start?", a: "If we haven't started work yet, you can cancel for a full refund through Stripe. Once work has started, the revision round is how changes are handled. Full details are in the terms." },
       { q: "Why is it cheaper than an agency?", a: "Because the scope is deliberately small and fixed: one page, no meetings, an AI-assisted workflow with human review, and one revision round. If you need a multi-page site, strategy workshops or a long-term partner, an agency is the better fit." },
     ],
-    related: ["landing-page-design", "website-redesign", "saas-landing-page-design", "ecommerce-landing-page-design", "logo-design-price", "youtube-thumbnail-price"],
+    related: ["landing-page-design", "website-redesign", "saas-landing-page-design", "ecommerce-landing-page-design", "logo-design-price", "youtube-thumbnail-price", "website-upkeep-price"],
   },
   {
     slug: "saas-landing-page-design",
@@ -286,7 +289,7 @@ export const services: ServicePage[] = [
       { q: "Do I need a domain already?", a: "No. If you don't have one, we tell you how to register one in your own name (usually a small yearly fee to the registrar), then deploy the page to it." },
       { q: "Will it show up on Google?", a: "The page is built with proper titles, descriptions, headings and structured text, which is what search engines read. Rankings depend on many things we don't control, so we don't promise positions." },
     ],
-    related: ["website-redesign", "restaurant-website-design", "dental-website-design", "gym-website-design", "nonprofit-website-design"],
+    related: ["website-redesign", "restaurant-website-design", "dental-website-design", "gym-website-design", "nonprofit-website-design", "website-upkeep-price"],
   },
   {
     slug: "website-redesign",
@@ -374,7 +377,7 @@ export const services: ServicePage[] = [
       { q: "Can the page be in my local language?", a: "Copy is written in English by default. If you need another language, or two, mention it in the brief and we'll confirm before starting whether we can deliver it to the same standard." },
       { q: "Is the Osteria Fennella sample a real restaurant?", a: "No. It's a concept for a fictional restaurant, made to show the approach: booking first, menu as text, hours and group dining. You can see the full design and scroll it on your phone." },
     ],
-    related: ["local-business-website-design", "logo-design", "website-redesign"],
+    related: ["local-business-website-design", "logo-design", "website-redesign", "website-upkeep-price"],
   },
   {
     slug: "wedding-photographer-website-design",
@@ -508,7 +511,7 @@ export const services: ServicePage[] = [
       { q: "Should I show membership prices?", a: "We recommend at least a starting price or a 'from' figure next to the trial offer, because it filters enquiries. If prices vary too much, we write a clear line on how memberships work." },
       { q: "Is Kettlefin Strength a real gym?", a: "No. It's a concept for a fictional small-group strength gym, made to show the approach: one free-class offer, three class types and a real timetable table. You can see the full design and scroll it on your phone." },
     ],
-    related: ["local-business-website-design", "coach-landing-page-design", "logo-design"],
+    related: ["local-business-website-design", "coach-landing-page-design", "logo-design", "website-upkeep-price"],
   },
   {
     slug: "nonprofit-website-design",
@@ -600,7 +603,7 @@ export const services: ServicePage[] = [
       { q: "Can the page collect playtest sign-ups?", a: "Yes, by linking or embedding the form or newsletter tool you already use. We don't run a mailing list for you." },
       { q: "Can I update the roadmap later?", a: "Yes. You get the files and can edit them, or Upkeep ($49 a month, cancel any time) covers small updates like new screenshots, dates and roadmap items." },
     ],
-    related: ["landing-page-design", "youtube-thumbnail-design", "logo-design"],
+    related: ["landing-page-design", "youtube-thumbnail-design", "logo-design", "website-upkeep-price"],
   },
   {
     slug: "youtube-thumbnail-design",
@@ -809,6 +812,54 @@ export const services: ServicePage[] = [
       { q: "Are the sample brands real?", a: "No. Every logo on this page is a concept for a fictional brand, made to show the range: energy tech, professional services, a restaurant, a perfume house, a kids' club and an esports team." },
     ],
     related: ["logo-design", "landing-page-price", "youtube-thumbnail-price"],
+  },
+  {
+    slug: "website-upkeep-price",
+    offer: "upkeep",
+    label: "What $49/month upkeep covers",
+    metaTitle: "Website upkeep: what the $49/month plan covers",
+    metaDescription:
+      "Website upkeep and maintenance for $49/month, explained: text and image swaps, small layout tweaks, dependency updates, what isn't covered and how to cancel.",
+    eyebrow: "Upkeep price, explained",
+    h1: "What's in the $49/month website upkeep plan, line by line.",
+    h1Accent: "line by line.",
+    intro: [
+      "A monthly plan only helps if you know exactly what it covers. This page lists what the $49 Upkeep plan includes, what it leaves out, and how billing and cancelling work, so you can decide whether you need it at all.",
+      "Short version: small edits and updates to your site, handled for you. Text and image swaps, small layout tweaks and dependency updates, requested by email. $49 a month in USD, billed monthly by Stripe, cancel any time.",
+    ],
+    sections: [
+      { title: "1. Text and image swaps", body: "A new price, a changed menu, seasonal opening hours, an updated timetable, event dates, a new photo or a reworded line. Email the change and we update the page for you." },
+      { title: "2. Small layout tweaks", body: "Small adjustments to the page you already have, such as reordering sections or changing a button's text or link. Redesigns, extra pages and new features are not part of the plan (see Not included)." },
+      { title: "3. Dependency updates", body: "We keep the code and tools your page is built with up to date, so you don't have to track updates yourself." },
+      { title: "4. Requests by email", body: "Send changes to hello@shipdaystudio.com from the email you subscribed with. There is no portal, login or ticket system: the plan is your Stripe subscription plus our email exchange." },
+      { title: "5. Billed monthly, cancel any time", body: "$49 a month in US dollars, billed monthly in advance by Stripe. Cancel any time by email: Upkeep stops at the end of the month you've already paid for, and partial months aren't refunded." },
+      { title: "6. Your site stays yours", body: "Landing pages are deployed to hosting and domain accounts in your name, and you keep the files. Upkeep is optional: stop it whenever you like, or edit the files yourself, without losing anything." },
+    ],
+    fit: [
+      "Your page is live and you'd rather send a quick email than learn the code or a page builder to change a price or a photo.",
+      "Your details change often: menus, timetables, seasonal hours, event dates, prices, screenshots or a game roadmap.",
+      "Your landing page's revision round (14 days after delivery) is used up and you want small edits handled from then on.",
+    ],
+    notIncluded: [
+      "Redesigns, extra pages or new features such as a shop, logins or anything that needs a back end. Revision rounds belong to the one-off packages; Upkeep has none.",
+      "Domain registration, hosting plans and other third-party fees, which you pay to the providers directly.",
+      "Paid ads, SEO campaigns, writing ongoing content such as blog posts, or new design work: a logo is the $149 pack and thumbnails are the $79 pack.",
+    ],
+    samples: { kind: "landing", slugs: ["osteria-fennella", "kettlefin-strength", "vesperkeel"] },
+    workHeading: "Pages whose details change often",
+    workIntro: "Concept pages for fictional brands, chosen because their menus, timetables and roadmaps change: the kind of small edits Upkeep handles. Not client projects.",
+    moreHref: "/work/landing-pages/",
+    faq: [
+      { q: "What does the $49 a month cover?", a: "Small edits and updates to your site, handled for you: text and image swaps, small layout tweaks and dependency updates. You email the change and we make it. It's billed monthly and you can cancel any time." },
+      { q: "Do I need Upkeep after my landing page?", a: "No, it's optional. Every $390 landing page includes one revision round within 14 days of delivery, the page runs on hosting in your name and you keep the files, so you or any developer can edit it. Upkeep is for people who would rather email a change than make it." },
+      { q: "How do I send a change?", a: "Email hello@shipdaystudio.com, ideally from the email you used at checkout, with what should change and any new text or images. We don't run customer accounts, a portal or a ticket system." },
+      { q: "Are there any extra costs?", a: "No add-ons from us. Upkeep is $49 in US dollars, billed monthly in advance by Stripe, and any taxes or fees that apply are shown on the Stripe checkout page before you pay. Your bank or card provider may charge a currency conversion fee. Domain and hosting fees go to those providers directly." },
+      { q: "How do I cancel?", a: "Email hello@shipdaystudio.com any time. Upkeep stops at the end of the month you've already paid for. Partial months aren't refunded. Full details are in the terms." },
+      { q: "Does Upkeep include revisions, redesigns or new pages?", a: "No. Upkeep covers small edits as described on this page and has no revision rounds; those belong to the one-off packages. A redesign, extra pages or new features are not part of the plan." },
+      { q: "Who makes the changes?", a: "We use AI-assisted tools as part of our production process, and every change is reviewed by a person before it is sent to you." },
+      { q: "Are the sample sites real businesses?", a: "No. Osteria Fennella, Kettlefin Strength and Vesperkeel are concepts for fictional brands, shown because a restaurant menu, a gym timetable and a game roadmap are typical of details that change after launch." },
+    ],
+    related: ["landing-page-price", "landing-page-design", "local-business-website-design", "restaurant-website-design", "gym-website-design", "indie-game-landing-page"],
   },
 ];
 

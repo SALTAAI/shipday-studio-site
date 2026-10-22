@@ -9,7 +9,7 @@ import { CtaSection, ContentSection, FaqSection, HeroCollage, HeroSection, HowSe
 export const metadata: Metadata = pageMeta({
   path: "/services",
   title: "Design services with fixed prices",
-  description: "Landing pages ($390, 48h), YouTube thumbnail packs ($79, 24h) and logo packs ($149, 48h) at fixed prices in USD. Remote, for clients worldwide, any industry.",
+  description: "Landing pages ($390, 48h), thumbnail packs ($79, 24h), logo packs ($149, 48h) and upkeep ($49/month), fixed prices in USD. Remote, worldwide, any industry.",
 });
 
 /** Services grouped by package, in the order of the pricing cards. */
@@ -17,6 +17,7 @@ const groups = [
   { offer: "landing" as const, title: "Landing pages" },
   { offer: "thumbnails" as const, title: "YouTube thumbnails" },
   { offer: "logo" as const, title: "Logos" },
+  { offer: "upkeep" as const, title: "Website upkeep" },
 ];
 
 export default function ServicesIndex() {

@@ -1,12 +1,21 @@
+import Link from "next/link";
 import { offers, formatPrice, type ServiceId } from "@/lib/site";
 import { BuyButton } from "./BuyButton";
+
+/** Each package's price explainer page under /services/. */
+const explainer: Record<ServiceId, { slug: string; label: string }> = {
+  landing: { slug: "landing-page-price", label: "What's included" },
+  thumbnails: { slug: "youtube-thumbnail-price", label: "What's included" },
+  logo: { slug: "logo-design-price", label: "What's included" },
+  upkeep: { slug: "website-upkeep-price", label: "What Upkeep covers" },
+};
 
 export function turnaroundLabel(t: string) {
   return t === "Ongoing" ? "Monthly, cancel any time" : `Delivered in ${t}`;
 }
 
 /** The homepage pricing cards. `featured` highlights one package (service pages); default is the flagship. */
-export function OfferCards({ featured }: { featured?: ServiceId } = {}) {
+export function OfferCards({ featured, current }: { featured?: ServiceId; current?: string } = {}) {
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {offers.map((o) => {
@@ -35,6 +44,14 @@ export function OfferCards({ featured }: { featured?: ServiceId } = {}) {
             ))}
           </ul>
           <div className="flex-1" />
+          {explainer[o.id].slug !== current && (
+            <Link
+              href={`/services/${explainer[o.id].slug}/`}
+              className={`mt-6 text-sm font-semibold underline underline-offset-4 ${isFeatured ? "text-paper/85 hover:text-sun" : "text-ink hover:text-accent"}`}
+            >
+              {explainer[o.id].label}<span className="sr-only">: {o.name}</span> <span aria-hidden="true">→</span>
+            </Link>
+          )}
           <BuyButton offer={o} className={`mt-6 ${isFeatured ? "btn-accent" : "btn-primary"} w-full`} />
         </article>
         );
