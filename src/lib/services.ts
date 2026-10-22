@@ -687,7 +687,7 @@ export const services: ServicePage[] = [
     label: "What $79 thumbnails include",
     metaTitle: "YouTube thumbnail price: what $79 gets you",
     metaDescription:
-      "YouTube thumbnail price, explained: the fixed $79 pack covers 4 thumbnails at 1280×720, source files and 1 revision. What it doesn't, and the 24h turnaround.",
+      "YouTube thumbnail price, explained: $79 fixed for 4 thumbnails at 1280×720, source files and 1 revision, plus what's not included and the 24h turnaround.",
     eyebrow: "Thumbnail price, explained",
     h1: "What's in a $79 YouTube thumbnail pack, line by line.",
     h1Accent: "line by line.",
