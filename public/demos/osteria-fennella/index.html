@@ -1,0 +1,105 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Osteria Fennella · Concept demo (fictional restaurant) · Shipday Studio</title>
+<link rel="stylesheet" href="/demos/fonts/fonts.css"><link rel="stylesheet" href="/demos/demo-bar.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#F6EEDC;--paper:#FBF6EA;--tomato:#C2412A;--olive:#4D5A2E;--green:#1E4636;--ink:#231A14;--muted:#6F6253;--line:#E2D4B8;--pad:clamp(20px,5vw,72px)}
+body{background:var(--cream);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.it{font-family:"Libre Caslon Text",Georgia,serif;font-style:italic;font-weight:400}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px var(--pad);max-width:1360px;margin:0 auto}
+.logo{display:flex;flex-direction:column;line-height:1}
+.logo b{font-size:26px;letter-spacing:-.02em;font-weight:800}
+.logo span{font-family:"Libre Caslon Text",serif;font-style:italic;font-size:14px;color:var(--tomato);margin-top:3px}
+nav ul{display:flex;gap:30px;list-style:none;font-weight:500;font-size:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:99px;padding:14px 24px;font-weight:700;background:var(--tomato);color:#FFF6EA;border:0;font:inherit;font-weight:700;cursor:pointer;transition:background .2s,transform .15s}
+.btn:hover{background:#a8361f;transform:translateY(-1px)}
+.btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.hero{max-width:1360px;margin:0 auto;padding:clamp(16px,3vw,32px) var(--pad) 0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);align-items:end}
+h1{font-size:clamp(54px,8.2vw,124px);line-height:.9;letter-spacing:-.045em;font-weight:800}
+h1 .it{color:var(--tomato);letter-spacing:-.02em;font-size:.86em}
+.lede{font-size:clamp(18px,1.6vw,21px);line-height:1.55;color:var(--muted);max-width:520px;margin-top:22px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.meta span{background:var(--paper);border:1px solid var(--line);border-radius:99px;padding:8px 14px;font-size:14px;font-weight:600}
+.meta .open{color:var(--green)}
+.meta .open:before{content:"● ";color:#3C9A63}
+.hero>div:first-child{padding-bottom:clamp(40px,6vw,96px)}
+.photo{border-radius:28px 28px 220px 28px;overflow:hidden;aspect-ratio:4/4.4;background:#ddd}
+.photo img{width:100%;height:100%;object-fit:cover}
+.book{max-width:1360px;margin:clamp(-60px,-4vw,-30px) auto 0;padding:0 var(--pad);position:relative;z-index:2}
+.widget{background:var(--green);color:#F3EEDC;border-radius:28px;padding:clamp(22px,3vw,34px);display:grid;grid-template-columns:1.2fr 1.6fr .9fr auto;gap:24px;align-items:end;box-shadow:0 30px 60px -30px rgba(30,70,54,.6)}
+.widget h2{font-size:26px;letter-spacing:-.02em;line-height:1.05}
+.widget h2 .it{color:#F2B9A5}
+.widget label,.widget legend{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.75;margin-bottom:10px}
+fieldset{border:0;min-width:0}
+.days,.times{display:flex;gap:8px;flex-wrap:wrap}
+.days button,.times button{font:inherit;font-size:14px;font-weight:600;border:1.5px solid rgba(243,238,220,.3);background:transparent;color:inherit;border-radius:12px;padding:8px 11px;cursor:pointer;line-height:1.15;text-align:center}
+.days button small{display:block;font-size:11px;font-weight:500;opacity:.7}
+.days button[aria-pressed=true],.times button[aria-pressed=true]{background:#F3EEDC;color:var(--green);border-color:#F3EEDC}
+select{font:inherit;font-weight:600;width:100%;background:transparent;color:inherit;border:1.5px solid rgba(243,238,220,.3);border-radius:12px;padding:10px 12px}
+select option{color:#000}
+.widget .btn{white-space:nowrap}
+.conf{grid-column:1/-1;font-size:14px;opacity:.85;min-height:1.2em}
+section{max-width:1360px;margin:0 auto;padding:clamp(72px,9vw,120px) var(--pad) 0}
+.eb{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--tomato)}
+h2.big{font-size:clamp(40px,5.2vw,72px);line-height:.95;letter-spacing:-.04em;font-weight:800;margin-top:14px}
+h2.big .it{color:var(--olive);font-size:.9em;letter-spacing:-.01em}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);margin-top:44px}
+.menu h3{font-family:"Libre Caslon Text",serif;font-style:italic;font-weight:400;font-size:28px;color:var(--olive);border-bottom:2px solid var(--ink);padding-bottom:10px}
+.dish{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:16px 0;border-bottom:1px dashed var(--line)}
+.dish b{font-size:19px}
+.dish span{font-weight:700}
+.dish p{grid-column:1/-1;color:var(--muted);font-size:15px}
+.tag{display:inline-block;font-size:11px;font-weight:700;background:#E7D9B7;border-radius:6px;padding:2px 6px;margin-left:6px;vertical-align:middle}
+.room{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(28px,4vw,56px);align-items:center}
+.room img{border-radius:28px;width:100%;aspect-ratio:4/3;object-fit:cover}
+.room p.body{color:var(--muted);line-height:1.65;margin-top:18px;max-width:460px}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.info div{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:26px}
+.info h3{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--tomato)}
+.info p{margin-top:12px;line-height:1.7}
+.info table{width:100%;margin-top:10px;border-collapse:collapse;font-size:15px}
+.info td{padding:5px 0;border-bottom:1px dashed var(--line)}
+.info td+td{text-align:right;font-weight:600}
+footer{margin-top:clamp(72px,9vw,120px);background:var(--ink);color:#D8CCB4;padding:56px var(--pad)}
+footer .in{max-width:1360px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:end}
+footer .logo b{color:#F6EEDC;font-size:44px}
+footer small{opacity:.7}
+@media (max-width:1100px){.widget{grid-template-columns:1fr 1fr}.widget .btn{grid-column:1/-1}}
+@media (max-width:900px){.hero>div:first-child{padding-bottom:0}nav ul{display:none}.hero,.room,.menu{grid-template-columns:1fr}.hero>div:first-child{padding-bottom:clamp(40px,6vw,96px)}
+.photo{border-radius:28px 28px 140px 28px;aspect-ratio:4/3.4}.info{grid-template-columns:1fr}.book{margin-top:-24px}}
+@media (max-width:600px){.widget{grid-template-columns:1fr}.widget h2{font-size:24px}}
+</style></head><body>
+<div class="sd-bar"><span><b>Concept demo</b> · Osteria Fennella is a fictional restaurant, not a client project. Booking is a non-functional mock-up.</span><a href="/work/landing-pages/">← Back to Shipday Studio samples</a></div>
+<nav><a class="logo" href="#top"><b>Fennella</b><span>osteria · pasta &amp; vino</span></a><ul><li><a href="#menu">Menu</a></li><li><a href="#room">The room</a></li><li><a href="#visit">Visit</a></li></ul><a class="btn" href="#book">Book a table</a></nav>
+<header class="hero" id="top"><div>
+<h1>Fresh pasta, <span class="it">rolled each morning.</span></h1>
+<p class="lede">A small neighbourhood osteria with twelve tables, a short menu that changes with the market, and a wine list that leans on small growers.</p>
+<div class="meta"><span class="open">Open tonight · 18:00–23:00</span><span>Lunch Fri–Sun</span><span>Walk-ins at the bar</span></div>
+</div><div class="photo"><img src="pasta.webp" width="1200" height="900" alt="Plate of fresh pappardelle with slow-cooked beef ragù and shaved parmesan on a rustic table"></div></header>
+<div class="book" id="book"><form class="widget" aria-label="Book a table (demo)" onsubmit="event.preventDefault();document.getElementById('conf').textContent='Demo only: no booking was made. Table for '+this.size.value+', '+document.querySelector('.days [aria-pressed=true]').dataset.d+' at '+document.querySelector('.times [aria-pressed=true]').textContent+'.'">
+<h2>Book a table, <span class="it">no phone tag.</span></h2>
+<fieldset><legend>Day</legend><div class="days" data-group>
+<button type="button" aria-pressed="true" data-d="Thu">Thu<small>Today</small></button><button type="button" aria-pressed="false" data-d="Fri">Fri<small>Tmrw</small></button><button type="button" aria-pressed="false" data-d="Sat">Sat<small>Sat</small></button><button type="button" aria-pressed="false" data-d="Sun">Sun<small>Sun</small></button></div>
+<legend style="margin-top:16px">Time</legend><div class="times" data-group><button type="button" aria-pressed="false">18:30</button><button type="button" aria-pressed="true">19:15</button><button type="button" aria-pressed="false">20:00</button><button type="button" aria-pressed="false">21:30</button></div></fieldset>
+<div><label for="size">Guests</label><select id="size" name="size"><option>1 guest</option><option selected>2 guests</option><option>3 guests</option><option>4 guests</option><option>5–6 guests</option></select></div>
+<button class="btn" type="submit">Reserve →</button><p class="conf" id="conf" aria-live="polite"></p></form></div>
+<section id="menu"><p class="eb">Tonight's menu</p><h2 class="big">Short menu, <span class="it">long lunches.</span></h2>
+<div class="menu"><div><h3>Antipasti &amp; pasta</h3>
+<div class="dish"><b>Burrata, roasted peppers</b><span>14</span><p>Charred sourdough, good olive oil</p></div>
+<div class="dish"><b>Tagliatelle al pomodoro<span class="tag">V</span></b><span>19</span><p>Slow tomato sauce, basil, aged pecorino</p></div>
+<div class="dish"><b>Pici cacio e pepe<span class="tag">V</span></b><span>18</span><p>Hand-rolled, black pepper, sheep's cheese</p></div>
+<div class="dish"><b>Pappardelle, beef ragù</b><span>23</span><p>Eight-hour ragù, parmesan, gremolata</p></div></div>
+<div><h3>Secondi &amp; dolci</h3>
+<div class="dish"><b>Roast chicken, salsa verde</b><span>27</span><p>Crispy potatoes, lemon, wild fennel</p></div>
+<div class="dish"><b>Market fish, cannellini</b><span>29</span><p>Ask your server for today's catch</p></div>
+<div class="dish"><b>Olive oil cake</b><span>9</span><p>Orange, mascarpone cream</p></div>
+<div class="dish"><b>Affogato</b><span>7</span><p>Fior di latte gelato, espresso</p></div></div></div></section>
+<section id="room"><div class="room"><img src="room.webp" width="1400" height="1050" loading="lazy" alt="Warm, candle-lit dining room with wooden tables and green tiles"><div><p class="eb">The room</p><h2 class="big">Twelve tables <span class="it">and one long one.</span></h2><p class="body">The long table seats up to fourteen for birthdays and family Sundays. Ask about the set menu for groups: four courses, shared plates, no fuss.</p><a class="btn line" href="#book" style="margin-top:26px">Enquire about groups</a></div></div></section>
+<section id="visit"><p class="eb">Visit</p><h2 class="big" style="margin-bottom:40px">Find us <span class="it">on the corner.</span></h2>
+<div class="info"><div><h3>Hours</h3><table><tr><td>Mon–Tue</td><td>Closed</td></tr><tr><td>Wed–Thu</td><td>18:00–23:00</td></tr><tr><td>Fri–Sun</td><td>12:00–15:00, 18:00–23:30</td></tr></table></div>
+<div><h3>Where</h3><p>On the corner of the old market square, next to the bakery.<br>Step-free entrance · 5 min from the tram stop</p></div>
+<div><h3>Good to know</h3><p>Vegetarian dishes every day. Gluten-free pasta on request. Kids' half portions until 19:30.</p></div></div></section>
+<footer><div class="in"><div class="logo"><b>Fennella</b><span style="color:#F2B9A5">osteria</span></div><small>© Osteria Fennella · Concept design, fictional restaurant</small></div></footer>
+<script>document.querySelectorAll("[data-group]").forEach(g=>g.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"))}));</script>
+</body></html>

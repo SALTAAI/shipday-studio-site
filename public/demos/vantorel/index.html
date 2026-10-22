@@ -1,0 +1,114 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Vantorel · Concept demo (fictional product) · Shipday Studio</title>
+<link rel="stylesheet" href="/demos/fonts/fonts.css"><link rel="stylesheet" href="/demos/demo-bar.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#07080C;--panel:#0E1016;--line:rgba(255,255,255,.08);--text:#EDEEF3;--muted:#8A8FA3;--acc:#8B7CFF;--teal:#5EEAD4;--pad:clamp(20px,5.5vw,80px)}
+body{background:var(--bg);color:var(--text);font-family:"Inter Tight",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{position:relative;overflow:hidden}
+.glow{position:absolute;inset:0 0 auto 0;height:1200px;background:radial-gradient(600px 380px at 50% 8%,rgba(139,124,255,.35),transparent 70%),radial-gradient(500px 300px at 78% 30%,rgba(94,234,212,.12),transparent 70%);pointer-events:none}
+.gridbg{position:absolute;inset:0 0 auto 0;height:1100px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 20%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse 60% 55% at 50% 20%,#000 30%,transparent 75%);pointer-events:none}
+nav{position:relative;display:flex;align-items:center;justify-content:space-between;padding:24px var(--pad)}
+.logo{display:flex;align-items:center;gap:12px;font-weight:600;font-size:19px}
+.logo i{width:26px;height:26px;border-radius:8px;background:conic-gradient(from 210deg,var(--acc),var(--teal),var(--acc));position:relative}
+.logo i:after{content:"";position:absolute;inset:7px;border-radius:3px;background:var(--bg)}
+nav ul{display:flex;gap:36px;list-style:none;color:var(--muted);font-size:15px}
+.navcta{display:flex;gap:14px;align-items:center;font-size:15px}
+.b{display:inline-block;border-radius:12px;padding:12px 18px;font-weight:500;transition:transform .15s,background .2s}
+.b:hover{transform:translateY(-1px)}
+.b1{background:var(--text);color:var(--bg)}
+.b2{border:1px solid rgba(255,255,255,.16)}
+.hero{position:relative;text-align:center;padding:clamp(56px,8vw,96px) var(--pad) 0}
+.pill{display:inline-flex;gap:10px;align-items:center;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);border-radius:99px;padding:7px 14px 7px 8px;font-size:14px;color:#C9CBD6}
+.pill b{background:rgba(139,124,255,.18);color:#C4BBFF;border-radius:99px;padding:3px 10px;font-weight:500}
+h1{font-size:clamp(46px,7.4vw,96px);line-height:1;letter-spacing:-.045em;font-weight:600;margin:28px auto 0;max-width:1060px;background:linear-gradient(180deg,#fff 30%,#9EA3B8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);font-size:clamp(17px,1.6vw,21px);line-height:1.55;max-width:640px;margin:26px auto 0}
+.hcta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:38px;font-size:16px}
+.hcta .b{padding:15px 24px}
+.note{color:#5F6477;font-size:13px;margin-top:18px}
+.app{position:relative;margin:72px auto 0;max-width:1200px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,#10131B,#0B0D12);box-shadow:0 60px 140px -30px rgba(139,124,255,.35);overflow:hidden;text-align:left;display:grid;grid-template-columns:220px 1fr}
+.side{border-right:1px solid var(--line);padding:20px 14px;font-size:14px;color:var(--muted)}
+.ws{display:flex;gap:10px;align-items:center;color:var(--text);font-weight:500;padding:6px 8px 18px}
+.ws i{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#F59E0B,#EF4444)}
+.side p{padding:9px 10px;border-radius:8px;display:flex;justify-content:space-between}
+.side p.on{background:rgba(255,255,255,.06);color:var(--text)}
+.side small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#4D5265;display:block;padding:18px 10px 6px}
+.main{padding:24px 28px 40px;min-width:0}
+.top{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.top h3{font-size:20px;font-weight:600}
+.top span{font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.k{border:1px solid var(--line);border-radius:12px;padding:16px;background:rgba(255,255,255,.015)}
+.k p{font-size:13px;color:var(--muted)}
+.k b{display:block;font-size:28px;font-weight:600;letter-spacing:-.03em;margin-top:8px}
+.k em{font-style:normal;font-size:12px;color:var(--teal)}
+.row2{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-top:14px}
+.chart,.list{border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.chart p,.list p.h{font-size:13px;color:var(--muted)}
+.li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--line);font-size:14px}
+.li:first-of-type{border-top:0}
+.st{font-size:12px;border-radius:99px;padding:3px 9px;white-space:nowrap}
+.ok{background:rgba(94,234,212,.12);color:var(--teal)}.wt{background:rgba(250,204,21,.12);color:#FACC15}.ai{background:rgba(139,124,255,.15);color:#C4BBFF}
+.fade{position:absolute;left:0;right:0;bottom:0;height:100px;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+section.f{padding:clamp(90px,11vw,150px) var(--pad) 0}
+.eb{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);font-weight:600}
+h2{font-size:clamp(36px,4.4vw,58px);letter-spacing:-.04em;font-weight:600;line-height:1.04;margin-top:18px;max-width:780px}
+h2 span{color:#6B7086}
+.bento{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;margin-top:52px}
+.bc{border:1px solid var(--line);border-radius:18px;padding:28px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.005));display:flex;flex-direction:column;gap:26px;justify-content:space-between}
+.bc h4{font-size:22px;font-weight:600;letter-spacing:-.02em}
+.bc p{color:var(--muted);font-size:16px;line-height:1.55;margin-top:10px}
+.match{display:flex;gap:10px;align-items:center;font-size:13px}
+.match div{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--panel)}
+.match .ln{flex:0 0 32px;height:1px;background:linear-gradient(90deg,var(--acc),var(--teal));border:0;padding:0}
+.dr{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:12px 14px;font:13px/1.7 "Geist Mono",monospace;color:#C9CBD6}
+.dr span{color:var(--muted)}
+.log p{display:flex;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line);margin:0;font-size:13px}
+.log i{width:7px;height:7px;border-radius:9px;background:var(--teal);flex:none}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px;border-top:1px solid var(--line)}
+.steps div{padding-top:28px}
+.steps b{font-family:"Geist Mono",monospace;color:var(--acc);font-size:14px;font-weight:400}
+.steps h4{font-size:22px;font-weight:600;margin-top:14px}
+.steps p{color:var(--muted);margin-top:10px;line-height:1.55;max-width:340px}
+.cta{margin:clamp(90px,11vw,150px) var(--pad) 0;border-radius:28px;border:1px solid rgba(255,255,255,.1);padding:clamp(48px,7vw,90px) 24px;text-align:center;background:radial-gradient(500px 260px at 50% 0%,rgba(139,124,255,.28),transparent 70%),var(--panel)}
+.cta h2{margin:0 auto}
+footer{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding:64px var(--pad) 48px;color:#5F6477;font-size:14px}
+@media (max-width:960px){nav ul{display:none}.app{grid-template-columns:1fr}.side{display:none}.bento{grid-template-columns:1fr}.steps{grid-template-columns:1fr}}
+@media (max-width:640px){.kpis{grid-template-columns:1fr 1fr}.row2{grid-template-columns:1fr}.navcta span:first-child{display:none}.main{padding:18px 16px 30px}}
+</style></head><body>
+<div class="sd-bar"><span><b>Concept demo</b> · Vantorel is a fictional product, not a client project. All data is sample data.</span><a href="/work/landing-pages/">← Back to Shipday Studio samples</a></div>
+<div class="wrap"><div class="glow"></div><div class="gridbg"></div>
+<nav><div class="logo"><i></i>Vantorel</div><ul><li>Product</li><li>Workflows</li><li>Security</li><li>Pricing</li><li>Changelog</li></ul><div class="navcta"><span style="color:var(--muted)">Sign in</span><a class="b b1" href="#access">Request access</a></div></nav>
+<header class="hero"><span class="pill"><b>New</b> Agentic reconciliation is in private beta →</span>
+<h1>The month-end close, on autopilot.</h1>
+<p class="sub">Vantorel matches transactions, drafts journal entries and flags what needs a human, so your finance team reviews instead of retypes.</p>
+<div class="hcta"><a class="b b1" href="#access">Request early access</a><a class="b b2" href="#how">See how it works</a></div>
+<p class="note">Read-only bank connections · Nothing posts without approval</p>
+<div class="app" role="img" aria-label="Product dashboard showing an October close overview with sample data"><div class="side"><div class="ws"><i></i>Linden &amp; Co.</div>
+<p class="on">Close overview <span>⌘1</span></p><p>Reconciliation <span>12</span></p><p>Journal drafts <span>4</span></p><p>Approvals</p><small>Ledgers</small><p>Operating USD</p><p>Payroll EUR</p><p>Card spend</p></div>
+<div class="main"><div class="top"><h3>October close</h3><span>Oct 1 – Oct 31 · Day 3 of 5</span></div>
+<div class="kpis"><div class="k"><p>Auto-matched</p><b>1,284</b><em>sample data</em></div><div class="k"><p>Needs review</p><b>12</b><em style="color:#FACC15">3 high priority</em></div><div class="k"><p>Draft entries</p><b>46</b><em style="color:#C4BBFF">ready to post</em></div><div class="k"><p>Close progress</p><b>72%</b><em>on track</em></div></div>
+<div class="row2"><div class="chart"><p>Matched vs. outstanding · daily</p>
+<svg viewBox="0 0 560 190" width="100%" style="margin-top:10px;display:block"><defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8B7CFF" stop-opacity=".45"/><stop offset="1" stop-color="#8B7CFF" stop-opacity="0"/></linearGradient></defs>
+<g stroke="rgba(255,255,255,.06)"><line x1="0" x2="560" y1="40" y2="40"/><line x1="0" x2="560" y1="95" y2="95"/><line x1="0" x2="560" y1="150" y2="150"/></g>
+<path d="M0 160 C60 150 80 120 140 118 S240 90 290 70 S390 56 440 40 S520 22 560 18 L560 190 L0 190Z" fill="url(#g)"/>
+<path d="M0 160 C60 150 80 120 140 118 S240 90 290 70 S390 56 440 40 S520 22 560 18" fill="none" stroke="#8B7CFF" stroke-width="2.5"/>
+<path d="M0 120 C70 128 120 140 180 146 S300 158 360 162 S480 168 560 172" fill="none" stroke="#5EEAD4" stroke-width="2" stroke-dasharray="5 6"/>
+<circle cx="440" cy="40" r="5" fill="#fff"/></svg></div>
+<div class="list"><p class="h">Exceptions queue</p>
+<div class="li"><span>Processor payout · $18,240</span><span class="st ai">AI matched</span></div>
+<div class="li"><span>Hosting invoice #4471</span><span class="st wt">Review</span></div>
+<div class="li"><span>Payroll FX variance</span><span class="st wt">Review</span></div>
+<div class="li"><span>Office lease · Oct</span><span class="st ok">Posted</span></div></div></div>
+</div><div class="fade"></div></div></header>
+<section class="f"><p class="eb">Why teams switch</p><h2>Less spreadsheet archaeology. <span>More time for the numbers that matter.</span></h2>
+<div class="bento"><div class="bc"><div><h4>Matching that explains itself</h4><p>Every suggested match shows its reasoning, so approving is a glance, not an investigation.</p></div>
+<div class="match"><div>Bank · −$4,120.00<br><span style="color:var(--muted)">Oct 14 · HALVER FREIGHT</span></div><div class="ln"></div><div>Bill #2231<br><span style="color:var(--teal)">Amount + vendor ✓</span></div></div></div>
+<div class="bc"><div><h4>Drafts, not decisions</h4><p>Accruals and reclasses arrive as drafts. Nothing posts until someone on your team says so.</p></div><div class="dr">DR 6140 Software&nbsp;&nbsp;2,400.00<br>CR 2100 Accrued&nbsp;&nbsp;&nbsp;2,400.00<br><span>Draft · awaiting approval</span></div></div>
+<div class="bc"><div><h4>An audit trail by default</h4><p>Who approved what, when and why, exported in one click when the auditors ask.</p></div><div class="log"><p><i></i>14 matches approved · 09:12</p><p><i style="background:#8B7CFF"></i>Draft JE-0419 created · 09:04</p><p><i style="background:#FACC15"></i>Variance flagged · 08:51</p></div></div></div></section>
+<section class="f" id="how"><p class="eb">How it works</p><h2>Live in an afternoon.</h2>
+<div class="steps"><div><b>01</b><h4>Connect</h4><p>Link your ledger and bank feeds with read-only access.</p></div><div><b>02</b><h4>Teach</h4><p>Approve a handful of matches. Vantorel learns your rules.</p></div><div><b>03</b><h4>Close</h4><p>Review the exceptions queue and sign off with confidence.</p></div></div></section>
+<div class="cta" id="access"><h2>Close the books before Friday.</h2><p class="sub">Private beta for finance teams of 2–20.</p><div class="hcta"><a class="b b1" href="#access">Request early access</a><a class="b b2" href="#how">Talk to us</a></div></div>
+<footer><span>© Vantorel · Concept design, fictional product</span><span>Product · Security · Privacy · Terms</span></footer>
+</div></body></html>

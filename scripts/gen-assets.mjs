@@ -151,7 +151,7 @@ const thumbs = [
   thumb(`<rect width="1280" height="720" fill="#18181B"/>`,
     `<g transform="translate(700 90)"><rect width="500" height="540" rx="24" fill="#27272A" stroke="#3F3F46" stroke-width="4"/>${[0, 1, 2, 3, 4, 5].map((i) => `<rect x="30" y="${40 + i * 60}" width="${[300, 200, 380, 250, 320, 180][i]}" height="34" rx="8" fill="#3F3F46"/>`).join("")}<rect x="30" y="420" width="440" height="90" rx="14" fill="#A855F7" opacity=".85"/></g>
      <g transform="translate(950 360)"><circle r="150" fill="none" stroke="#EF4444" stroke-width="26"/><path d="M-105 105 L105 -105" stroke="#EF4444" stroke-width="26"/></g>
-     ${big(70, 230, "STOP", 200, "#EF4444", "#fff")}${big(70, 380, "DOING THIS", 100, "#fff")}${big(70, 500, "IN FIGMA", 100, "#A855F7", "#fff")}`),
+     ${big(70, 230, "STOP", 200, "#EF4444", "#fff")}${big(70, 380, "DOING THIS", 100, "#fff")}${big(70, 500, "IN YOUR UI", 100, "#A855F7", "#fff")}`),
   thumb(`<rect width="1280" height="720" fill="#FFEDD5"/><circle cx="1000" cy="220" r="150" fill="#FB923C"/><rect y="440" width="1280" height="280" fill="#FDBA74"/>`,
     `<g transform="translate(260 430)"><circle r="150" fill="#fff" stroke="#000" stroke-width="10"/><text y="40" font-size="110" font-weight="900" text-anchor="middle">5:00</text><text y="100" font-size="38" font-weight="800" text-anchor="middle" fill="#EA580C">AM</text></g>
      ${big(1220, 380, "HONEST", 150, "#fff", "#7C2D12", "end")}${big(1220, 530, "REVIEW", 150, "#EA580C", "#7C2D12", "end")}

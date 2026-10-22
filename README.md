@@ -21,12 +21,15 @@ npm run check-links    # crawl the served export for broken internal links / anc
 - `src/lib/site.ts`: every piece of content: offers, prices and live Stripe Payment Links, steps, FAQ, case studies, sample assets
 - `src/app/page.tsx`: home (hero, how it works, offers, sample work, FAQ, CTA)
 - `src/app/order/`: lists the 4 services with Stripe "Pay" buttons; briefs are emailed to hello@shipdaystudio.com
-- `src/app/work/[slug]`: 6 concept case studies (3 newer v2 + 3 originals), statically generated
+- `src/app/work/[slug]`: 14 concept case studies, statically generated (most link to a live demo under `/demos/`)
+- `src/app/work/landing-pages`, `src/app/work/thumbnails`, `src/app/work/logos`: "more examples" pages with an accessible industry and look filter (`src/components/WorkFilter.tsx`). Looks are style choices, never quality or price tiers.
 - `src/app/terms`, `src/app/privacy`, `src/app/imprint`: legal pages (operator shown as "Shipday Studio, Switzerland, hello@shipdaystudio.com"; no personal name or street address is published anywhere)
 - `src/lib/seo.ts`: per-page title/description/canonical/OG/Twitter helper
 - `src/app/sitemap.ts`, `robots.ts`, `icon.svg`, `apple-icon.png`, `favicon.ico`, `public/og.png`, `public/site.webmanifest`, `public/icon-*.png`, `public/CNAME`
 - `public/work/`: original sample SVGs (3 landing pages, 6 thumbnails, 3 logos). All of the brands are fictional.
-- `public/work/v2/`: newer concept samples as optimised WebP (3 landing pages rendered from HTML, 3 photo thumbnails, 3 logo light/dark boards), shown first in the tabbed gallery (`src/components/SampleGallery.tsx`). All brands and channels are fictional.
+- `public/demos/<slug>/`: live, responsive concept landing pages (static HTML, `noindex`), each with a "Concept demo, fictional brand" ribbon. Self-hosted OFL fonts in `public/demos/fonts/`.
+- `public/work/v3/`: screenshots of the demos (card, full page and mobile), 6 new thumbnails (incl. A/B pairs), logo brand-system boards and extra logo boards, all WebP. Source files and render scripts are kept outside the deployed site.
+- `public/work/v2/`: earlier concept samples as optimised WebP (3 landing pages rendered from HTML, 3 photo thumbnails, 3 logo light/dark boards), shown first in the tabbed gallery (`src/components/SampleGallery.tsx`). All brands and channels are fictional.
 - `scripts/og.html`: source for `public/og.png` (render it with headless Chrome at 1200×630)
 
 ## Static export and hosting

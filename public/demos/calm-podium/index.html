@@ -1,0 +1,108 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>The Calm Podium · Concept demo (fictional course) · Shipday Studio</title>
+<link rel="stylesheet" href="/demos/fonts/fonts.css"><link rel="stylesheet" href="/demos/demo-bar.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#FBF6EE;--sand:#F3E9DA;--apricot:#E0835A;--sage:#8DA68F;--forest:#22382E;--ink:#1D2320;--muted:#66706A;--line:#E6DACA;--pad:clamp(20px,5vw,72px)}
+body{background:var(--cream);color:var(--ink);font-family:Figtree,system-ui,sans-serif;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px var(--pad);max-width:1320px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:-.01em}
+.logo svg{flex:none}
+nav ul{display:flex;gap:30px;list-style:none;font-size:15px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:99px;padding:16px 26px;font-weight:700;background:var(--forest);color:#fff;transition:background .2s,transform .15s}
+.btn:hover{background:#2f4d3f;transform:translateY(-1px)}
+.btn.sm{padding:11px 18px;font-size:15px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,72px);align-items:center;padding:clamp(28px,5vw,64px) var(--pad) clamp(64px,8vw,110px);max-width:1320px;margin:0 auto}
+.kicker{display:inline-flex;gap:8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:99px;padding:7px 14px;font-size:14px;font-weight:600;color:var(--forest)}
+.kicker i{width:8px;height:8px;border-radius:9px;background:var(--apricot)}
+h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(50px,7vw,96px);line-height:.98;letter-spacing:-.02em;margin-top:24px}
+h1 em{color:var(--apricot)}
+.lede{font-size:clamp(18px,1.6vw,21px);line-height:1.6;color:var(--muted);max-width:540px;margin-top:22px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:34px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:26px;font-size:14px;color:var(--muted)}
+.trust span:before{content:"✓ ";color:var(--sage);font-weight:800}
+.art{position:relative;border-radius:32px;overflow:hidden;background:#F6EEE2;aspect-ratio:1/1}
+.art img{width:100%;height:100%;object-fit:cover}
+.chip{position:absolute;background:#fff;border-radius:16px;padding:12px 16px;font-size:14px;box-shadow:0 18px 40px -18px rgba(34,56,46,.35)}
+.chip b{display:block;font-size:15px}
+.c1{left:6%;top:8%}.c2{right:6%;bottom:8%}
+.strip{background:var(--forest);color:#EAF0EA;padding:22px var(--pad);display:flex;flex-wrap:wrap;gap:12px 40px;justify-content:center;font-size:15px}
+.strip b{color:#fff}
+section{padding:clamp(72px,9vw,120px) var(--pad);max-width:1320px;margin:0 auto}
+.eb{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--apricot)}
+h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(38px,4.6vw,62px);line-height:1.02;letter-spacing:-.015em;margin-top:14px;max-width:780px}
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:44px}
+.fit div{border-radius:24px;padding:32px;background:#fff;border:1px solid var(--line)}
+.fit div.no{background:var(--sand);border-color:transparent}
+.fit h3{font-size:20px}
+.fit ul{list-style:none;margin-top:16px;display:grid;gap:12px;color:var(--muted)}
+.fit li{display:grid;grid-template-columns:24px 1fr;gap:8px}
+.fit li:before{content:"✓";color:var(--sage);font-weight:800}
+.fit .no li:before{content:"×";color:var(--apricot)}
+.weeks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.wk{border-radius:22px;padding:26px;background:#fff;border:1px solid var(--line);min-height:190px;display:flex;flex-direction:column}
+.wk span{font-size:13px;font-weight:700;color:var(--sage);letter-spacing:.08em;text-transform:uppercase}
+.wk h3{font-family:"Instrument Serif",serif;font-weight:400;font-size:28px;line-height:1.05;margin-top:10px}
+.wk p{color:var(--muted);font-size:15px;line-height:1.55;margin-top:10px}
+.price{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.card{background:var(--forest);color:#EEF3EE;border-radius:32px;padding:clamp(28px,4vw,44px);position:relative;overflow:hidden}
+.card:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:var(--apricot);opacity:.9}
+.card .amt{font-family:"Instrument Serif",serif;font-size:76px;line-height:1;margin-top:10px;position:relative;z-index:1}
+.card .amt small{font-family:Figtree,sans-serif;font-size:16px;opacity:.75;margin-left:6px}
+.card ul{list-style:none;margin:24px 0 30px;display:grid;gap:12px;position:relative;z-index:1}
+.card li:before{content:"✓ ";color:#B7D3BA;font-weight:800}
+.card .btn{background:var(--apricot);position:relative;z-index:1;width:100%;justify-content:center}
+.card .btn:hover{background:#ea9670}
+.card p.s{font-size:14px;opacity:.75;margin-top:14px;text-align:center;position:relative;z-index:1}
+.faq{max-width:860px}
+details{border-bottom:1px solid var(--line);padding:22px 0}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font-weight:700;font-size:19px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--apricot);font-size:24px;line-height:1}
+details[open] summary:after{content:"–"}
+details p{color:var(--muted);line-height:1.65;margin-top:12px}
+footer{padding:48px var(--pad);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;color:var(--muted);font-size:14px;max-width:1320px;margin:0 auto}
+.sticky{display:none}
+@media (max-width:900px){nav ul{display:none}.hero,.price{grid-template-columns:1fr}.weeks{grid-template-columns:1fr 1fr}.art{max-width:520px}}
+@media (max-width:600px){.fit,.weeks{grid-template-columns:1fr}.wk{min-height:0}
+ .sticky{display:flex;position:sticky;bottom:0;z-index:20;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(251,246,238,.96);border-top:1px solid var(--line);backdrop-filter:blur(8px);font-size:14px}
+ .sticky .btn{padding:12px 18px}}
+</style></head><body>
+<div class="sd-bar"><span><b>Concept demo</b> · The Calm Podium is a fictional course, not a client project.</span><a href="/work/landing-pages/">← Back to Shipday Studio samples</a></div>
+<nav><a class="logo" href="#top"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 26V14a10 10 0 0 1 20 0v12" fill="none" stroke="#22382E" stroke-width="3" stroke-linecap="round"/><circle cx="15" cy="17" r="4.2" fill="#E0835A"/><path d="M3 27h24" stroke="#22382E" stroke-width="3" stroke-linecap="round"/></svg>The Calm Podium</a>
+<ul><li><a href="#fit">Who it's for</a></li><li><a href="#program">Program</a></li><li><a href="#enrol">Pricing</a></li><li><a href="#faq">FAQ</a></li></ul><a class="btn sm" href="#enrol">Join the cohort</a></nav>
+<header class="hero" id="top"><div>
+<span class="kicker"><i></i>Next cohort starts 3 March · 14 seats</span>
+<h1>Speak up in meetings <em>without the shake.</em></h1>
+<p class="lede">A six-week, small-group course for quiet professionals. Learn a calm, repeatable way to prepare, open strong and handle questions, then practise it with people who get it.</p>
+<div class="ctas"><a class="btn" href="#enrol">Join the next cohort →</a><a class="btn ghost" href="#program">See the 6-week plan</a></div>
+<div class="trust"><span>Live sessions, recorded</span><span>Max 14 people</span><span>14-day refund</span></div>
+</div><div class="art"><img src="abstract.webp" width="1000" height="1000" alt="Soft clay-style arch, sphere and podium steps in apricot, sage and cream"><div class="chip c1"><b>Week 2</b>The 3-sentence opener</div><div class="chip c2"><b>90 seconds</b>Your prep ritual</div></div></header>
+<div class="strip"><span><b>6 weeks</b> · one 75-min live session each</span><span><b>Small group</b> · practise, don't just watch</span><span><b>Workbook</b> · scripts you can reuse</span></div>
+<section id="fit"><p class="eb">Is this for you?</p><h2>Built for people who think before they speak.</h2>
+<div class="fit"><div><h3>A great fit if you…</h3><ul><li>Know your stuff but go blank when all eyes turn to you</li><li>Rehearse what to say, then never say it</li><li>Want a method, not a personality transplant</li><li>Can give 75 minutes a week for six weeks</li></ul></div>
+<div class="no"><h3>Probably not for you if…</h3><ul><li>You want to become a keynote entertainer</li><li>You're looking for a one-hour quick fix</li><li>You'd rather not practise in a small group</li></ul></div></div></section>
+<section id="program" style="padding-top:0"><p class="eb">The 6-week plan</p><h2>One calm skill a week, practised until it's yours.</h2>
+<div class="weeks">
+<div class="wk"><span>Week 1</span><h3>Name the nerves</h3><p>What your body is doing, and the two-minute reset that settles it.</p></div>
+<div class="wk"><span>Week 2</span><h3>The 3-sentence opener</h3><p>A simple frame for starting any update, pitch or answer.</p></div>
+<div class="wk"><span>Week 3</span><h3>Structure on a napkin</h3><p>Plan a ten-minute talk in ninety seconds of prep.</p></div>
+<div class="wk"><span>Week 4</span><h3>Pauses, not fillers</h3><p>Use silence on purpose so you sound sure, not stalled.</p></div>
+<div class="wk"><span>Week 5</span><h3>Questions you dread</h3><p>Buy time gracefully and answer the question behind the question.</p></div>
+<div class="wk"><span>Week 6</span><h3>Your calm talk</h3><p>Deliver a five-minute talk to the group and get specific feedback.</p></div>
+</div></section>
+<section id="enrol" style="padding-top:0"><div class="price"><div><p class="eb">Enrolment</p><h2>Everything you need to feel steady at the front of the room.</h2><p class="lede">Seats are capped so everyone gets real practice time. If the course isn't for you, ask for a refund within 14 days of the first session.</p></div>
+<div class="card"><p style="font-weight:700;position:relative;z-index:1">Spring cohort · 6 weeks</p><p class="amt">$249<small>one-time</small></p>
+<ul><li>6 live small-group sessions</li><li>Recordings and a printable workbook</li><li>Personal feedback on your final talk</li><li>Alumni practice nights</li></ul>
+<a class="btn" href="#enrol">Reserve my seat →</a><p class="s">14-day refund · secure checkout</p></div></div></section>
+<section id="faq" class="faq" style="padding-top:0"><p class="eb">Questions</p><h2>Good to know</h2>
+<details open><summary>Do I have to turn my camera on?</summary><p>For practice rounds, yes, because that's where the change happens. Everything else is up to you.</p></details>
+<details><summary>What if I miss a session?</summary><p>Every session is recorded, and you can join any practice night to catch up.</p></details>
+<details><summary>Is this therapy?</summary><p>No. It's practical skills training for everyday speaking situations at work.</p></details>
+</section>
+<footer><span>© The Calm Podium · Concept design, fictional brand</span><span>Privacy · Terms</span></footer>
+<div class="sticky"><span><b>$249</b> · next cohort 3 March</span><a class="btn" href="#enrol">Reserve seat</a></div>
+</body></html>

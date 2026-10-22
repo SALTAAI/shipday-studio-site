@@ -140,6 +140,10 @@ export const faq = [
   },
 ];
 
+/** Visual style range used by the "more examples" filters. These are style choices, never quality or price tiers. */
+export type Look = "Clean & simple" | "Balanced" | "Rich & detailed";
+export const looks: Look[] = ["Clean & simple", "Balanced", "Rich & detailed"];
+
 export type CaseStudy = {
   slug: string;
   brand: string;
@@ -156,15 +160,113 @@ export type CaseStudy = {
   card?: string;
   /** Short aesthetic label shown on gallery cards. */
   style?: string;
+  /** Live, responsive concept demo hosted under /demos/ (static, noindex). */
+  demo?: string;
+  /** Mobile screenshot (360x779) shown next to the desktop card. */
+  mobile?: string;
+  /** Buyer segment this concept is built for (homepage featured set). */
+  segment?: string;
+  /** Shown in the homepage featured set, in this order. */
+  featured?: number;
+  industry: string;
+  look: Look;
   stats: { label: string; value: string }[];
 };
 
-// All brands below are fictional and created as sample work.
+const stats = (sections: string) => [
+  { label: "Package turnaround", value: "48h" },
+  { label: "Sections", value: sections },
+  { label: "Revision rounds", value: "1" },
+];
+
+// All brands below are fictional and created as sample work. None of them is a client project.
 export const cases: CaseStudy[] = [
+  {
+    slug: "vantorel",
+    brand: "Vantorel",
+    kind: "B2B SaaS homepage",
+    segment: "SaaS & indie founders",
+    featured: 1,
+    industry: "SaaS & tech",
+    look: "Rich & detailed",
+    style: "Refined dark SaaS",
+    headline: "A precise, dark launch page for a finance-automation product",
+    summary: "Dark SaaS homepage with a product dashboard built in code, a bento feature grid, a three-step setup and an early-access CTA.",
+    brief:
+      "Imagined brief: a seed-stage team building month-end close automation for finance teams needs a credible launch homepage that shows the product, not stock art.",
+    approach: [
+      "Near-black canvas with a soft violet glow and a faint grid, so the product UI is the brightest thing on the page.",
+      "The dashboard is real HTML, not a screenshot mock-up, so it stays sharp at every screen size and is easy to update.",
+      "No logo wall or testimonials: the page is ready for real proof once beta users arrive.",
+    ],
+    palette: ["#07080C", "#8B7CFF", "#5EEAD4", "#EDEEF3"],
+    image: "/work/v3/lp-vantorel.webp",
+    imageSize: [1200, 2526],
+    card: "/work/v3/lp-vantorel-card.webp",
+    mobile: "/work/v3/lp-vantorel-mobile.webp",
+    demo: "/demos/vantorel/",
+    stats: stats("6"),
+  },
+  {
+    slug: "calm-podium",
+    brand: "The Calm Podium",
+    kind: "Online course sales page",
+    segment: "Coaches & course creators",
+    featured: 2,
+    industry: "Coaching & courses",
+    look: "Balanced",
+    style: "Soft, warm conversion page",
+    headline: "A calm, conversion-focused sales page for a public-speaking course",
+    summary: "Course page with a clear promise, a who-it's-for check, a six-week plan, a single price card with a refund policy, an FAQ and a sticky mobile CTA.",
+    brief:
+      "Imagined brief: a coach launching a six-week small-group course for quiet professionals wants a page that sells seats without hype, fake scarcity or invented testimonials.",
+    approach: [
+      "Instrument Serif headlines and Figtree body text in cream, sage and apricot, so the page feels as calm as the promise.",
+      "Abstract clay imagery instead of a face, so the page works before there is a professional photo shoot.",
+      "One action everywhere: reserve a seat, with the price, refund window and cohort date always visible on mobile.",
+    ],
+    palette: ["#FBF6EE", "#22382E", "#E0835A", "#8DA68F"],
+    image: "/work/v3/lp-calm-podium.webp",
+    imageSize: [1200, 2881],
+    card: "/work/v3/lp-calm-podium-card.webp",
+    mobile: "/work/v3/lp-calm-podium-mobile.webp",
+    demo: "/demos/calm-podium/",
+    stats: stats("7"),
+  },
+  {
+    slug: "osteria-fennella",
+    brand: "Osteria Fennella",
+    kind: "Restaurant homepage with bookings",
+    segment: "Local businesses with bookings",
+    featured: 3,
+    industry: "Restaurants & food",
+    look: "Rich & detailed",
+    style: "Warm trattoria with booking widget",
+    headline: "A warm neighbourhood-restaurant homepage built around booking a table",
+    summary: "Restaurant homepage with a booking widget on the first screen, a short menu with prices, the dining room, opening hours and group dining.",
+    brief:
+      "Imagined brief: a twelve-table osteria is tired of phone bookings and wants a homepage where people can see tonight's menu and pick a table in a few taps.",
+    approach: [
+      "The booking widget overlaps the hero, so the main action is visible before anyone scrolls.",
+      "Bricolage Grotesque with Caslon italics, tomato red and deep green: Italian warmth without clichés.",
+      "Menu, hours and access info as real text, so it is readable, searchable and easy to update.",
+    ],
+    palette: ["#F6EEDC", "#C2412A", "#1E4636", "#4D5A2E"],
+    image: "/work/v3/lp-osteria-fennella.webp",
+    imageSize: [1200, 2447],
+    card: "/work/v3/lp-osteria-fennella-card.webp",
+    mobile: "/work/v3/lp-osteria-fennella-mobile.webp",
+    demo: "/demos/osteria-fennella/",
+    stats: stats("6"),
+  },
   {
     slug: "maison-orrevel",
     brand: "Maison Orrevel",
     kind: "Fragrance house homepage",
+    segment: "Luxury DTC brands",
+    featured: 4,
+    industry: "Luxury & beauty",
+    look: "Clean & simple",
     style: "Editorial serif luxury",
     headline: "A quiet, editorial homepage for a small-batch perfume house",
     summary: "Magazine-style homepage with a single hero fragrance, a notes breakdown, a brand line and a three-piece collection.",
@@ -176,43 +278,165 @@ export const cases: CaseStudy[] = [
       "The composition is told as top, heart and base notes, so buyers understand the scent before they smell it.",
     ],
     palette: ["#F4EFE7", "#1E1A15", "#8C6A43", "#D9CFC1"],
-    image: "/work/v2/maison-orrevel.webp",
-    imageSize: [1200, 3401],
-    card: "/work/v2/maison-orrevel-card.webp",
-    stats: [
-      { label: "Package turnaround", value: "48h" },
-      { label: "Sections", value: "6" },
-      { label: "Revision rounds", value: "1" },
-    ],
+    image: "/work/v3/lp-maison-orrevel.webp",
+    imageSize: [1200, 3280],
+    card: "/work/v3/lp-maison-orrevel-card.webp",
+    mobile: "/work/v3/lp-maison-orrevel-mobile.webp",
+    demo: "/demos/maison-orrevel/",
+    stats: stats("6"),
   },
   {
-    slug: "vantorel",
-    brand: "Vantorel",
-    kind: "B2B SaaS homepage",
-    style: "Refined dark SaaS",
-    headline: "A precise, dark homepage for a finance-automation product",
-    summary: "Dark SaaS homepage with a product dashboard built in code, a bento feature grid, a three-step setup and an early-access CTA.",
+    slug: "vesperkeel",
+    brand: "Vesperkeel",
+    kind: "Indie game launch page",
+    segment: "Gaming & indie studios",
+    featured: 5,
+    industry: "Gaming & entertainment",
+    look: "Rich & detailed",
+    style: "Cinematic dark fantasy",
+    headline: "A cinematic wishlist page for a fictional co-op sky-sailing game",
+    summary: "Game page with full-bleed key art, wishlist and trailer actions, three gameplay pillars, a media grid, a public roadmap and a playtest sign-up.",
     brief:
-      "Imagined brief: a seed-stage team building month-end close automation for finance teams needs a credible launch homepage that shows the product, not stock art.",
+      "Imagined brief: a small studio (the fictional Lanternmoth Games) needs a page that turns trailer views into wishlists and playtest sign-ups ahead of early access.",
     approach: [
-      "Near-black canvas with a soft violet glow and a faint grid, so the product UI is the brightest thing on the page.",
-      "The dashboard is real HTML, not a screenshot mock-up, so it stays sharp and easy to update.",
-      "No logo wall or testimonials: the page is ready for real proof once beta users arrive.",
+      "Key art does the selling: the headline sits in the dark sky, and on mobile the art moves above the text instead of being cropped away.",
+      "Cinzel for the title and Chakra Petch for UI text, with lantern amber and teal pulled from the art.",
+      "Generic store wording and no platform logos, so the page can point anywhere the studio sells.",
     ],
-    palette: ["#07080C", "#8B7CFF", "#5EEAD4", "#EDEEF3"],
-    image: "/work/v2/vantorel.webp",
-    imageSize: [1200, 2618],
-    card: "/work/v2/vantorel-card.webp",
-    stats: [
-      { label: "Package turnaround", value: "48h" },
-      { label: "Sections", value: "6" },
-      { label: "Revision rounds", value: "1" },
+    palette: ["#080B17", "#F2B35B", "#46D3C8", "#E9E4D8"],
+    image: "/work/v3/lp-vesperkeel.webp",
+    imageSize: [1200, 3310],
+    card: "/work/v3/lp-vesperkeel-card.webp",
+    mobile: "/work/v3/lp-vesperkeel-mobile.webp",
+    demo: "/demos/vesperkeel/",
+    stats: stats("6"),
+  },
+  {
+    slug: "pipewren",
+    brand: "Pipewren Plumbing",
+    kind: "Trades homepage redesign",
+    industry: "Local services",
+    look: "Balanced",
+    style: "Friendly, trustworthy trades",
+    headline: "A redesign concept that turns a dated plumbing site into a booking page",
+    summary: "Before-and-after concept: a cluttered, dated homepage rebuilt around online booking, clear pricing, services and service area.",
+    brief:
+      "Imagined brief: a local plumbing firm's old site says 'please call' for every price and has no way to book. They want customers to book a visit online and trust the price before anyone arrives.",
+    approach: [
+      "Quick booking (job type and day) sits in the hero, replacing 'call now' and a phone-only workflow.",
+      "Prices shown as 'from' figures, plus a three-step 'how pricing works' block to answer the main worry up front.",
+      "Navy, copper and mint with Plus Jakarta Sans: friendly and tidy, the way you want a tradesperson to be.",
     ],
+    palette: ["#10213D", "#D96C34", "#DDF0E6", "#EEF4FA"],
+    image: "/work/v3/lp-pipewren.webp",
+    imageSize: [1200, 2175],
+    card: "/work/v3/lp-pipewren-card.webp",
+    mobile: "/work/v3/lp-pipewren-mobile.webp",
+    demo: "/demos/pipewren/",
+    stats: stats("6"),
+  },
+  {
+    slug: "smilewick-dental",
+    brand: "Smilewick Dental",
+    kind: "Dental clinic homepage",
+    industry: "Health & clinics",
+    look: "Clean & simple",
+    style: "Bright, calm clinic",
+    headline: "A bright, reassuring homepage for a small dental clinic",
+    summary: "Clinic homepage with next free appointment slots, opening-hours highlights, three treatments, up-front prices and a booking CTA.",
+    brief:
+      "Imagined brief: a two-chair dental clinic wants nervous patients to feel at ease and to book online instead of calling during work hours.",
+    approach: [
+      "Mint, white and light oak with Instrument Serif headlines: clinical-clean but warm.",
+      "Next free slots shown on the hero image, so booking feels quick before the first click.",
+      "Prices stated plainly, because cost is the question most patients won't ask.",
+    ],
+    palette: ["#FFFFFF", "#0F6B5C", "#CFEDE3", "#10231F"],
+    image: "/work/v3/lp-smilewick-dental.webp",
+    imageSize: [1200, 1702],
+    card: "/work/v3/lp-smilewick-dental-card.webp",
+    mobile: "/work/v3/lp-smilewick-dental-mobile.webp",
+    demo: "/demos/smilewick-dental/",
+    stats: stats("6"),
+  },
+  {
+    slug: "halvenna-studio",
+    brand: "Halvenna Studio",
+    kind: "Wedding photographer homepage",
+    industry: "Weddings & events",
+    look: "Clean & simple",
+    style: "Soft editorial minimal",
+    headline: "A soft, editorial homepage for a wedding and elopement photographer",
+    summary: "Split-screen hero, a short philosophy line, three packages with starting prices, an image strip and a date-check enquiry.",
+    brief:
+      "Imagined brief: a photographer who takes a few weddings a year wants a homepage that feels like their work and filters for couples who value quiet, unposed photos.",
+    approach: [
+      "Cormorant Garamond and lots of linen-coloured space, letting one photo carry the hero.",
+      "Packages show starting prices, so enquiries arrive from couples who already fit the budget.",
+      "A single 'check your date' action instead of a long contact form on the first screen.",
+    ],
+    palette: ["#F4EEE4", "#2A241D", "#A9824B", "#E2D7C6"],
+    image: "/work/v3/lp-halvenna-studio.webp",
+    imageSize: [1200, 2000],
+    card: "/work/v3/lp-halvenna-studio-card.webp",
+    mobile: "/work/v3/lp-halvenna-studio-mobile.webp",
+    demo: "/demos/halvenna-studio/",
+    stats: stats("5"),
+  },
+  {
+    slug: "kettlefin-strength",
+    brand: "Kettlefin Strength",
+    kind: "Gym homepage",
+    industry: "Fitness",
+    look: "Rich & detailed",
+    style: "Bold, high-contrast",
+    headline: "A loud, confident homepage for a small-group strength gym",
+    summary: "Full-bleed gym hero with oversized type, a ticker, three class types, a weekly timetable and a free-class offer.",
+    brief:
+      "Imagined brief: a coached strength gym wants a homepage that feels like walking into the room and turns visitors into free-trial bookings.",
+    approach: [
+      "Anton headlines at poster size, with outline type and a lime ticker for energy.",
+      "The timetable is a real, scrollable table, so it stays readable on a phone.",
+      "One offer repeated twice: book a free class.",
+    ],
+    palette: ["#0D0D0C", "#FF5A1F", "#D7FF3A", "#F2EFE9"],
+    image: "/work/v3/lp-kettlefin-strength.webp",
+    imageSize: [1200, 1874],
+    card: "/work/v3/lp-kettlefin-strength-card.webp",
+    mobile: "/work/v3/lp-kettlefin-strength-mobile.webp",
+    demo: "/demos/kettlefin-strength/",
+    stats: stats("5"),
+  },
+  {
+    slug: "quernstead-food-share",
+    brand: "Quernstead Food Share",
+    kind: "Nonprofit homepage",
+    industry: "Nonprofit & community",
+    look: "Balanced",
+    style: "Bright, friendly community",
+    headline: "A cheerful, practical homepage for a community food-share charity",
+    summary: "Nonprofit homepage with a clear mission line, sample impact figures (labelled as such), three ways to help and a monthly giving block.",
+    brief:
+      "Imagined brief: a volunteer-run food share wants more weekend drivers and monthly donors, and wants people who need food to know there are no forms.",
+    approach: [
+      "Bricolage Grotesque with a highlighter effect on the key word, in leaf green and carrot orange.",
+      "Volunteering and giving get equal weight, because both keep the pantry open.",
+      "Impact numbers are clearly labelled as sample figures in this concept.",
+    ],
+    palette: ["#FFFBF3", "#2E6B3A", "#F07A2B", "#CDE8B5"],
+    image: "/work/v3/lp-quernstead-food-share.webp",
+    imageSize: [1200, 1512],
+    card: "/work/v3/lp-quernstead-food-share-card.webp",
+    mobile: "/work/v3/lp-quernstead-food-share-mobile.webp",
+    demo: "/demos/quernstead-food-share/",
+    stats: stats("5"),
   },
   {
     slug: "haldane-and-oat",
     brand: "Haldane & Oat",
     kind: "DTC home goods store",
+    industry: "Retail & DTC",
+    look: "Balanced",
     style: "Warm minimal DTC",
     headline: "A warm, tactile storefront for a linen bedding brand",
     summary: "Direct-to-consumer homepage with a lifestyle hero, colourway swatches, a product row, a materials story and a newsletter sign-up.",
@@ -227,16 +451,15 @@ export const cases: CaseStudy[] = [
     image: "/work/v2/haldane-and-oat.webp",
     imageSize: [1200, 3080],
     card: "/work/v2/haldane-and-oat-card.webp",
-    stats: [
-      { label: "Package turnaround", value: "48h" },
-      { label: "Sections", value: "7" },
-      { label: "Revision rounds", value: "1" },
-    ],
+    stats: stats("7"),
   },
   {
     slug: "northdrift-ceramics",
     brand: "Northdrift Ceramics",
     kind: "Maker shop launch",
+    industry: "Retail & DTC",
+    look: "Clean & simple",
+    style: "Calm maker minimal",
     headline: "A calm, tactile launch page for a one-person pottery studio",
     summary: "Pre-order page for a small-batch ceramics drop, built around photography and a waitlist.",
     brief:
@@ -248,16 +471,15 @@ export const cases: CaseStudy[] = [
     ],
     palette: ["#F4EDE4", "#C8734A", "#2E2A26", "#9DB4A0"],
     image: "/work/landing/northdrift-ceramics.svg",
-    stats: [
-      { label: "Package turnaround", value: "48h" },
-      { label: "Sections", value: "6" },
-      { label: "Revision rounds", value: "1" },
-    ],
+    stats: stats("6"),
   },
   {
     slug: "quillbyte",
     brand: "Quillbyte",
     kind: "SaaS waitlist",
+    industry: "SaaS & tech",
+    look: "Clean & simple",
+    style: "Focused dark product page",
     headline: "A crisp product page for an AI newsletter-drafting tool",
     summary: "Dark, focused SaaS landing page with a product mock, three benefits and pricing teaser.",
     brief:
@@ -269,16 +491,15 @@ export const cases: CaseStudy[] = [
     ],
     palette: ["#0F0E17", "#7C5CFF", "#E8E6F3", "#2CE6B5"],
     image: "/work/landing/quillbyte.svg",
-    stats: [
-      { label: "Package turnaround", value: "48h" },
-      { label: "Sections", value: "7" },
-      { label: "Revision rounds", value: "1" },
-    ],
+    stats: stats("7"),
   },
   {
     slug: "fennel-and-fig",
     brand: "Fennel & Fig",
     kind: "Creator course",
+    industry: "Coaching & courses",
+    look: "Balanced",
+    style: "Friendly creator course",
     headline: "A friendly sales page for a meal-prep creator's first course",
     summary: "Course landing page with curriculum, creator bio, review placeholders and a single price.",
     brief:
@@ -290,20 +511,28 @@ export const cases: CaseStudy[] = [
     ],
     palette: ["#F7F5EC", "#3F7D4E", "#7A3B69", "#F2B84B"],
     image: "/work/landing/fennel-and-fig.svg",
-    stats: [
-      { label: "Package turnaround", value: "48h" },
-      { label: "Sections", value: "8" },
-      { label: "Revision rounds", value: "1" },
-    ],
+    stats: stats("8"),
   },
 ];
 
+/** Homepage featured landing pages, one per buyer segment. */
+export const featuredCases = cases.filter((c) => c.featured).sort((a, b) => (a.featured ?? 0) - (b.featured ?? 0));
+
+/** Before/after redesign concept. The "before" is deliberately dated and was made by us; both sides are fictional. */
+export const redesign = {
+  slug: "pipewren",
+  brand: "Pipewren Plumbing",
+  before: { src: "/work/v3/lp-pipewren-before-card.webp", full: "/work/v3/lp-pipewren-before.webp" },
+  after: { src: "/work/v3/lp-pipewren-card.webp", demo: "/demos/pipewren/" },
+};
+
+/** Earlier flat SVG thumbnails (thumb-1 is also used in the homepage hero collage). */
 export const thumbnails = [
   { file: "/work/thumbnails/thumb-1.svg", alt: "Sample thumbnail: 'I tried 5 budget mics' for a fictional tech channel" },
   { file: "/work/thumbnails/thumb-2.svg", alt: "Sample thumbnail: '30 day sourdough' for a fictional baking channel" },
   { file: "/work/thumbnails/thumb-3.svg", alt: "Sample thumbnail: 'My first $1K month' for a fictional founder channel" },
   { file: "/work/thumbnails/thumb-4.svg", alt: "Sample thumbnail: 'Alps on $40 a day' for a fictional travel channel" },
-  { file: "/work/thumbnails/thumb-5.svg", alt: "Sample thumbnail: 'Stop doing this in Figma' for a fictional design channel" },
+  { file: "/work/thumbnails/thumb-5.svg", alt: "Sample thumbnail: 'Stop doing this in your UI' for a fictional design channel" },
   { file: "/work/thumbnails/thumb-6.svg", alt: "Sample thumbnail: '5AM routine, honest review' for a fictional lifestyle channel" },
 ];
 
@@ -313,54 +542,108 @@ export const logos = [
   { file: "/work/logos/cobalt-owl.svg", name: "Cobalt Owl", note: "Night-shift coffee" },
 ];
 
-/** Newer, photo-based thumbnail concepts (1280x720 WebP, with a 640px variant). Channels are fictional. */
-export const featuredThumbnails = [
-  {
-    file: "/work/v2/thumb-finance-stop-saving.webp",
-    small: "/work/v2/thumb-finance-stop-saving-640.webp",
-    niche: "Finance",
-    title: "Stop saving. Start owning",
-    alt: "Sample finance thumbnail for a fictional channel: 'Stop saving. Start owning' in bold white and gold type beside a glowing stack of gold coins and a rising chart",
-  },
-  {
-    file: "/work/v2/thumb-travel-last-road-north.webp",
-    small: "/work/v2/thumb-travel-last-road-north-640.webp",
-    niche: "Travel",
-    title: "The last road north",
-    alt: "Sample travel thumbnail for a fictional channel: 'The last road north' over a cinematic golden-hour fjord with a winding coastal road and a red cabin",
-  },
-  {
-    file: "/work/v2/thumb-tech-worth-449.webp",
-    small: "/work/v2/thumb-tech-worth-449-640.webp",
-    niche: "Tech review",
-    title: "Worth $449? 6 months later",
-    alt: "Sample tech review thumbnail for a fictional channel: 'Worth $449? 6 months later' in white and orange next to unbranded graphite headphones",
-  },
+export type ThumbSample = {
+  id: string;
+  file: string;
+  small?: string;
+  niche: string;
+  title: string;
+  look: Look;
+  alt: string;
+  /** Homepage featured order. */
+  featured?: number;
+  /** A/B concept pairs share a pair id: two different takes on the same video. */
+  pair?: { id: string; variant: "A" | "B"; angle: string };
+};
+
+/** All thumbnail concepts. Every channel is fictional. */
+export const thumbSamples: ThumbSample[] = [
+  { id: "gaming-a", file: "/work/v3/thumb-gaming-a.webp", small: "/work/v3/thumb-gaming-a-640.webp", niche: "Gaming", title: "Beating the final boss with 1 HP", look: "Rich & detailed", featured: 1,
+    pair: { id: "gaming", variant: "A", angle: "Challenge-led: the stakes in two words" },
+    alt: "Gaming thumbnail concept for a fictional channel: huge yellow '1 HP' with 'No heals' and 'No armour' labels beside a purple-lit dragon in a cavern" },
+  { id: "gaming-b", file: "/work/v3/thumb-gaming-b.webp", small: "/work/v3/thumb-gaming-b-640.webp", niche: "Gaming", title: "Beating the final boss with 1 HP", look: "Rich & detailed", featured: 2,
+    pair: { id: "gaming", variant: "B", angle: "Curiosity-led: a close-up and a near-empty health bar" },
+    alt: "Gaming thumbnail concept for a fictional channel: 'It saw me first' in white and pink beside a close-up of a glowing dragon eye, with a nearly empty health bar" },
+  { id: "finance-a", file: "/work/v2/thumb-finance-stop-saving.webp", small: "/work/v2/thumb-finance-stop-saving-640.webp", niche: "Money & finance", title: "Why saving alone loses you money", look: "Rich & detailed", featured: 3,
+    pair: { id: "finance", variant: "A", angle: "Bold instruction: tells the viewer what to do" },
+    alt: "Finance thumbnail concept for a fictional channel: 'Stop saving. Start owning' in bold white and gold type beside a glowing stack of gold coins and a rising chart" },
+  { id: "finance-b", file: "/work/v3/thumb-finance-b.webp", small: "/work/v3/thumb-finance-b-640.webp", niche: "Money & finance", title: "Why saving alone loses you money", look: "Balanced", featured: 4,
+    pair: { id: "finance", variant: "B", angle: "Problem-led: a visual metaphor for the loss" },
+    alt: "Finance thumbnail concept for a fictional channel: 'Your savings are leaking' next to a cracked pink piggy bank spilling coins on a teal background" },
+  { id: "tech", file: "/work/v2/thumb-tech-worth-449.webp", small: "/work/v2/thumb-tech-worth-449-640.webp", niche: "Tech review", title: "Worth $449? 6 months later", look: "Balanced", featured: 5,
+    alt: "Tech review thumbnail concept for a fictional channel: 'Worth $449? 6 months later' in white and orange next to unbranded graphite headphones" },
+  { id: "edu", file: "/work/v3/thumb-edu.webp", small: "/work/v3/thumb-edu-640.webp", niche: "Education & explainers", title: "Why planes fly curved routes", look: "Balanced", featured: 6,
+    alt: "Education thumbnail concept for a fictional channel: 'Why planes fly curved' over Earth at night, with a dashed curved route and a straight red line between two cities" },
+  { id: "travel", file: "/work/v2/thumb-travel-last-road-north.webp", small: "/work/v2/thumb-travel-last-road-north-640.webp", niche: "Travel vlog", title: "The last road north", look: "Rich & detailed", featured: 7,
+    alt: "Travel thumbnail concept for a fictional channel: 'The last road north' over a golden-hour fjord with a winding coastal road and a red cabin" },
+  { id: "crime", file: "/work/v3/thumb-crime.webp", small: "/work/v3/thumb-crime-640.webp", niche: "True crime & documentary", title: "The missing tape (fictional case)", look: "Rich & detailed", featured: 8,
+    alt: "Documentary thumbnail concept for a fictional channel and fictional case: 'The missing tape' in white and red beside an old cassette recorder circled in red on a desk of case files" },
+  { id: "space", file: "/work/v3/thumb-space.webp", small: "/work/v3/thumb-space-640.webp", niche: "Faceless & AI channels", title: "What's inside a black hole?", look: "Clean & simple", featured: 9,
+    alt: "Faceless science channel thumbnail concept: 'What's inside?' in white and orange next to a glowing black hole on a black starfield" },
+  { id: "mics", file: thumbnails[0].file, niche: "Tech review", title: "I tried 5 budget mics", look: "Clean & simple", alt: thumbnails[0].alt },
+  { id: "sourdough", file: thumbnails[1].file, niche: "Food & cooking", title: "30 day sourdough", look: "Clean & simple", alt: thumbnails[1].alt },
+  { id: "1k-month", file: thumbnails[2].file, niche: "Money & finance", title: "My first $1K month", look: "Clean & simple", alt: thumbnails[2].alt },
+  { id: "alps", file: thumbnails[3].file, niche: "Travel vlog", title: "Alps on $40 a day", look: "Clean & simple", alt: thumbnails[3].alt },
+  { id: "ui-tips", file: thumbnails[4].file, niche: "Design & creative", title: "Stop doing this in your UI", look: "Clean & simple", alt: thumbnails[4].alt },
+  { id: "5am", file: thumbnails[5].file, niche: "Lifestyle", title: "5AM routine, honest review", look: "Clean & simple", alt: thumbnails[5].alt },
 ];
 
-/** Newer logo concepts, each shown as a light and a dark tile (1600x800 WebP, with an 800px variant). Brands are fictional. */
-export const featuredLogos = [
-  {
-    file: "/work/v2/logo-stillmoor.webp",
-    small: "/work/v2/logo-stillmoor-800.webp",
-    name: "Stillmoor",
-    note: "Wellness retreat",
-    alt: "Stillmoor logo concept for a fictional wellness retreat: an arched doorway framing a rising sun over still water, with a spaced serif wordmark, on light and dark tiles",
-  },
-  {
-    file: "/work/v2/logo-lunebrook.webp",
-    small: "/work/v2/logo-lunebrook-800.webp",
-    name: "Lunebrook",
-    note: "Tea house",
-    alt: "Lunebrook logo concept for a fictional tea house: a brass crescent moon above two brook waves, with a soft serif wordmark, on light and dark tiles",
-  },
-  {
-    file: "/work/v2/logo-aurivane.webp",
-    small: "/work/v2/logo-aurivane-800.webp",
-    name: "Aurivane",
-    note: "Grid battery startup",
-    alt: "Aurivane logo concept for a fictional energy storage startup: a monoline letter A crossed by an offset blue vane stroke, with a geometric lowercase wordmark, on light and dark tiles",
-  },
+export type LogoSample = {
+  id: string;
+  name: string;
+  industry: string;
+  note: string;
+  look: Look;
+  file: string;
+  small?: string;
+  size: [number, number];
+  alt: string;
+  /** Full brand system board (homepage featured set). */
+  system?: boolean;
+  featured?: number;
+};
+
+/** All logo concepts. Every brand is fictional. */
+export const logoSamples: LogoSample[] = [
+  { id: "aurivane", name: "Aurivane", industry: "Tech startups", note: "Grid battery startup", look: "Clean & simple", system: true, featured: 1,
+    file: "/work/v3/logo-aurivane-system.webp", small: "/work/v3/logo-aurivane-system-800.webp", size: [1600, 1200],
+    alt: "Aurivane brand system concept for a fictional energy-storage startup: monoline A with a blue vane stroke and lowercase wordmark on light and dark, a blue app icon, a dark round social avatar and a front-and-back business card" },
+  { id: "osteria-fennella", name: "Osteria Fennella", industry: "Restaurants & hospitality", note: "Neighbourhood osteria", look: "Balanced", system: true, featured: 2,
+    file: "/work/v3/logo-osteria-fennella-system.webp", small: "/work/v3/logo-osteria-fennella-system-800.webp", size: [1600, 1200],
+    alt: "Osteria Fennella brand system concept for a fictional restaurant: round fennel-sprig stamp and heavy 'Fennella' wordmark with an italic tagline on cream and deep green, a tomato-red app icon, a green social avatar and a business card" },
+  { id: "maison-orrevel", name: "Maison Orrevel", industry: "Luxury & fashion", note: "Perfume house", look: "Clean & simple", system: true, featured: 3,
+    file: "/work/v3/logo-maison-orrevel-system.webp", small: "/work/v3/logo-maison-orrevel-system-800.webp", size: [1600, 1200],
+    alt: "Maison Orrevel brand system concept for a fictional perfume house: a slim oval mark with a bronze diamond and a spaced serif ORREVEL wordmark on ivory and black, an app icon, a bronze social avatar and a business card" },
+  { id: "vexhound", name: "Vexhound", industry: "Gaming & esports", note: "Esports team mascot", look: "Rich & detailed", system: true, featured: 4,
+    file: "/work/v3/logo-vexhound-system.webp", small: "/work/v3/logo-vexhound-system-800.webp", size: [1600, 1200],
+    alt: "Vexhound brand system concept for a fictional esports team: an angular violet hound-head mascot with lime eyes and a bold VEXHOUND wordmark on light and dark, an app icon, a violet social avatar and a business card" },
+  { id: "ashcombe-ferrand", name: "Ashcombe Ferrand", industry: "Professional services", note: "Advisory firm", look: "Clean & simple", system: true, featured: 5,
+    file: "/work/v3/logo-ashcombe-ferrand-system.webp", small: "/work/v3/logo-ashcombe-ferrand-system-800.webp", size: [1600, 1200],
+    alt: "Ashcombe Ferrand brand system concept for a fictional advisory firm: a framed serif AF monogram in navy and brass with a serif wordmark on light and dark, an app icon, a brass social avatar and a business card" },
+  { id: "puddlewhistle", name: "Puddlewhistle Play Club", industry: "Kids & community", note: "Weekend play club", look: "Rich & detailed", system: true, featured: 6,
+    file: "/work/v3/logo-puddlewhistle-system.webp", small: "/work/v3/logo-puddlewhistle-system-800.webp", size: [1600, 1200],
+    alt: "Puddlewhistle Play Club brand system concept for a fictional kids' club: a smiling blue raindrop character with a rounded wordmark on cream and navy, a yellow app icon, a navy social avatar and a business card" },
+  { id: "stillmoor", name: "Stillmoor", industry: "Health & wellness", note: "Wellness retreat", look: "Clean & simple",
+    file: "/work/v2/logo-stillmoor.webp", small: "/work/v2/logo-stillmoor-800.webp", size: [1600, 800],
+    alt: "Stillmoor logo concept for a fictional wellness retreat: an arched doorway framing a rising sun over still water, with a spaced serif wordmark, on light and dark tiles" },
+  { id: "lunebrook", name: "Lunebrook", industry: "Restaurants & hospitality", note: "Tea house", look: "Balanced",
+    file: "/work/v2/logo-lunebrook.webp", small: "/work/v2/logo-lunebrook-800.webp", size: [1600, 800],
+    alt: "Lunebrook logo concept for a fictional tea house: a brass crescent moon above two brook waves, with a soft serif wordmark, on light and dark tiles" },
+  { id: "calm-podium", name: "The Calm Podium", industry: "Coaching & courses", note: "Speaking course", look: "Clean & simple",
+    file: "/work/v3/logo-calm-podium.webp", small: "/work/v3/logo-calm-podium-800.webp", size: [1600, 800],
+    alt: "The Calm Podium logo concept for a fictional speaking course: an arch over a podium line with an apricot dot, and a serif wordmark, on cream and deep green tiles" },
+  { id: "smilewick", name: "Smilewick", industry: "Health & wellness", note: "Dental clinic", look: "Clean & simple",
+    file: "/work/v3/logo-smilewick-dental.webp", small: "/work/v3/logo-smilewick-dental-800.webp", size: [1600, 800],
+    alt: "Smilewick logo concept for a fictional dental clinic: a rounded teal tile with a smile line, and a sans-serif wordmark, on light and dark tiles" },
+  { id: "kettlefin", name: "Kettlefin", industry: "Fitness", note: "Strength gym", look: "Balanced",
+    file: "/work/v3/logo-kettlefin.webp", small: "/work/v3/logo-kettlefin-800.webp", size: [1600, 800],
+    alt: "Kettlefin logo concept for a fictional strength gym: a kettlebell with an orange arrow and a tall condensed wordmark, on light and black tiles" },
+  { id: "pipewren", name: "Pipewren", industry: "Local services", note: "Plumbing & heating", look: "Clean & simple",
+    file: "/work/v3/logo-pipewren.webp", small: "/work/v3/logo-pipewren-800.webp", size: [1600, 800],
+    alt: "Pipewren logo concept for a fictional plumber: a pipe bend with a copper drop in a rounded navy tile, and a bold wordmark, on white and navy tiles" },
+  { id: "tidewell", name: "Tidewell", industry: "Kids & community", note: "Swim school", look: "Clean & simple", file: logos[0].file, size: [600, 600], alt: "Tidewell logo concept for a fictional swim school" },
+  { id: "brightloom", name: "Brightloom", industry: "Retail & crafts", note: "Textile studio", look: "Balanced", file: logos[1].file, size: [600, 600], alt: "Brightloom logo concept for a fictional textile studio" },
+  { id: "cobalt-owl", name: "Cobalt Owl", industry: "Restaurants & hospitality", note: "Night-shift coffee", look: "Balanced", file: logos[2].file, size: [600, 600], alt: "Cobalt Owl logo concept for a fictional night-shift coffee bar" },
 ];
 
 export function getOffer(id: ServiceId) {

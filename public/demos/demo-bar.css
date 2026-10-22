@@ -1,0 +1,6 @@
+/* Concept-demo ribbon shown on every /demos/ page. */
+.sd-bar{position:relative;z-index:100;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:center;padding:9px 16px;background:#0E0E12;color:#FAFAF7;font:500 13px/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-align:center}
+.sd-bar b{font-weight:700}
+.sd-bar a{color:#FFD84D;text-decoration:underline;text-underline-offset:2px}
+.sd-bar a:focus-visible{outline:2px solid #FFD84D;outline-offset:2px}
+img{max-width:100%;height:auto}

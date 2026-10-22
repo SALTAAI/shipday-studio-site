@@ -1,0 +1,89 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Pipewren Plumbing · Concept demo (fictional business) · Shipday Studio</title>
+<link rel="stylesheet" href="/demos/fonts/fonts.css"><link rel="stylesheet" href="/demos/demo-bar.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#10213D;--copper:#D96C34;--mint:#DDF0E6;--sky:#EEF4FA;--ink:#14213A;--muted:#5B6782;--line:#DCE4EE;--pad:clamp(20px,5vw,72px)}
+body{background:#fff;color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,sans-serif;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{background:var(--navy);color:#C9D4E8;font-size:14px;text-align:center;padding:9px 16px}
+.top b{color:#fff}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px var(--pad);max-width:1320px;margin:0 auto}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;font-size:21px;letter-spacing:-.02em;color:var(--navy)}
+nav ul{display:flex;gap:30px;list-style:none;font-weight:600;font-size:15px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;padding:15px 22px;font-weight:700;background:var(--copper);color:#fff;transition:background .2s,transform .15s}
+.btn:hover{background:#c25a25;transform:translateY(-1px)}
+.btn.dark{background:var(--navy)}
+.btn.out{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 2px var(--line)}
+.hero{max-width:1320px;margin:0 auto;padding:clamp(20px,4vw,48px) var(--pad) clamp(60px,8vw,100px);display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,64px);align-items:center}
+.badge{display:inline-flex;gap:8px;align-items:center;background:var(--mint);color:#1F6B47;border-radius:99px;padding:7px 14px;font-weight:700;font-size:14px}
+h1{font-size:clamp(42px,5.6vw,76px);line-height:1;letter-spacing:-.04em;font-weight:800;margin-top:20px;color:var(--navy)}
+h1 span{color:var(--copper)}
+.lede{font-size:clamp(17px,1.5vw,20px);line-height:1.6;color:var(--muted);margin-top:20px;max-width:540px}
+.quick{margin-top:30px;background:var(--sky);border-radius:20px;padding:18px;display:grid;grid-template-columns:1fr 1fr auto;gap:10px;max-width:600px}
+.quick label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:6px}
+.quick select{width:100%;font:inherit;font-weight:600;font-size:15px;border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:#fff;color:var(--ink)}
+.quick .btn{align-self:end}
+.facts{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:20px;font-size:14px;color:var(--muted);font-weight:600}
+.facts span:before{content:"✓ ";color:var(--copper);font-weight:800}
+.pic{position:relative}
+.pic img{border-radius:28px;width:100%;aspect-ratio:4/3.3;object-fit:cover}
+.float{position:absolute;left:-18px;bottom:24px;background:#fff;border-radius:18px;padding:14px 18px;box-shadow:0 20px 50px -20px rgba(16,33,61,.4);display:flex;gap:12px;align-items:center;font-size:14px}
+.float i{width:40px;height:40px;border-radius:12px;background:var(--mint);display:grid;place-items:center;font-style:normal;font-size:20px}
+.float b{display:block;font-size:16px}
+section{max-width:1320px;margin:0 auto;padding:clamp(64px,8vw,110px) var(--pad) 0}
+.eb{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--copper)}
+h2{font-size:clamp(32px,3.8vw,50px);letter-spacing:-.035em;line-height:1.05;font-weight:800;margin-top:12px;color:var(--navy);max-width:720px}
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.svc div{border:1px solid var(--line);border-radius:20px;padding:24px;transition:border-color .2s}
+.svc div:hover{border-color:var(--copper)}
+.svc svg{display:block}
+.svc h3{font-size:19px;margin-top:16px;color:var(--navy)}
+.svc p{color:var(--muted);font-size:15px;line-height:1.55;margin-top:8px}
+.svc small{display:block;margin-top:14px;font-weight:700;color:var(--ink);font-size:14px}
+.fair{background:var(--navy);color:#DCE4F2;border-radius:28px;padding:clamp(28px,5vw,60px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+.fair h2{color:#fff}
+.fair ol{list-style:none;display:grid;gap:14px;counter-reset:s}
+.fair li{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start;background:rgba(255,255,255,.06);border-radius:16px;padding:16px;counter-increment:s}
+.fair li:before{content:counter(s);width:42px;height:42px;border-radius:12px;background:var(--copper);color:#fff;font-weight:800;display:grid;place-items:center}
+.fair li b{color:#fff;display:block}
+.area{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.area div{background:var(--sky);border-radius:20px;padding:26px}
+.area h3{color:var(--navy)}
+.area p{color:var(--muted);margin-top:8px;line-height:1.6}
+.cta{text-align:center;padding:clamp(64px,8vw,100px) var(--pad)}
+.cta h2{margin:12px auto 0}
+.cta .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+footer{border-top:1px solid var(--line);padding:32px var(--pad);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;color:var(--muted);font-size:14px}
+@media (max-width:1000px){.svc{grid-template-columns:1fr 1fr}}
+@media (max-width:900px){nav ul{display:none}.hero,.fair,.area{grid-template-columns:1fr}.float{left:12px}}
+@media (max-width:560px){.svc{grid-template-columns:1fr}.quick{grid-template-columns:1fr}.top span.x{display:none}}
+</style></head><body>
+<div class="sd-bar"><span><b>Concept demo · redesign "after"</b> · Pipewren Plumbing is a fictional business, not a client project.</span><a href="/work/landing-pages/">← Back to Shipday Studio samples</a></div>
+<div class="top"><b>Burst pipe or no hot water?</b> Same-day emergency visits, 7 days a week.<span class="x"> · Average arrival under 90 min</span></div>
+<nav><a class="logo" href="#top"><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="10" fill="#10213D"/><path d="M9 11h9a5 5 0 0 1 5 5v8" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/><circle cx="23" cy="27" r="2.4" fill="#D96C34"/></svg>Pipewren</a>
+<ul><li><a href="#services">Services</a></li><li><a href="#pricing">How pricing works</a></li><li><a href="#area">Areas</a></li></ul><a class="btn" href="#book">Book a visit</a></nav>
+<header class="hero" id="top"><div>
+<span class="badge">● Booking slots available today</span>
+<h1>Plumbing &amp; heating, <span>sorted properly.</span></h1>
+<p class="lede">Leaks, boilers, bathrooms and blocked drains. Clear prices before we start, tidy work, and a 12-month guarantee on every job.</p>
+<form class="quick" id="book" aria-label="Quick booking (demo)" onsubmit="event.preventDefault();this.querySelector('button').textContent='Demo only ✓'">
+<div><label for="job">What's up?</label><select id="job"><option>Leak or drip</option><option>Boiler / no heating</option><option>Blocked drain</option><option>Bathroom fit</option></select></div>
+<div><label for="when">When?</label><select id="when"><option>Today</option><option>Tomorrow</option><option>This week</option></select></div>
+<button class="btn" type="submit" style="border:0;font:inherit;font-weight:700;cursor:pointer">Check times →</button></form>
+<div class="facts"><span>Fixed call-out price</span><span>Card or invoice</span><span>12-month guarantee</span></div>
+</div><div class="pic"><img src="bath.webp" width="1300" height="975" alt="Bright, freshly fitted bathroom with a walk-in shower and wooden vanity"><div class="float"><i><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="#1F6B47" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i><div><b>Job done, mess gone</b>We clean up before we leave</div></div></div></header>
+<section id="services"><p class="eb">Services</p><h2>Most jobs fixed in a single visit.</h2>
+<div class="svc">
+<div><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#DDF0E6"/><path d="M20 10c4 6 7 9 7 13a7 7 0 0 1-14 0c0-4 3-7 7-13z" fill="#1F6B47"/></svg><h3>Leaks &amp; repairs</h3><p>Dripping taps, hidden leaks, burst pipes and valves.</p><small>From $85 call-out</small></div>
+<div><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#FCE7DB"/><path d="M14 28c-2-6 4-8 2-14 5 3 6 6 5 9 2-1 3-3 3-5 3 4 3 9-1 11z" fill="#D96C34"/></svg><h3>Boilers &amp; heating</h3><p>Servicing, repairs and radiator problems, all makes.</p><small>Service from $120</small></div>
+<div><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#E3EBF7"/><path d="M12 14h16M14 14v6a6 6 0 0 0 12 0v-6M20 26v5" fill="none" stroke="#10213D" stroke-width="2.6" stroke-linecap="round"/></svg><h3>Blocked drains</h3><p>Sinks, showers and outside drains cleared fast.</p><small>From $95</small></div>
+<div><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#F1ECFA"/><path d="M11 21h18v3a6 6 0 0 1-6 6h-6a6 6 0 0 1-6-6zM14 21v-8a3 3 0 0 1 6 0" fill="none" stroke="#5B3FA8" stroke-width="2.6" stroke-linecap="round"/></svg><h3>Bathroom fitting</h3><p>Design, fitting and tiling, managed start to finish.</p><small>Free home quote</small></div>
+</div></section>
+<section id="pricing"><div class="fair"><div><p class="eb" style="color:#F2A67E">How pricing works</p><h2>No surprises on the invoice.</h2><p style="margin-top:16px;line-height:1.65;color:#B9C6DD">You'll know the price before any work starts. If the job turns out bigger, we stop and ask first.</p></div>
+<ol><li><div><b>Book a slot online</b>Pick a two-hour window that suits you.</div></li><li><div><b>Fixed call-out, then a quote</b>We diagnose, then give a written price.</div></li><li><div><b>You approve, we fix</b>Pay by card or invoice when you're happy.</div></li></ol></div></section>
+<section id="area"><p class="eb">Where we work</p><h2>Local, so we're never far away.</h2>
+<div class="area"><div><h3>Town centre &amp; old quarter</h3><p>Same-day visits most weekdays. Parking permits sorted by us.</p></div><div><h3>Surrounding villages</h3><p>Within 15 km of the workshop, no extra travel charge.</p></div></div></section>
+<div class="cta"><p class="eb">Ready when you are</p><h2>Get a plumber booked in two minutes.</h2><div class="row"><a class="btn" href="#book">Book a visit</a><a class="btn out" href="#services">See services</a></div></div>
+<footer><span>© Pipewren Plumbing &amp; Heating · Concept design, fictional business</span><span>Privacy · Terms</span></footer>
+</body></html>
