@@ -23,6 +23,8 @@ const priceLabel = (o) => `$${o.price}${o.unit ?? ""}`;
 const html = (s) => {
   const o = offers.find((x) => x.id === s.offer);
   const size = s.h1.length > 70 ? 58 : s.h1.length > 55 ? 64 : 72;
+  // Long slugs: shrink the footer URL line so it stays on one line.
+  const urlSize = s.slug.length > 30 ? 19 : 22;
   return `<!doctype html><html><head><meta charset="utf-8"><style>
 *{margin:0;box-sizing:border-box}body{width:1200px;height:630px;background:#0E0E12;color:#FAFAF7;font-family:Inter,"Helvetica Neue",Arial,sans-serif;position:relative;overflow:hidden}
 .glow{position:absolute;right:-160px;top:-160px;width:620px;height:620px;border-radius:50%;background:#FF5A1F;opacity:.35;filter:blur(80px)}
@@ -33,7 +35,7 @@ h1{margin-top:18px;font-size:${size}px;line-height:1.05;font-weight:900;letter-s
 .chips{position:absolute;left:80px;bottom:110px;display:flex;gap:14px}
 .chip{border:2px solid rgba(250,250,247,.2);border-radius:999px;padding:12px 22px;font-size:24px;font-weight:600}
 .chip b{color:#FFD84D}
-.url{position:absolute;left:80px;bottom:50px;font-size:22px;opacity:.6}
+.url{position:absolute;left:80px;bottom:50px;font-size:${urlSize}px;opacity:.6;white-space:nowrap}
 </style></head><body><div class="glow"></div><div class="wrap">
 <div class="brand"><svg width="52" height="52" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1d1d24"/><path d="M14 40 L32 14 L50 40 Z" fill="#FF5A1F"/><rect x="12" y="44" width="40" height="7" rx="3.5" fill="#FAFAF7"/></svg>Shipday Studio</div>
 <div class="eyebrow">${esc(s.eyebrow)}</div>
