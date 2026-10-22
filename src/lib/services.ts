@@ -20,6 +20,8 @@ export type ServicePage = {
   metaDescription: string;
   eyebrow: string;
   h1: string;
+  /** Tail of h1 shown in the accent colour, like the homepage hero ("…, shipped in 48 hours."). */
+  h1Accent?: string;
   intro: string[];
   /** What the buyer gets, beyond the package checklist. */
   sections: { title: string; body: string }[];
@@ -45,6 +47,7 @@ export const services: ServicePage[] = [
       "Fixed-price landing page design: copy written for you, custom mobile-first design, deployed to your domain in 48h for $390. Remote, worldwide, any industry.",
     eyebrow: "Landing page design",
     h1: "A landing page that says what you do, designed and live in 48 hours.",
+    h1Accent: "designed and live in 48 hours.",
     intro: [
       "One focused page: who it is for, what they get, why they should trust it, and one clear action. We write the copy, design it mobile-first, build it in clean code and deploy it to your domain.",
       "It is a fixed price of $390, paid up front through Stripe. There are no calls, no quotes and no hourly billing. Send a short brief by email and the 48-hour clock starts.",
@@ -84,6 +87,7 @@ export const services: ServicePage[] = [
       "Landing page price, explained: what the fixed $390 covers (copy, design, build, deploy, 1 revision), what it doesn't, and how the 48 hours work.",
     eyebrow: "Landing page price, explained",
     h1: "What's in a $390 landing page, line by line.",
+    h1Accent: "line by line.",
     intro: [
       "A fixed price only helps if you know exactly what it buys. This page lists everything the $390 landing page package includes, what it leaves out, and what happens between paying and going live, so you can compare it fairly with a quote or a template.",
       "Short version: one page, copy written for you, a custom mobile-first design, clean static code, deployed to a domain you own, and one revision round. Delivered within 48 hours of a complete brief.",
@@ -126,6 +130,7 @@ export const services: ServicePage[] = [
       "SaaS and startup landing page design: clear positioning, product UI built in code, early-access or demo CTA. $390, live in 48h. Remote, any country.",
     eyebrow: "For SaaS, AI and dev-tool startups",
     h1: "A SaaS landing page that explains the product in one scroll.",
+    h1Accent: "in one scroll.",
     intro: [
       "Early-stage products lose visitors when the homepage is vague. We write and design a launch page that names the problem, shows the product, explains how it works in three steps and asks for one action: join the waitlist, book a demo or start a trial.",
       "Fixed price, $390, delivered in 48 hours and deployed to your domain. Built as fast static code, so you can hand it to your developers or keep it as is.",
@@ -164,6 +169,7 @@ export const services: ServicePage[] = [
       "Sales page design for coaches, consultants and course creators: a clear promise, who it's for, your offer and one booking action. $390, live in 48h.",
     eyebrow: "For coaches, consultants and course creators",
     h1: "A calm, credible sales page for your coaching offer or course.",
+    h1Accent: "for your coaching offer or course.",
     intro: [
       "People buy coaching when they recognise themselves on the page. We write a page around one promise, a clear 'who this is for', what happens week by week, the price and your refund terms, then one action: book a call, apply or reserve a seat.",
       "No hype, no fake countdown timers, no invented testimonials. $390 fixed, delivered in 48 hours and deployed to your domain.",
@@ -202,6 +208,7 @@ export const services: ServicePage[] = [
       "E-commerce landing page design for DTC and Shopify brands: product hero, colourways, bestsellers and Shop buttons to your store. $390 fixed, live in 48h.",
     eyebrow: "For DTC, Shopify and online product brands",
     h1: "A product landing page that makes your bestseller easy to buy.",
+    h1Accent: "easy to buy.",
     intro: [
       "Marketplace listings and stock store themes tend to look alike. We design one focused page around your product: a hero that shows it in use, the details that decide the purchase (colours, sizes, materials, care), your bestsellers, and buttons that go straight to the product pages or checkout you already have.",
       "For brands selling on Shopify, WooCommerce, Etsy, Squarespace or a payment link, anywhere in the world: $390 fixed, deployed to your domain within 48 hours. It's one page that sends buyers to your store, not a new store.",
@@ -250,6 +257,7 @@ export const services: ServicePage[] = [
       "One-page websites for restaurants, trades, clinics, gyms and shops: services, prices, hours, area and online booking up front. $390 fixed, live in 48h.",
     eyebrow: "For restaurants, trades, clinics, gyms and shops",
     h1: "A one-page website that gets local customers to book, call or visit.",
+    h1Accent: "book, call or visit.",
     intro: [
       "Local customers want four things fast: what you do, roughly what it costs, when you are open and how to book. We build a single, fast page around exactly that, with the main action on the first screen.",
       "Whether you run a restaurant, a plumbing firm, a dental clinic or a studio anywhere in the world, it is the same fixed price: $390, live on your domain in 48 hours.",
@@ -289,6 +297,7 @@ export const services: ServicePage[] = [
       "Website redesign for a dated or cluttered site: we keep what works, rewrite the copy and rebuild it as one fast, mobile-first page. $390 fixed, live in 48h.",
     eyebrow: "Website redesign",
     h1: "Turn a dated website into one clear page that gets people to act.",
+    h1Accent: "gets people to act.",
     intro: [
       "Most old sites don't fail because of the colours. They fail because the visitor can't tell in five seconds what you offer, what it costs and what to do next. We read your current site, keep the content that works, cut the rest and rebuild it as one focused, mobile-first page.",
       "Send the link to your current site. For a fixed $390 we rewrite the copy, design and build the new page, and deploy it to your domain within 48 hours.",
@@ -329,6 +338,7 @@ export const services: ServicePage[] = [
       "Restaurant website design: menu with prices, hours, location and table booking on the first screen, as one fast mobile page. $390, live in 48h, any cuisine.",
     eyebrow: "For restaurants, cafés and bars",
     h1: "A restaurant website where guests can see the menu and book in a few taps.",
+    h1Accent: "book in a few taps.",
     intro: [
       "Guests usually look you up on a phone, often standing outside or deciding between two places. They want tonight's menu with prices, your opening hours, where you are, and a way to book. We build one fast page that answers all four on the first screens, in the mood of your room.",
       "Cafés, bistros, bars, bakeries, food trucks and fine dining, in any city: $390 fixed, deployed to your domain within 48 hours.",
@@ -375,6 +385,7 @@ export const services: ServicePage[] = [
       "Website design for wedding and elopement photographers: a portfolio-led page with packages, starting prices and a check-your-date enquiry. $390, live in 48h.",
     eyebrow: "For wedding and elopement photographers",
     h1: "A wedding photography website that lets your photos lead and your dates fill.",
+    h1Accent: "your dates fill.",
     intro: [
       "Couples decide with their eyes first, then look for three answers: does this feel like us, roughly what does it cost, and are you free on our date. We design one calm, image-led page around your best work, your packages with starting prices, and a single 'check your date' enquiry.",
       "It's a fixed $390, written, designed and deployed to your domain within 48 hours, for photographers working anywhere in the world.",
@@ -414,6 +425,7 @@ export const services: ServicePage[] = [
       "Dental website design: online booking on the first screen, treatments, clear prices, opening hours and help for nervous patients. $390 fixed, live in 48h.",
     eyebrow: "For dental clinics and practices",
     h1: "A dental clinic website that puts nervous patients at ease and gets them booked.",
+    h1Accent: "gets them booked.",
     intro: [
       "Most people put off the dentist, and a confusing website gives them one more reason to. Patients want to know what you treat, what a visit costs, when you're open and how to book without phoning. We design one calm, clear page that answers all of that, with booking on the first screen.",
       "Independent practices, small group clinics and specialists, in any country: $390 fixed, deployed to your domain within 48 hours.",
@@ -460,6 +472,7 @@ export const services: ServicePage[] = [
       "Gym and fitness studio website design: class types, a phone-readable timetable, prices and a free-trial booking on the first screen. $390 fixed, live in 48h.",
     eyebrow: "For gyms, boxes and fitness studios",
     h1: "A gym website that feels like your room and books the first class.",
+    h1Accent: "books the first class.",
     intro: [
       "People shopping for a gym want to know what kind of place it is, which classes suit a beginner, when they run, what it costs and how to try it. We design one bold, fast page around exactly that, with your trial offer as the main action.",
       "Strength gyms, CrossFit-style boxes, yoga, pilates, boxing and martial arts studios, anywhere in the world: $390 fixed, live on your domain in 48 hours.",
@@ -506,6 +519,7 @@ export const services: ServicePage[] = [
       "Nonprofit and charity website design: a clear mission, ways to volunteer, a giving block linked to your donation tool and accessible copy. $390 fixed, in 48h.",
     eyebrow: "For nonprofits, charities and community groups",
     h1: "A nonprofit website that turns visitors into volunteers and regular donors.",
+    h1Accent: "volunteers and regular donors.",
     intro: [
       "Small charities often have a website that's out of date, hard to update or written for the board rather than the people who could help. We design one warm, clear page that says what you do in a sentence, shows the ways to help, and makes giving and signing up easy.",
       "Food banks, community groups, shelters, clubs and causes in any country: $390 fixed, deployed to your domain within 48 hours.",
@@ -545,6 +559,7 @@ export const services: ServicePage[] = [
       "Landing page for indie games: key art, trailer, wishlist and playtest sign-up, pillars and roadmap on one fast page. $390 fixed, live in 48h, for any engine.",
     eyebrow: "For indie game studios and solo developers",
     h1: "A game landing page that turns trailer views into wishlists.",
+    h1Accent: "into wishlists.",
     intro: [
       "Your store page has a fixed layout. Your own site doesn't. We design one page around your key art and trailer, with the wishlist and playtest buttons where players see them first, then three gameplay pillars, a media grid, a roadmap and a press section.",
       "It's a fixed $390, deployed to your domain within 48 hours: a home for your game that you can link from trailers, socials, festival listings and press emails.",
@@ -596,6 +611,7 @@ export const services: ServicePage[] = [
       "YouTube thumbnail design: a pack of 4 custom 1280×720 thumbnails with bold, phone-readable titles and source files, delivered in 24h for $79. Any niche.",
     eyebrow: "YouTube thumbnail design",
     h1: "Four YouTube thumbnails, built to be read at phone size, in 24 hours.",
+    h1Accent: "in 24 hours.",
     intro: [
       "A thumbnail has a fraction of a second in a crowded feed. We design each one around a single focal point and a three-to-four word hook that adds something the title doesn't, then check it at the size it actually shows on a phone.",
       "The pack is 4 custom thumbnails at 1280×720 for $79, with source files and one revision round, delivered within 24 hours of your brief.",
@@ -634,6 +650,7 @@ export const services: ServicePage[] = [
       "Thumbnails for faceless YouTube channels: one strong object or scene, a short hook and a repeatable series look. 4 for $79 in 24h, source files included.",
     eyebrow: "For faceless YouTube channels",
     h1: "Thumbnails that stop the scroll without a face on them.",
+    h1Accent: "without a face on them.",
     intro: [
       "Face-led channels lean on an expression. Faceless channels have to do the same job with an object, a scene or a visual question: a cracked piggy bank, a circled cassette tape, a black hole asking 'what's inside?'. Every sample on this page is faceless.",
       "A pack is 4 custom 1280×720 thumbnails for $79, delivered within 24 hours of your brief, with source files and one revision round.",
@@ -673,6 +690,7 @@ export const services: ServicePage[] = [
       "YouTube thumbnail price, explained: what the fixed $79 pack covers (4 thumbnails at 1280×720, source files, 1 revision), what it doesn't and how the 24h works.",
     eyebrow: "Thumbnail price, explained",
     h1: "What's in a $79 YouTube thumbnail pack, line by line.",
+    h1Accent: "line by line.",
     intro: [
       "A fixed price only helps if you know exactly what it buys. This page lists everything the $79 thumbnail pack includes, what it leaves out, and what happens between paying and getting your files, so you can compare it fairly with a per-thumbnail quote or a monthly retainer.",
       "Short version: four custom thumbnails at 1280×720, bold titles that read at phone size, the exports plus editable source files, and one revision round. Delivered within 24 hours of a complete brief.",
@@ -717,6 +735,7 @@ export const services: ServicePage[] = [
       "Fixed-price logo design: 3 distinct concepts, pick one, get final SVG and PNG files in light and dark versions in 48h for $149. Any business, worldwide.",
     eyebrow: "Logo design",
     h1: "Three logo concepts. Pick one, get the final files in 48 hours.",
+    h1Accent: "the final files in 48 hours.",
     intro: [
       "We design three genuinely different directions for your brand, not three colour swaps of the same idea. You pick one, use your revision round to refine it, and get final files ready for your site, socials, signage and print.",
       "Fixed price: $149, delivered within 48 hours of your brief, with SVG and PNG files in light and dark versions.",
@@ -755,6 +774,7 @@ export const services: ServicePage[] = [
       "Logo design price, explained: what the fixed $149 pack covers (3 concepts, SVG + PNG in light and dark, 1 revision), what it doesn't, and the 48h turnaround.",
     eyebrow: "Logo price, explained",
     h1: "What's in a $149 logo design pack, line by line.",
+    h1Accent: "line by line.",
     intro: [
       "A fixed price only helps if you know exactly what it buys. This page lists everything the $149 logo pack includes, what it leaves out, and what happens between paying and getting your files, so you can compare it fairly with a design quote or a logo generator.",
       "Short version: three distinct concepts, you pick one, one revision round to refine it, and the final logo as SVG and PNG files in light and dark versions. Delivered within 48 hours of a complete brief.",
