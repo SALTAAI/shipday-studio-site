@@ -53,7 +53,10 @@ function Samples({ sm }: { sm: Service["samples"] }) {
             <div className="overflow-hidden rounded-xl border border-line bg-ink shadow-sm">
               <img src={t.small ?? t.file} alt={t.alt} width={640} height={360} loading="lazy" decoding="async" className="aspect-video w-full object-cover" />
             </div>
-            <p className="mt-2 text-sm font-semibold">{t.niche}{t.pair ? ` · version ${t.pair.variant}` : ""}</p>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <p className="text-sm font-semibold">{t.niche}{t.pair ? ` · version ${t.pair.variant}` : ""}</p>
+              <ConceptBadge label="Concept · fictional channel" />
+            </div>
             <p className="text-sm text-muted">{t.pair ? t.pair.angle : t.title}</p>
           </li>
         ))}
@@ -68,8 +71,11 @@ function Samples({ sm }: { sm: Service["samples"] }) {
           <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
             <img src={l.small ?? l.file} alt={l.alt} width={800} height={600} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
           </div>
-          <p className="mt-3 font-bold">{l.name}</p>
-          <p className="text-sm text-muted">{l.industry} · {l.note} (fictional brand)</p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <p className="font-bold">{l.name}</p>
+            <ConceptBadge />
+          </div>
+          <p className="text-sm text-muted">{l.industry} · {l.note}</p>
         </li>
       ))}
     </ul>
