@@ -348,7 +348,7 @@ export function ContentSection({
 }
 
 /** Text-only hero for legal pages: same pill, title typography, glow and spacing as the homepage hero, without the collage. */
-export function TextHero({ pill, title, body }: { pill: string; title: ReactNode; body: ReactNode }) {
+export function TextHero({ pill, title, body, actions }: { pill: string; title: ReactNode; body: ReactNode; actions?: ReactNode }) {
   return (
     <section className="relative overflow-hidden">
       <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-flame/15 blur-3xl" />
@@ -359,6 +359,7 @@ export function TextHero({ pill, title, body }: { pill: string; title: ReactNode
           </p>
           <h1 className={heroTitleClass}>{title}</h1>
           <p className="mt-6 max-w-xl text-lg text-muted">{body}</p>
+          {actions && <div className="mt-8 flex flex-wrap gap-3">{actions}</div>}
         </div>
       </div>
     </section>

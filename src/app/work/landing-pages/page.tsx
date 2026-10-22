@@ -5,7 +5,7 @@ import { WorkIndex } from "@/components/WorkIndex";
 export const metadata: Metadata = pageMeta({
   path: "/work/landing-pages",
   title: "Landing page examples",
-  description: "Landing page concepts across industries, from clean and simple to rich and detailed, most with a live responsive demo. All brands are fictional.",
+  description: "Landing page concepts across industries, from clean and simple to rich and detailed, with design notes and full designs. All brands are fictional.",
 });
 
 export default function LandingPagesIndex() {
@@ -15,7 +15,7 @@ export default function LandingPagesIndex() {
       offer="landing"
       current="/work/landing-pages/"
       title="Landing page examples"
-      intro="Concept pages for SaaS, courses, restaurants, clinics, games, trades and more. Most have a live demo you can open and scroll on any screen size. Filter by industry or by look."
+      intro="Concept pages for SaaS, courses, restaurants, clinics, games, trades and more. Most let you see the full design and scroll it on any screen size. Filter by industry or by look."
       cta="Get a landing page"
     />
   );

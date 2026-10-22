@@ -179,7 +179,7 @@ export type CaseStudy = {
   card?: string;
   /** Short aesthetic label shown on gallery cards. */
   style?: string;
-  /** Live, responsive concept demo hosted under /demos/ (static, noindex). */
+  /** Full responsive concept page ("See the design") hosted under /demos/ (static, noindex). */
   demo?: string;
   /** Mobile screenshot (360x779) shown next to the desktop card. */
   mobile?: string;

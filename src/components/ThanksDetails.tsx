@@ -40,7 +40,7 @@ export function ThanksDetails() {
   return (
     <>
       {offer && (
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-white p-4 sm:p-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-line bg-white p-6">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-muted">Your package</p>
             <p className="mt-0.5 text-lg font-bold">{offer.name}</p>
@@ -51,12 +51,14 @@ export function ThanksDetails() {
         </div>
       )}
 
-      <h2 className="mt-12 text-2xl font-extrabold tracking-tight">What happens next</h2>
-      <ol className="mt-5 grid gap-4 sm:grid-cols-3">
+      <p className="eyebrow mt-12">How it works</p>
+      <h2 className="h2 mt-3">What happens next</h2>
+      <ol className="mt-10 grid gap-6 sm:grid-cols-3">
         {steps.map((s, i) => (
-          <li key={s.title} className="flex gap-3 rounded-2xl border border-line bg-white p-4 text-sm">
-            <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-bold text-paper">{i + 1}</span>
-            <span><span className="block font-semibold">{s.title}</span><span className="mt-1 block text-muted">{s.body}</span></span>
+          <li key={s.title} className="rounded-3xl border border-line bg-white p-6">
+            <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-ink font-bold text-paper">{i + 1}</span>
+            <h3 className="mt-5 text-xl font-bold">{s.title}</h3>
+            <p className="mt-2 text-muted">{s.body}</p>
           </li>
         ))}
       </ol>

@@ -20,8 +20,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const c = cases.find((x) => x.slug === slug);
   if (!c) return {};
   const lead = `${c.headline}. Concept landing page for a fictional brand by Shipday Studio`;
-  // Only promise a live demo when the concept actually has one.
-  const description = lead.length <= 150 ? `${lead}, with ${c.demo ? "a live demo" : "design notes"}.` : `${c.kind} concept for a fictional brand: ${c.headline.toLowerCase()}.`;
+  // Only mention the full design when the concept actually has a /demos/ page; keep the meta description within 160 characters.
+  const full = `${lead}, with ${c.demo ? "design notes and the full design" : "design notes"}.`;
+  const description = full.length <= 160 ? full : `${c.kind} concept for a fictional brand: ${c.headline.toLowerCase()}.`;
   return pageMeta({ path: `/work/${c.slug}`, title: `${c.brand}: ${c.kind.toLowerCase()} concept`, description });
 }
 
