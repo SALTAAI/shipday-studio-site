@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const s = getService(slug);
   if (!s) return {};
-  return pageMeta({ path: `/services/${s.slug}`, title: s.metaTitle, description: s.metaDescription });
+  return pageMeta({ path: `/services/${s.slug}`, title: s.metaTitle, description: s.metaDescription, image: { url: `/og/services/${s.slug}.png`, alt: `${s.eyebrow}: ${s.h1}` } });
 }
 
 export default async function ServiceRoute({ params }: { params: Promise<{ slug: string }> }) {
