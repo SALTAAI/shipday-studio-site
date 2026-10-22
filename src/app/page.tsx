@@ -2,8 +2,8 @@ import Link from "next/link";
 import { OfferCards } from "@/components/OfferCards";
 import type { Metadata } from "next";
 import { BuyButton } from "@/components/BuyButton";
-import { cases, faq, industries, logos, steps, thumbnails, site, getOffer, formatPrice, briefMailto } from "@/lib/site";
-import { SampleGallery } from "@/components/SampleGallery";
+import { cases, faq, industries, logoSamples, steps, thumbSamples, site, getOffer, formatPrice, briefMailto } from "@/lib/site";
+import { ConceptBadge, SampleGallery } from "@/components/SampleGallery";
 import { pageMeta } from "@/lib/seo";
 import { services } from "@/lib/services";
 
@@ -22,7 +22,11 @@ export const metadata: Metadata = pageMeta({
 });
 
 export default function Home() {
-  const heroCase = cases.find((c) => c.slug === "quillbyte") ?? cases[0];
+  // Hero collage: flagship landing-page concept plus one v3 thumbnail and one v3 logo (all fictional brands).
+  const heroCase = cases.find((c) => c.slug === "vantorel") ?? cases[0];
+  const [heroW, heroH] = heroCase.imageSize ?? [1200, 2200];
+  const heroThumb = thumbSamples.find((t) => t.id === "finance-b") ?? thumbSamples[0];
+  const heroLogo = logoSamples.find((l) => l.id === "kettlefin") ?? logoSamples[0];
   return (
     <>
       {/* Hero */}
@@ -57,22 +61,29 @@ export default function Home() {
             </dl>
           </div>
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-line bg-white shadow-2xl">
-              <img src={heroCase.image} alt={`${heroCase.brand} sample landing page (fictional brand)`} className="w-full" width={1200} height={2200} fetchPriority="high" />
-            </div>
+            <a
+              href={heroCase.demo ?? `/work/${heroCase.slug}/`}
+              target={heroCase.demo ? "_blank" : undefined}
+              rel={heroCase.demo ? "noopener" : undefined}
+              className="group relative block aspect-[4/5] overflow-hidden rounded-[2rem] border border-line bg-ink shadow-2xl"
+            >
+              <img src={heroCase.image} alt={`${heroCase.brand} sample landing page (concept, fictional brand)`} className="w-full transition duration-500 group-hover:scale-[1.015]" width={heroW} height={heroH} fetchPriority="high" />
+              <span className="absolute bottom-4 right-4"><ConceptBadge dark /></span>
+              <span className="sr-only">{heroCase.demo ? ` Open the live ${heroCase.brand} concept demo (new tab)` : ` ${heroCase.brand} design notes`}</span>
+            </a>
             <img
-              src={thumbnails[0].file}
+              src={heroThumb.small ?? heroThumb.file}
               alt=""
-              width={1280}
-              height={720}
-              className="absolute -bottom-6 -left-4 w-1/2 rotate-[-4deg] rounded-xl border-4 border-white shadow-xl sm:-left-10"
+              width={640}
+              height={360}
+              className="pointer-events-none absolute -bottom-6 -left-4 w-1/2 rotate-[-4deg] rounded-xl border-4 border-white shadow-xl sm:-left-10"
             />
             <img
-              src={logos[2].file}
+              src={heroLogo.small ?? heroLogo.file}
               alt=""
-              width={600}
-              height={600}
-              className="absolute -right-3 -top-5 w-1/4 rotate-[6deg] rounded-2xl border-4 border-white shadow-xl"
+              width={heroLogo.size[0] / 2}
+              height={heroLogo.size[1] / 2}
+              className="pointer-events-none absolute -right-3 -top-5 aspect-square w-1/5 rotate-[6deg] sm:w-1/4 lg:-top-12 rounded-2xl border-4 border-white object-cover object-left shadow-xl"
             />
           </div>
         </div>
