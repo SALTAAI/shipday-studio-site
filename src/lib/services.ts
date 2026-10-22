@@ -73,7 +73,7 @@ export const services: ServicePage[] = [
       { q: "Which industries do you design for?", a: "Any. We work remotely with businesses, creators and brands in any country and any industry. The samples on this page are concepts for fictional brands across SaaS, courses, restaurants, trades, luxury and games." },
       { q: "What if I want changes?", a: "One revision round is included: send one consolidated list of changes within 14 days of delivery. For ongoing edits after that, Upkeep is $49 a month and can be cancelled any time." },
     ],
-    related: ["landing-page-price", "saas-landing-page-design", "local-business-website-design", "indie-game-landing-page"],
+    related: ["landing-page-price", "saas-landing-page-design", "ecommerce-landing-page-design", "local-business-website-design", "indie-game-landing-page"],
   },
   {
     slug: "landing-page-price",
@@ -115,7 +115,7 @@ export const services: ServicePage[] = [
       { q: "What if I change my mind before you start?", a: "If we haven't started work yet, you can cancel for a full refund through Stripe. Once work has started, the revision round is how changes are handled. Full details are in the terms." },
       { q: "Why is it cheaper than an agency?", a: "Because the scope is deliberately small and fixed: one page, no meetings, an AI-assisted workflow with human review, and one revision round. If you need a multi-page site, strategy workshops or a long-term partner, an agency is the better fit." },
     ],
-    related: ["landing-page-design", "website-redesign", "saas-landing-page-design"],
+    related: ["landing-page-design", "website-redesign", "saas-landing-page-design", "ecommerce-landing-page-design"],
   },
   {
     slug: "saas-landing-page-design",
@@ -192,6 +192,54 @@ export const services: ServicePage[] = [
       { q: "I don't have professional photos.", a: "That's fine. We can design with abstract imagery, typography and colour, as in the course concept on this page, and swap in photos later." },
     ],
     related: ["landing-page-design", "logo-design", "local-business-website-design"],
+  },
+  {
+    slug: "ecommerce-landing-page-design",
+    offer: "landing",
+    label: "E-commerce & DTC landing pages",
+    metaTitle: "E-commerce and DTC landing page design, $390",
+    metaDescription:
+      "E-commerce landing page design for DTC and Shopify brands: product hero, colourways, bestsellers and Shop buttons to your store. $390 fixed, live in 48h.",
+    eyebrow: "For DTC, Shopify and online product brands",
+    h1: "A product landing page that makes your bestseller easy to buy.",
+    intro: [
+      "Marketplace listings and stock store themes tend to look alike. We design one focused page around your product: a hero that shows it in use, the details that decide the purchase (colours, sizes, materials, care), your bestsellers, and buttons that go straight to the product pages or checkout you already have.",
+      "For brands selling on Shopify, WooCommerce, Etsy, Squarespace or a payment link, anywhere in the world: $390 fixed, deployed to your domain within 48 hours. It's one page that sends buyers to your store, not a new store.",
+    ],
+    sections: [
+      { title: "The product in the first screen", body: "A headline, one image of the product in use and the main Shop button above the fold, with a 'from' price so buyers know where they stand before they scroll." },
+      { title: "The details that decide the sale", body: "Colourways as swatches, sizes, materials and care in plain words: the questions shoppers ask before they buy, answered on the page instead of in your inbox." },
+      { title: "Shop buttons wired to your store", body: "Every button links to a product page, collection, cart link or checkout your platform already provides. Your store keeps handling stock, payments and shipping." },
+      { title: "A brand look, not a stock theme", body: "Type, colour and layout taken from your product and packaging, from warm and tactile to quiet editorial luxury, built as a fast static page with real text search engines can read." },
+    ],
+    fit: [
+      "DTC brands launching a product, a new colourway or a seasonal drop that needs its own page.",
+      "Shops moving off marketplaces that want a branded front page pointing to their store.",
+      "Small brands and makers whose store theme looks like everyone else's and doesn't tell the product story.",
+      "Brands running ads, creator or newsletter campaigns that need one focused page to send traffic to.",
+    ],
+    notIncluded: [
+      "Building, migrating or theming a store: product catalogue, cart, checkout, inventory, payments or a Shopify theme. We link to the store you already run.",
+      "Product photography: we design with your photos, or clearly placeholder imagery until you have them.",
+      "Paid ads, email flows or SEO campaigns. Upkeep ($49/month) covers small edits after launch.",
+    ],
+    samples: { kind: "landing", slugs: ["haldane-and-oat", "maison-orrevel", "northdrift-ceramics"] },
+    extras: [
+      {
+        title: "Brand logo concept",
+        note: "Logos are a separate $149 pack, shown because new product brands often order both. The textile studio is fictional.",
+        samples: { kind: "logos", ids: ["brightloom"] },
+      },
+    ],
+    moreHref: "/work/landing-pages/",
+    faq: [
+      { q: "Do you build my Shopify store?", a: "No. This is one landing page that sends buyers to the store you already run on Shopify, WooCommerce, Etsy, Squarespace or similar. Your store keeps the catalogue, cart, payments and shipping. We don't build, migrate or theme stores." },
+      { q: "Where does the page live?", a: "On a domain or subdomain you own: your main domain if the store sits elsewhere, or a campaign address such as launch.yourbrand.com. We deploy it to hosting in your name, so you keep the accounts and the code. A version built as a Shopify theme section or template isn't included." },
+      { q: "Can visitors buy straight from the page?", a: "Buttons can go to a product page, a pre-filled cart link or a checkout or payment link your platform provides, and we can place your platform's buy-button embed if it offers one. We don't build a cart of our own." },
+      { q: "What do I need to send?", a: "Product names, prices and links to the product pages, a few photos, and a line on who buys it and why. Packaging, brand colours or an old site help with the look. If something is missing we ask, and the clock pauses until you reply." },
+      { q: "Is Haldane & Oat a real brand?", a: "No. It's a concept for a fictional linen bedding label, made to show the approach: colourway swatches from the first screen, a bestseller row, a materials story and care instructions. Its prices are illustrative. Maison Orrevel and Northdrift Ceramics are fictional brands too." },
+    ],
+    related: ["landing-page-design", "landing-page-price", "logo-design", "website-redesign"],
   },
   {
     slug: "local-business-website-design",

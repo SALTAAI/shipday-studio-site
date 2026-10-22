@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cases, getOffer, formatPrice, site, type CaseStudy } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
+import { services } from "@/lib/services";
 import { BuyButton } from "@/components/BuyButton";
 
 export const dynamicParams = false;
@@ -16,7 +17,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const c = cases.find((x) => x.slug === slug);
   if (!c) return {};
   const lead = `${c.headline}. Concept landing page for a fictional brand by Shipday Studio`;
-  const description = lead.length <= 150 ? `${lead}, with a live demo.` : `${c.kind} concept for a fictional brand: ${c.headline.toLowerCase()}.`;
+  // Only promise a live demo when the concept actually has one.
+  const description = lead.length <= 150 ? `${lead}, with ${c.demo ? "a live demo" : "design notes"}.` : `${c.kind} concept for a fictional brand: ${c.headline.toLowerCase()}.`;
   return pageMeta({ path: `/work/${c.slug}`, title: `${c.brand}: ${c.kind.toLowerCase()} concept`, description });
 }
 
@@ -58,6 +60,8 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   const c = cases.find((x) => x.slug === slug);
   if (!c) notFound();
   const others = cases.filter((x) => x.slug !== c.slug && x.card).slice(0, 6);
+  // Service pages that show this concept as a primary sample (internal links from the case to the offer).
+  const usedOn = services.filter((s) => s.samples.kind === "landing" && s.samples.slugs.includes(c.slug)).slice(0, 3);
 
   return (
     <article className="container-x py-14 sm:py-20">
@@ -100,6 +104,17 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
             )}
             <BuyButton offer={getOffer("landing")} className="btn-accent">Get a page like this · {formatPrice(getOffer("landing"))}</BuyButton>
           </div>
+          {usedOn.length > 0 && (
+            <p className="mt-6 text-sm text-muted">
+              Featured on:{" "}
+              {usedOn.map((s, i) => (
+                <span key={s.slug}>
+                  {i > 0 && " · "}
+                  <Link href={`/services/${s.slug}/`} className="font-semibold text-ink underline decoration-line underline-offset-4 hover:text-accent">{s.label}</Link>
+                </span>
+              ))}
+            </p>
+          )}
         </div>
         <div className="overflow-hidden rounded-3xl border border-line bg-white shadow-xl">
           <div className="flex items-center gap-1.5 border-b border-line px-4 py-3">
