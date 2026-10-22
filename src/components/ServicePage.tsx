@@ -2,11 +2,10 @@ import Link from "next/link";
 import { BuyButton } from "@/components/BuyButton";
 import { ConceptBadge } from "@/components/SampleGallery";
 import { turnaroundLabel } from "@/components/OfferCards";
-import { cases, formatPrice, getOffer, logoSamples, site, thumbSamples } from "@/lib/site";
+import { cases, formatPrice, getOffer, logoSamples, redesign, site, thumbSamples } from "@/lib/site";
 import { getService, type ServicePage as Service } from "@/lib/services";
 
-function Samples({ s }: { s: Service }) {
-  const sm = s.samples;
+function Samples({ sm }: { sm: Service["samples"] }) {
   if (sm.kind === "landing") {
     const list = sm.slugs.map((slug) => cases.find((c) => c.slug === slug)).filter((c): c is (typeof cases)[number] => Boolean(c));
     return (
@@ -74,6 +73,40 @@ function Samples({ s }: { s: Service }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+function BeforeAfter() {
+  return (
+    <div className="mt-8 rounded-3xl border border-line bg-white p-5 sm:p-8">
+      <div className="flex flex-wrap items-center gap-3">
+        <h3 className="text-xl font-bold">Before and after: {redesign.brand}</h3>
+        <ConceptBadge />
+      </div>
+      <p className="mt-2 max-w-2xl text-sm text-muted">
+        A fictional local business. We made the dated &quot;before&quot; page ourselves to show the kind of upgrade a redesign brings: from &quot;please call&quot; for every price to booking online with clear prices.
+      </p>
+      <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <figure>
+          <div className="overflow-hidden rounded-2xl border border-line bg-white">
+            <img src={redesign.before.src} alt="Before (concept): a dated plumbing homepage with a blue gradient header, a scrolling special-offer banner, a sidebar menu, 'please call' prices and a visitor counter" width={960} height={720} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover object-top" />
+          </div>
+          <figcaption className="mt-2 text-sm"><span className="font-semibold">Before</span> <span className="text-muted">· dated, no booking, no prices (made by us)</span></figcaption>
+        </figure>
+        <figure>
+          <div className="overflow-hidden rounded-2xl border border-line bg-white">
+            <img src={redesign.after.src} alt="After (concept): a clean plumbing homepage with a quick-booking form in the hero, a fixed call-out price, services and a bathroom photo" width={960} height={720} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover object-top" />
+          </div>
+          <figcaption className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm">
+            <span><span className="font-semibold">After</span> <span className="text-muted">· booking first, clear prices</span></span>
+            <a href={redesign.after.demo} target="_blank" rel="noopener" className="font-semibold underline decoration-2 underline-offset-4 hover:text-accent">
+              Open live demo <span aria-hidden="true">↗</span><span className="sr-only"> (Pipewren concept, new tab)</span>
+            </a>
+            <Link href={`/work/${redesign.slug}/`} className="text-muted hover:text-accent">Design notes <span aria-hidden="true">→</span></Link>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
   );
 }
 
@@ -193,7 +226,15 @@ export function ServicePageView({ s }: { s: Service }) {
           <p className="eyebrow">Sample concepts</p>
           <h2 id="samples-heading" className="h2 mt-3">The kind of work you get</h2>
           <p className="mt-3 max-w-2xl text-muted">Concept pieces made to show our range of styles, not client projects. Every brand, channel and product shown is fictional.</p>
-          <Samples s={s} />
+          {s.beforeAfter && <BeforeAfter />}
+          <Samples sm={s.samples} />
+          {s.extras?.map((x) => (
+            <div key={x.title} className="mt-14">
+              <h3 className="text-xl font-bold">{x.title}</h3>
+              {x.note && <p className="mt-2 max-w-2xl text-sm text-muted">{x.note}</p>}
+              <Samples sm={x.samples} />
+            </div>
+          ))}
           <Link href={s.moreHref} className="btn-ghost mt-10">See more examples <span aria-hidden="true">→</span></Link>
         </div>
       </section>
