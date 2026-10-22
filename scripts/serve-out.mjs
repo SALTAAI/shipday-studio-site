@@ -1,7 +1,7 @@
 // Minimal GitHub-Pages-like static server for out/ (dir index, /x -> /x/ redirect, 404.html)
 import http from "node:http"; import fs from "node:fs"; import path from "node:path"; import zlib from "node:zlib";
 const root = process.argv[2]; const port = +process.argv[3] || 4310;
-const types = {".html":"text/html; charset=utf-8",".css":"text/css",".js":"application/javascript",".svg":"image/svg+xml",".png":"image/png",".ico":"image/x-icon",".txt":"text/plain",".xml":"application/xml",".json":"application/json",".webmanifest":"application/manifest+json",".woff2":"font/woff2"};
+const types = {".html":"text/html; charset=utf-8",".css":"text/css",".js":"application/javascript",".svg":"image/svg+xml",".png":"image/png",".ico":"image/x-icon",".txt":"text/plain",".xml":"application/xml",".json":"application/json",".webmanifest":"application/manifest+json",".woff2":"font/woff2",".webp":"image/webp"};
 http.createServer((req,res)=>{
   let p = decodeURIComponent(new URL(req.url,"http://x").pathname); let f = path.join(root,p);
   if (fs.existsSync(f) && fs.statSync(f).isDirectory()) { if(!p.endsWith("/")){res.writeHead(301,{Location:p+"/"});return res.end();} f=path.join(f,"index.html"); }

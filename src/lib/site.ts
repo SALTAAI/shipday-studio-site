@@ -150,11 +150,89 @@ export type CaseStudy = {
   approach: string[];
   palette: string[];
   image: string;
+  /** Intrinsic size of `image` (defaults to the original 1200x2200 SVG samples). */
+  imageSize?: [number, number];
+  /** Optional 4:3 crop of the hero used on gallery cards. */
+  card?: string;
+  /** Short aesthetic label shown on gallery cards. */
+  style?: string;
   stats: { label: string; value: string }[];
 };
 
 // All brands below are fictional and created as sample work.
 export const cases: CaseStudy[] = [
+  {
+    slug: "maison-orrevel",
+    brand: "Maison Orrevel",
+    kind: "Fragrance house homepage",
+    style: "Editorial serif luxury",
+    headline: "A quiet, editorial homepage for a small-batch perfume house",
+    summary: "Magazine-style homepage with a single hero fragrance, a notes breakdown, a brand line and a three-piece collection.",
+    brief:
+      "Imagined brief: an independent perfumer launching a numbered Eau de Parfum wants a homepage that feels like a printed magazine, sells one hero scent and introduces the wider collection.",
+    approach: [
+      "Large Cormorant serif headlines with generous whitespace, so the page reads like a printed spread.",
+      "Ivory, ink and bronze only: one accent colour keeps it calm and expensive.",
+      "The composition is told as top, heart and base notes, so buyers understand the scent before they smell it.",
+    ],
+    palette: ["#F4EFE7", "#1E1A15", "#8C6A43", "#D9CFC1"],
+    image: "/work/v2/maison-orrevel.webp",
+    imageSize: [1200, 3401],
+    card: "/work/v2/maison-orrevel-card.webp",
+    stats: [
+      { label: "Package turnaround", value: "48h" },
+      { label: "Sections", value: "6" },
+      { label: "Revision rounds", value: "1" },
+    ],
+  },
+  {
+    slug: "vantorel",
+    brand: "Vantorel",
+    kind: "B2B SaaS homepage",
+    style: "Refined dark SaaS",
+    headline: "A precise, dark homepage for a finance-automation product",
+    summary: "Dark SaaS homepage with a product dashboard built in code, a bento feature grid, a three-step setup and an early-access CTA.",
+    brief:
+      "Imagined brief: a seed-stage team building month-end close automation for finance teams needs a credible launch homepage that shows the product, not stock art.",
+    approach: [
+      "Near-black canvas with a soft violet glow and a faint grid, so the product UI is the brightest thing on the page.",
+      "The dashboard is real HTML, not a screenshot mock-up, so it stays sharp and easy to update.",
+      "No logo wall or testimonials: the page is ready for real proof once beta users arrive.",
+    ],
+    palette: ["#07080C", "#8B7CFF", "#5EEAD4", "#EDEEF3"],
+    image: "/work/v2/vantorel.webp",
+    imageSize: [1200, 2618],
+    card: "/work/v2/vantorel-card.webp",
+    stats: [
+      { label: "Package turnaround", value: "48h" },
+      { label: "Sections", value: "6" },
+      { label: "Revision rounds", value: "1" },
+    ],
+  },
+  {
+    slug: "haldane-and-oat",
+    brand: "Haldane & Oat",
+    kind: "DTC home goods store",
+    style: "Warm minimal DTC",
+    headline: "A warm, tactile storefront for a linen bedding brand",
+    summary: "Direct-to-consumer homepage with a lifestyle hero, colourway swatches, a product row, a materials story and a newsletter sign-up.",
+    brief:
+      "Imagined brief: a small linen bedding label moving off marketplaces wants its own storefront homepage that feels as soft as the product and makes the bestsellers easy to buy.",
+    approach: [
+      "Soft Fraunces headlines and Manrope body text, with oat, clay and sage taken straight from the fabric.",
+      "Colourways are shown as swatches from the first screen, because colour is the main buying decision.",
+      "Care instructions are part of the page, which answers the most common pre-purchase question.",
+    ],
+    palette: ["#F6F0E7", "#B4633F", "#7F8F72", "#2A241E"],
+    image: "/work/v2/haldane-and-oat.webp",
+    imageSize: [1200, 3080],
+    card: "/work/v2/haldane-and-oat-card.webp",
+    stats: [
+      { label: "Package turnaround", value: "48h" },
+      { label: "Sections", value: "7" },
+      { label: "Revision rounds", value: "1" },
+    ],
+  },
   {
     slug: "northdrift-ceramics",
     brand: "Northdrift Ceramics",
@@ -233,6 +311,56 @@ export const logos = [
   { file: "/work/logos/tidewell.svg", name: "Tidewell", note: "Swim school" },
   { file: "/work/logos/brightloom.svg", name: "Brightloom", note: "Textile studio" },
   { file: "/work/logos/cobalt-owl.svg", name: "Cobalt Owl", note: "Night-shift coffee" },
+];
+
+/** Newer, photo-based thumbnail concepts (1280x720 WebP, with a 640px variant). Channels are fictional. */
+export const featuredThumbnails = [
+  {
+    file: "/work/v2/thumb-finance-stop-saving.webp",
+    small: "/work/v2/thumb-finance-stop-saving-640.webp",
+    niche: "Finance",
+    title: "Stop saving. Start owning",
+    alt: "Sample finance thumbnail for a fictional channel: 'Stop saving. Start owning' in bold white and gold type beside a glowing stack of gold coins and a rising chart",
+  },
+  {
+    file: "/work/v2/thumb-travel-last-road-north.webp",
+    small: "/work/v2/thumb-travel-last-road-north-640.webp",
+    niche: "Travel",
+    title: "The last road north",
+    alt: "Sample travel thumbnail for a fictional channel: 'The last road north' over a cinematic golden-hour fjord with a winding coastal road and a red cabin",
+  },
+  {
+    file: "/work/v2/thumb-tech-worth-449.webp",
+    small: "/work/v2/thumb-tech-worth-449-640.webp",
+    niche: "Tech review",
+    title: "Worth $449? 6 months later",
+    alt: "Sample tech review thumbnail for a fictional channel: 'Worth $449? 6 months later' in white and orange next to unbranded graphite headphones",
+  },
+];
+
+/** Newer logo concepts, each shown as a light and a dark tile (1600x800 WebP, with an 800px variant). Brands are fictional. */
+export const featuredLogos = [
+  {
+    file: "/work/v2/logo-stillmoor.webp",
+    small: "/work/v2/logo-stillmoor-800.webp",
+    name: "Stillmoor",
+    note: "Wellness retreat",
+    alt: "Stillmoor logo concept for a fictional wellness retreat: an arched doorway framing a rising sun over still water, with a spaced serif wordmark, on light and dark tiles",
+  },
+  {
+    file: "/work/v2/logo-lunebrook.webp",
+    small: "/work/v2/logo-lunebrook-800.webp",
+    name: "Lunebrook",
+    note: "Tea house",
+    alt: "Lunebrook logo concept for a fictional tea house: a brass crescent moon above two brook waves, with a soft serif wordmark, on light and dark tiles",
+  },
+  {
+    file: "/work/v2/logo-aurivane.webp",
+    small: "/work/v2/logo-aurivane-800.webp",
+    name: "Aurivane",
+    note: "Grid battery startup",
+    alt: "Aurivane logo concept for a fictional energy storage startup: a monoline letter A crossed by an offset blue vane stroke, with a geometric lowercase wordmark, on light and dark tiles",
+  },
 ];
 
 export function getOffer(id: ServiceId) {

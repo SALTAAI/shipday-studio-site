@@ -3,6 +3,7 @@ import { OfferCards } from "@/components/OfferCards";
 import type { Metadata } from "next";
 import { BuyButton } from "@/components/BuyButton";
 import { cases, faq, logos, steps, thumbnails, site, getOffer, formatPrice, briefMailto } from "@/lib/site";
+import { SampleGallery } from "@/components/SampleGallery";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -13,6 +14,7 @@ export const metadata: Metadata = pageMeta({
 });
 
 export default function Home() {
+  const heroCase = cases.find((c) => c.slug === "quillbyte") ?? cases[0];
   return (
     <>
       {/* Hero */}
@@ -42,7 +44,7 @@ export default function Home() {
           </div>
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-line bg-white shadow-2xl">
-              <img src={cases[1].image} alt={`${cases[1].brand} sample landing page (fictional brand)`} className="w-full" width={1200} height={2200} fetchPriority="high" />
+              <img src={heroCase.image} alt={`${heroCase.brand} sample landing page (fictional brand)`} className="w-full" width={1200} height={2200} fetchPriority="high" />
             </div>
             <img
               src={thumbnails[0].file}
@@ -99,37 +101,9 @@ export default function Home() {
         <div className="container-x">
           <p className="eyebrow">Sample concepts</p>
           <h2 className="h2 mt-3">The kind of thing we ship</h2>
-          <p className="mt-3 max-w-2xl text-muted">These are concept pieces made to show our style, not client projects. Every brand shown is fictional.</p>
+          <p className="mt-3 max-w-2xl text-muted">These are concept pieces made to show our style, not client projects. Every brand, channel and product shown is fictional.</p>
 
-          <h3 className="mt-12 text-lg font-bold">Landing pages</h3>
-          <div className="mt-5 grid gap-6 md:grid-cols-3">
-            {cases.map((c) => (
-              <Link key={c.slug} href={`/work/${c.slug}/`} className="group block">
-                <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-paper">
-                  <img src={c.image} alt="" width={1200} height={2200} loading="lazy" decoding="async" className="w-full transition duration-500 group-hover:-translate-y-6 motion-reduce:transition-none" />
-                </div>
-                <p className="mt-3 text-sm text-muted">{c.kind}</p>
-                <p className="font-bold group-hover:text-accent">{c.brand} →</p>
-              </Link>
-            ))}
-          </div>
-
-          <h3 className="mt-14 text-lg font-bold">YouTube thumbnails</h3>
-          <div className="mt-5 grid grid-cols-2 gap-4 md:grid-cols-3">
-            {thumbnails.map((t) => (
-              <img key={t.file} src={t.file} alt={t.alt} width={1280} height={720} loading="lazy" decoding="async" className="w-full rounded-xl border border-line" />
-            ))}
-          </div>
-
-          <h3 className="mt-14 text-lg font-bold">Logos</h3>
-          <div className="mt-5 grid grid-cols-3 gap-4">
-            {logos.map((l) => (
-              <figure key={l.file}>
-                <img src={l.file} alt={`${l.name} logo, ${l.note.toLowerCase()} (fictional)`} width={600} height={600} loading="lazy" decoding="async" className="w-full rounded-2xl border border-line" />
-                <figcaption className="mt-2 text-sm text-muted">{l.name} · {l.note}</figcaption>
-              </figure>
-            ))}
-          </div>
+          <SampleGallery />
         </div>
       </section>
 

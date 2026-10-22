@@ -64,16 +64,16 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
             <span className="h-3 w-3 rounded-full bg-red-400" /><span className="h-3 w-3 rounded-full bg-yellow-400" /><span className="h-3 w-3 rounded-full bg-green-400" />
             <span aria-hidden="true" className="ml-3 truncate rounded-md bg-paper px-3 py-1 text-xs text-muted">{c.slug}.example</span>
           </div>
-          <img src={c.image} alt={`Full ${c.brand} sample landing page (fictional brand)`} width={1200} height={2200} fetchPriority="high" className="w-full" />
+          <img src={c.image} alt={`Full ${c.brand} sample landing page (concept for a fictional brand)`} width={c.imageSize?.[0] ?? 1200} height={c.imageSize?.[1] ?? 2200} fetchPriority="high" className="w-full" />
         </div>
       </div>
 
       <section className="mt-20">
         <h2 className="text-xl font-bold">More sample concepts</h2>
-        <div className="mt-5 grid gap-6 sm:grid-cols-2">
+        <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {others.map((o) => (
             <Link key={o.slug} href={`/work/${o.slug}/`} className="group flex gap-4 rounded-2xl border border-line bg-white p-4 hover:border-ink">
-              <img src={o.image} alt="" width={1200} height={2200} loading="lazy" decoding="async" className="h-28 w-24 rounded-lg object-cover object-top" />
+              <img src={o.card ?? o.image} alt="" width={o.card ? 960 : 1200} height={o.card ? 720 : 2200} loading="lazy" decoding="async" className="h-28 w-24 rounded-lg object-cover object-top" />
               <span>
                 <span className="block text-sm text-muted">{o.kind}</span>
                 <span className="block font-bold group-hover:text-accent">{o.brand} →</span>
