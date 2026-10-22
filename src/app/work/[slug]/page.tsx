@@ -15,7 +15,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const c = cases.find((x) => x.slug === slug);
   if (!c) return {};
-  return pageMeta({ path: `/work/${c.slug}`, title: `${c.brand}: sample landing page`, description: `${c.summary} Sample concept for a fictional brand, not a client project.` });
+  const lead = `${c.headline}. Concept landing page for a fictional brand by Shipday Studio`;
+  const description = lead.length <= 150 ? `${lead}, with a live demo.` : `${c.kind} concept for a fictional brand: ${c.headline.toLowerCase()}.`;
+  return pageMeta({ path: `/work/${c.slug}`, title: `${c.brand}: ${c.kind.toLowerCase()} concept`, description });
 }
 
 export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {

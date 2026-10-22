@@ -10,6 +10,7 @@ export function Header() {
           <span className="text-lg">Shipday Studio</span>
         </Link>
         <nav aria-label="Main" className="flex items-center gap-1 text-sm font-medium sm:gap-6">
+          <Link href="/services/" className="hidden px-2 py-1 hover:text-accent lg:inline">Services</Link>
           <Link href="/#how" className="hidden px-2 py-1 hover:text-accent md:inline">How it works</Link>
           <Link href="/#offers" className="hidden px-2 py-1 hover:text-accent sm:inline">Pricing</Link>
           <Link href="/#work" className="hidden px-2 py-1 hover:text-accent sm:inline">Samples</Link>

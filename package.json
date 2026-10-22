@@ -9,7 +9,8 @@
     "assets": "node scripts/gen-assets.mjs",
     "serve": "node scripts/serve-out.mjs out 4310",
     "screens": "node scripts/screens.mjs",
-    "check-links": "node scripts/check-links.mjs"
+    "check-links": "node scripts/check-links.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "next": "16.4.2",

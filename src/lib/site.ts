@@ -4,7 +4,7 @@ export const site = {
   email: "hello@shipdaystudio.com",
   tagline: "Fixed-price design for businesses, creators and brands worldwide. Shipped in days, not weeks.",
   description:
-    "Remote, fixed-price design studio for businesses, creators and brands worldwide, in any industry. Landing pages and logos in 48h, thumbnails in 24h. USD, no calls.",
+    "Remote, fixed-price design studio for businesses, creators and brands worldwide. Landing pages and logos in 48h, YouTube thumbnails in 24h. No calls.",
   /** Marketing copy is remote and worldwide. The country appears only in the legal identity (site.legal). No personal name or street address is published anywhere on the site. */
   reach: "Remote studio working with businesses, creators and brands worldwide, in any industry.",
   x: { handle: "@ShipdayStudio", url: "https://x.com/ShipdayStudio" },

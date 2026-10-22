@@ -29,7 +29,8 @@ try {
         for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo({ top: y, behavior: "instant" }); await new Promise((r) => setTimeout(r, 60)); }
         window.scrollTo({ top: 0, behavior: "instant" });
       });
-      await page.evaluate(() => Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })))));
+      // Lazy images in hidden gallery tabs never fire load, so cap the wait instead of hanging.
+      await page.evaluate(() => Promise.race([Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })))), new Promise((r) => setTimeout(r, 4000))]));
       await page.waitForTimeout(300);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
       const file = `${OUT}/${name}-${vpName}.png`;

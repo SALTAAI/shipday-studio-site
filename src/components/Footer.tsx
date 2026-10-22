@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { LogoMark } from "./Logo";
+import { services } from "@/lib/services";
 
 export function Footer() {
   return (
     <footer className="mt-24 border-t border-line">
-      <div className="container-x grid gap-8 py-12 sm:grid-cols-[2fr_1fr_1fr]">
+      <div className="container-x grid gap-8 py-12 sm:grid-cols-[2fr_1fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2 font-extrabold"><LogoMark className="h-7 w-7" /> {site.name}</div>
           <p className="mt-3 max-w-xs text-sm text-muted">Fixed-price design for businesses, creators and brands. Remote, working with clients worldwide.</p>
@@ -24,6 +25,14 @@ export function Footer() {
           </ul>
         </div>
         <div className="text-sm">
+          <h2 className="font-semibold">Services</h2>
+          <ul className="mt-2 space-y-1">
+            {services.map((s) => (
+              <li key={s.slug}><Link href={`/services/${s.slug}/`} className="text-muted hover:text-accent">{s.label}</Link></li>
+            ))}
+          </ul>
+        </div>
+        <div className="text-sm">
           <h2 className="font-semibold">Legal</h2>
           <ul className="mt-2 space-y-1">
             <li><Link href="/terms/" className="text-muted hover:text-accent">Terms of Service</Link></li>
@@ -33,7 +42,7 @@ export function Footer() {
         </div>
       </div>
       <div className="container-x border-t border-line py-6 text-xs text-muted">
-        © {new Date().getFullYear()} {site.name} · {site.legal.country} · Prices in USD · Sample work shows fictional brands.
+        © {new Date().getFullYear()} {site.name} · Remote, working with clients worldwide · Prices in USD · Sample work shows fictional brands · <Link href="/imprint/" className="underline hover:text-accent">Legal details</Link>
       </div>
     </footer>
   );

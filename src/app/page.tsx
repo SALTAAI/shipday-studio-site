@@ -5,6 +5,14 @@ import { BuyButton } from "@/components/BuyButton";
 import { cases, faq, industries, logos, steps, thumbnails, site, getOffer, formatPrice, briefMailto } from "@/lib/site";
 import { SampleGallery } from "@/components/SampleGallery";
 import { pageMeta } from "@/lib/seo";
+import { services } from "@/lib/services";
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${site.url}/#faq`,
+  mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
 
 export const metadata: Metadata = pageMeta({
   path: "/",
@@ -37,6 +45,11 @@ export default function Home() {
               <BuyButton offer={getOffer("landing")} className="btn-accent">Get a landing page · {formatPrice(getOffer("landing"))}</BuyButton>
               <a href="#offers" className="btn-ghost">See all prices</a>
             </div>
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted" aria-label="Order guarantees">
+              <li><span aria-hidden="true" className="text-accent">✓</span> Secure Stripe checkout</li>
+              <li><span aria-hidden="true" className="text-accent">✓</span> Full refund if work hasn&apos;t started</li>
+              <li><span aria-hidden="true" className="text-accent">✓</span> You own the final files</li>
+            </ul>
             <dl className="mt-10 grid max-w-md grid-cols-3 gap-4 text-sm">
               <div><dt className="text-muted">Landing page</dt><dd className="text-xl font-bold">48h</dd></div>
               <div><dt className="text-muted">Thumbnails</dt><dd className="text-xl font-bold">24h</dd></div>
@@ -111,6 +124,15 @@ export default function Home() {
           <h2 className="h2 mt-3">Four packages. Fixed prices in USD.</h2>
           <p className="mt-3 max-w-2xl text-muted">What you see is what you pay. Every one-off package includes one revision round, and turnaround starts once we have your payment and brief.</p>
           <div className="mt-12"><OfferCards /></div>
+          <p className="mt-8 text-sm text-muted">
+            Details and samples by need:{" "}
+            {services.map((s, i) => (
+              <span key={s.slug}>
+                {i > 0 && " · "}
+                <Link href={`/services/${s.slug}/`} className="font-semibold text-ink underline decoration-line underline-offset-4 hover:text-accent">{s.label}</Link>
+              </span>
+            ))}
+          </p>
         </div>
       </section>
 
@@ -158,6 +180,7 @@ export default function Home() {
           <Link href="/order/" className="btn-accent relative mt-8">Start your order</Link>
         </div>
       </section>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
     </>
   );
 }

@@ -19,9 +19,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#0E0E12", width: "device-width", initialScale: 1 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+const org = {
+  "@type": ["Organization", "ProfessionalService"],
   "@id": `${site.url}/#organization`,
   name: site.name,
   url: `${site.url}/`,
@@ -34,11 +33,15 @@ const jsonLd = {
   paymentAccepted: "Credit card (Stripe)",
   address: { "@type": "PostalAddress", addressCountry: "CH" },
   sameAs: [site.x.url],
+  knowsLanguage: "en",
   makesOffer: offers.map((o) => ({
     "@type": "Offer",
     name: o.name,
     description: o.summary,
     url: `${site.url}/order/`,
+    availability: "https://schema.org/InStock",
+    areaServed: { "@type": "Place", name: "Worldwide" },
+    itemOffered: { "@type": "Service", name: o.name, description: o.summary },
     priceSpecification: {
       "@type": o.unit ? "UnitPriceSpecification" : "PriceSpecification",
       price: o.price,
@@ -46,6 +49,22 @@ const jsonLd = {
       ...(o.unit ? { unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } : {}),
     },
   })),
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    org,
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}/#website`,
+      url: `${site.url}/`,
+      name: site.name,
+      description: site.description,
+      inLanguage: "en",
+      publisher: { "@id": `${site.url}/#organization` },
+    },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

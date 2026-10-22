@@ -16,7 +16,7 @@ export function OfferCards() {
           }`}
         >
           {o.featured && (
-            <span className="absolute -top-3 left-6 rounded-full bg-accent px-3 py-1 text-xs font-bold text-white">Most popular</span>
+            <span className="absolute -top-3 left-6 rounded-full bg-accent px-3 py-1 text-xs font-bold text-white">Flagship package</span>
           )}
           <h3 className="text-lg font-bold">{o.name}</h3>
           <p className={`mt-1 text-sm ${o.featured ? "text-paper/75" : "text-muted"}`}>{o.summary}</p>
