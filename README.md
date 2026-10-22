@@ -14,6 +14,7 @@ npm run serve          # GitHub-Pages-like static server for out/ on :4310 (404.
 npm run assets         # regenerate sample-work SVGs (scripts/gen-assets.mjs)
 npm run screens        # 390px + 1440px full-page screenshots into screens/ (server must be running)
 npm run check-links    # crawl the served export for broken internal links / anchors
+npm run indexnow       # after a deploy: submit every live sitemap URL to IndexNow (Bing, Yandex...), expects 200/202
 ./scripts/backup.sh    # mirror the project to the persistent agent store, plus a git bundle
 ```
 
@@ -24,6 +25,8 @@ npm run check-links    # crawl the served export for broken internal links / anc
 - `src/app/work/[slug]`: 14 concept case studies, statically generated (most link to a live demo under `/demos/`)
 - `src/app/work/landing-pages`, `src/app/work/thumbnails`, `src/app/work/logos`: "more examples" pages with an accessible industry and look filter (`src/components/WorkFilter.tsx`). Looks are style choices, never quality or price tiers.
 - `src/app/terms`, `src/app/privacy`, `src/app/imprint`: legal pages (operator shown as "Shipday Studio, Switzerland, hello@shipdaystudio.com"; no personal name or street address is published anywhere)
+- `src/app/services/` + `src/lib/services.ts` + `src/components/ServicePage.tsx`: search-targeted service pages (/services/<slug>/) with samples, price, buy link, FAQ and Service/FAQPage/BreadcrumbList JSON-LD. Add a page by adding one object to `services`.
+- `public/<32-hex>.txt`: IndexNow key file (must stay deployed; `scripts/indexnow.mjs` reads it)
 - `src/lib/seo.ts`: per-page title/description/canonical/OG/Twitter helper
 - `src/app/sitemap.ts`, `robots.ts`, `icon.svg`, `apple-icon.png`, `favicon.ico`, `public/og.png`, `public/site.webmanifest`, `public/icon-*.png`, `public/CNAME`
 - `public/work/`: original sample SVGs (3 landing pages, 6 thumbnails, 3 logos). All of the brands are fictional.
