@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { cases, getOffer, formatPrice } from "@/lib/site";
+import { cases, getOffer, formatPrice, site, type CaseStudy } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 import { BuyButton } from "@/components/BuyButton";
 
@@ -18,6 +18,39 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const lead = `${c.headline}. Concept landing page for a fictional brand by Shipday Studio`;
   const description = lead.length <= 150 ? `${lead}, with a live demo.` : `${c.kind} concept for a fictional brand: ${c.headline.toLowerCase()}.`;
   return pageMeta({ path: `/work/${c.slug}`, title: `${c.brand}: ${c.kind.toLowerCase()} concept`, description });
+}
+
+/** CreativeWork (labelled as a concept for a fictional brand, never a client project) + BreadcrumbList. */
+function caseJsonLd(c: CaseStudy) {
+  const url = `${site.url}/work/${c.slug}/`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        "@id": `${url}#work`,
+        name: `${c.brand}: ${c.kind} concept (fictional brand)`,
+        headline: c.headline,
+        description: `Sample concept for a fictional brand, not a client project. ${c.summary}`,
+        url,
+        image: `${site.url}${c.image}`,
+        genre: c.kind,
+        about: c.industry,
+        creator: { "@id": `${site.url}/#organization` },
+        publisher: { "@id": `${site.url}/#organization` },
+        isPartOf: { "@id": `${site.url}/#website` },
+        inLanguage: "en",
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/` },
+          { "@type": "ListItem", position: 2, name: "Landing page examples", item: `${site.url}/work/landing-pages/` },
+          { "@type": "ListItem", position: 3, name: c.brand, item: url },
+        ],
+      },
+    ],
+  };
 }
 
 export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -94,6 +127,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
           ))}
         </div>
       </section>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseJsonLd(c)) }} />
     </article>
   );
 }

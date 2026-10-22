@@ -17,6 +17,41 @@ const howTo = [
   { title: "Get your delivery", body: "We confirm we've started, then deliver by email within the stated turnaround. One revision round is included on one-off packages." },
 ];
 
+/** OfferCatalog with each fixed-price package, its USD price and its Stripe checkout link. */
+const orderJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "OfferCatalog",
+      "@id": `${site.url}/order/#catalog`,
+      name: "Shipday Studio fixed-price design packages",
+      url: `${site.url}/order/`,
+      itemListElement: offers.map((o) => ({
+        "@type": "Offer",
+        name: o.name,
+        description: o.summary,
+        price: o.price,
+        priceCurrency: "USD",
+        ...(o.unit === "/month"
+          ? { priceSpecification: { "@type": "UnitPriceSpecification", price: o.price, priceCurrency: "USD", unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } }
+          : {}),
+        availability: "https://schema.org/InStock",
+        url: o.stripeLink,
+        areaServed: { "@type": "Place", name: "Worldwide" },
+        seller: { "@id": `${site.url}/#organization` },
+        itemOffered: { "@type": "Service", name: o.name, description: o.summary, provider: { "@id": `${site.url}/#organization` } },
+      })),
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/` },
+        { "@type": "ListItem", position: 2, name: "Order", item: `${site.url}/order/` },
+      ],
+    },
+  ],
+};
+
 export default function OrderPage() {
   return (
     <div className="container-x py-14 sm:py-20">
@@ -68,6 +103,7 @@ export default function OrderPage() {
           See the <Link className="underline hover:text-accent" href="/terms/">Terms of Service</Link>.
         </p>
       </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orderJsonLd) }} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BuyButton } from "@/components/BuyButton";
 import { WorkFilter } from "@/components/WorkFilter";
-import { formatPrice, getOffer, type ServiceId } from "@/lib/site";
+import { formatPrice, getOffer, site, type ServiceId } from "@/lib/site";
 
 const nav = [
   { href: "/work/landing-pages/", label: "Landing pages" },
@@ -25,6 +25,29 @@ export function WorkIndex({
   cta: string;
 }) {
   const o = getOffer(offer);
+  const url = `${site.url}${current}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${url}#page`,
+        name: title,
+        description: `${intro} All brands shown are fictional concepts by Shipday Studio.`,
+        url,
+        isPartOf: { "@id": `${site.url}/#website` },
+        publisher: { "@id": `${site.url}/#organization` },
+        inLanguage: "en",
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/` },
+          { "@type": "ListItem", position: 2, name: title, item: url },
+        ],
+      },
+    ],
+  };
   return (
     <div className="container-x py-14 sm:py-20">
       <Link href="/#work" className="text-sm text-muted hover:text-accent">← Back to featured samples</Link>
@@ -56,6 +79,7 @@ export function WorkIndex({
         </p>
         <BuyButton offer={o} className="btn-primary px-5 py-2.5 text-sm">{cta} · {formatPrice(o)}</BuyButton>
       </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </div>
   );
 }
