@@ -1,0 +1,61 @@
+# Shipday Studio
+
+> Remote, fixed-price design studio for businesses, creators and brands worldwide, in any industry. Landing pages ($390, live in 48h), YouTube thumbnail packs (4 for $79, 24h), logo packs (3 concepts for $149, 48h) and website upkeep ($49/month). Prices in USD, paid up front through Stripe checkout. No calls, no quotes, no hourly billing.
+
+How ordering works: pick a package and pay through Stripe, then email a short brief to hello@shipdaystudio.com. Each one-off package includes 1 revision round. Production uses an AI-assisted workflow and every deliverable is reviewed by a human before delivery. Every sample on the site is a concept for a fictional brand, not a client project.
+
+Contact: hello@shipdaystudio.com · X: https://x.com/ShipdayStudio
+
+## Packages and prices
+
+- [Landing page, $390, 48h](https://buy.stripe.com/3cIeVebOc8eCaEPbIycjS00): copy written for you, custom mobile-first design, deployed to your domain, 1 revision round
+- [Thumbnail pack, $79, 24h](https://buy.stripe.com/9B6bJ2aK8amK9AL4g6cjS01): 4 YouTube thumbnails at 1280×720, bold legible titles, source files, 1 revision round
+- [Logo pack, $149, 48h](https://buy.stripe.com/00w14obOc9iG9AL9AqcjS02): 3 distinct concepts, final SVG + PNG files, light and dark versions, 1 revision round
+- [Upkeep, $49/month](https://buy.stripe.com/6oUeVedWk9iG8wHdQGcjS03): text and image swaps, small layout tweaks, dependency updates, cancel any time
+- [Order page](https://shipdaystudio.com/order/): all packages and how to send the brief
+
+## Services
+- [Design services with fixed prices](https://shipdaystudio.com/services/): Landing pages ($390, 48h), thumbnail packs ($79, 24h), logo packs ($149, 48h) and upkeep ($49/month), fixed prices in USD. Remote, worldwide, any industry.
+- [Landing page design, $390 in 48 hours](https://shipdaystudio.com/services/landing-page-design/): Fixed-price landing page design: copy written for you, custom mobile-first design, deployed to your domain in 48h for $390. Remote, worldwide, any industry.
+- [What's in a $390 landing page?](https://shipdaystudio.com/services/landing-page-price/): Landing page price, explained: what the fixed $390 covers (copy, design, build, deploy, 1 revision), what it doesn't, and how the 48 hours work.
+- [SaaS landing page design, fixed $390](https://shipdaystudio.com/services/saas-landing-page-design/): SaaS and startup landing page design: clear positioning, product UI built in code, early-access or demo CTA. $390, live in 48h. Remote, any country.
+- [Landing pages for coaches and courses](https://shipdaystudio.com/services/coach-landing-page-design/): Sales page design for coaches, consultants and course creators: a clear promise, who it's for, your offer and one booking action. $390, live in 48h.
+- [E-commerce and DTC landing page design, $390](https://shipdaystudio.com/services/ecommerce-landing-page-design/): E-commerce landing page design for DTC and Shopify brands: product hero, colourways, bestsellers and Shop buttons to your store. $390 fixed, live in 48h.
+- [Local business website design, $390](https://shipdaystudio.com/services/local-business-website-design/): One-page websites for restaurants, trades, clinics, gyms and shops: services, prices, hours, area and online booking up front. $390 fixed, live in 48h.
+- [Website redesign as one clear page, $390](https://shipdaystudio.com/services/website-redesign/): Website redesign for a dated or cluttered site: we keep what works, rewrite the copy and rebuild it as one fast, mobile-first page. $390 fixed, live in 48h.
+- [Restaurant website design, $390 fixed](https://shipdaystudio.com/services/restaurant-website-design/): Restaurant website design: menu with prices, hours, location and table booking on the first screen, as one fast mobile page. $390, live in 48h, any cuisine.
+- [Wedding photographer website design, $390](https://shipdaystudio.com/services/wedding-photographer-website-design/): Website design for wedding and elopement photographers: a portfolio-led page with packages, starting prices and a check-your-date enquiry. $390, live in 48h.
+- [Dental clinic website design, $390 fixed](https://shipdaystudio.com/services/dental-website-design/): Dental website design: online booking on the first screen, treatments, clear prices, opening hours and help for nervous patients. $390 fixed, live in 48h.
+- [Gym and fitness studio website design, $390](https://shipdaystudio.com/services/gym-website-design/): Gym and fitness studio website design: class types, a phone-readable timetable, prices and a free-trial booking on the first screen. $390 fixed, live in 48h.
+- [Nonprofit and charity website design, $390](https://shipdaystudio.com/services/nonprofit-website-design/): Nonprofit and charity website design: a clear mission, ways to volunteer, a giving block linked to your donation tool and accessible copy. $390 fixed, in 48h.
+- [Indie game landing page, $390 in 48h](https://shipdaystudio.com/services/indie-game-landing-page/): Landing page for indie games: key art, trailer, wishlist and playtest sign-up, pillars and roadmap on one fast page. $390 fixed, live in 48h, for any engine.
+- [YouTube thumbnail design pack, 4 for $79](https://shipdaystudio.com/services/youtube-thumbnail-design/): YouTube thumbnail design: a pack of 4 custom 1280×720 thumbnails with bold, phone-readable titles and source files, delivered in 24h for $79. Any niche.
+- [Faceless YouTube channel thumbnails, 4 for $79](https://shipdaystudio.com/services/faceless-youtube-thumbnails/): Thumbnails for faceless YouTube channels: one strong object or scene, a short hook and a repeatable series look. 4 for $79 in 24h, source files included.
+- [YouTube thumbnail price: what $79 gets you](https://shipdaystudio.com/services/youtube-thumbnail-price/): YouTube thumbnail price, explained: $79 fixed for 4 thumbnails at 1280×720, source files and 1 revision, plus what's not included and the 24h turnaround.
+- [Logo design pack, 3 concepts for $149](https://shipdaystudio.com/services/logo-design/): Fixed-price logo design: 3 distinct concepts, pick one, get final SVG and PNG files in light and dark versions in 48h for $149. Any business, worldwide.
+- [Logo design price: what's in the $149 pack](https://shipdaystudio.com/services/logo-design-price/): Logo design price, explained: what the fixed $149 pack covers (3 concepts, SVG + PNG in light and dark, 1 revision), what it doesn't and the 48h turnaround.
+- [Website upkeep: what the $49/month plan covers](https://shipdaystudio.com/services/website-upkeep-price/): Website upkeep and maintenance for $49/month, explained: text and image swaps, small layout tweaks, dependency updates, what isn't covered and how to cancel.
+
+## Work samples (all fictional concept brands)
+- [Landing page examples](https://shipdaystudio.com/work/landing-pages/): Landing page concepts across industries, from clean and simple to rich and detailed, with design notes and full designs. All brands are fictional.
+- [Thumbnail examples](https://shipdaystudio.com/work/thumbnails/): YouTube thumbnail concepts across niches, including A/B pairs, from clean and simple to rich and detailed. All channels are fictional.
+- [Logo examples](https://shipdaystudio.com/work/logos/): Logo concepts and mini brand systems across industries, shown on light and dark, from clean and simple to rich and detailed. All brands are fictional.
+- [Vantorel: b2b saas homepage concept](https://shipdaystudio.com/work/vantorel/): B2B SaaS homepage concept for a fictional brand: a precise, dark launch page for a finance-automation product.
+- [The Calm Podium: online course sales page concept](https://shipdaystudio.com/work/calm-podium/): Online course sales page concept for a fictional brand: a calm, conversion-focused sales page for a public-speaking course.
+- [Osteria Fennella: restaurant homepage with bookings concept](https://shipdaystudio.com/work/osteria-fennella/): Restaurant homepage with bookings concept for a fictional brand: a warm neighbourhood-restaurant homepage built around booking a table.
+- [Maison Orrevel: fragrance house homepage concept](https://shipdaystudio.com/work/maison-orrevel/): Fragrance house homepage concept for a fictional brand: a quiet, editorial homepage for a small-batch perfume house.
+- [Vesperkeel: indie game launch page concept](https://shipdaystudio.com/work/vesperkeel/): Indie game launch page concept for a fictional brand: a cinematic wishlist page for a fictional co-op sky-sailing game.
+- [Pipewren Plumbing: trades homepage redesign concept](https://shipdaystudio.com/work/pipewren/): Trades homepage redesign concept for a fictional brand: a redesign concept that turns a dated plumbing site into a booking page.
+- [Smilewick Dental: dental clinic homepage concept](https://shipdaystudio.com/work/smilewick-dental/): A bright, reassuring homepage for a small dental clinic. Concept landing page for a fictional brand by Shipday Studio, with design notes and the full design.
+- [Halvenna Studio: wedding photographer homepage concept](https://shipdaystudio.com/work/halvenna-studio/): Wedding photographer homepage concept for a fictional brand: a soft, editorial homepage for a wedding and elopement photographer.
+- [Kettlefin Strength: gym homepage concept](https://shipdaystudio.com/work/kettlefin-strength/): A loud, confident homepage for a small-group strength gym. Concept landing page for a fictional brand by Shipday Studio, with design notes and the full design.
+- [Quernstead Food Share: nonprofit homepage concept](https://shipdaystudio.com/work/quernstead-food-share/): Nonprofit homepage concept for a fictional brand: a cheerful, practical homepage for a community food-share charity.
+- [Haldane & Oat: dtc home goods store concept](https://shipdaystudio.com/work/haldane-and-oat/): A warm, tactile storefront for a linen bedding brand. Concept landing page for a fictional brand by Shipday Studio, with design notes.
+- [Northdrift Ceramics: maker shop launch concept](https://shipdaystudio.com/work/northdrift-ceramics/): A calm, tactile launch page for a one-person pottery studio. Concept landing page for a fictional brand by Shipday Studio, with design notes.
+- [Quillbyte: saas waitlist concept](https://shipdaystudio.com/work/quillbyte/): A crisp product page for an AI newsletter-drafting tool. Concept landing page for a fictional brand by Shipday Studio, with design notes.
+- [Fennel & Fig: creator course concept](https://shipdaystudio.com/work/fennel-and-fig/): A friendly sales page for a meal-prep creator's first course. Concept landing page for a fictional brand by Shipday Studio, with design notes.
+
+## Optional
+- [Terms of Service](https://shipdaystudio.com/terms/): Plain-English terms for Shipday Studio orders: prices, turnaround, revisions, refunds and ownership.
+- [Privacy Policy](https://shipdaystudio.com/privacy/): How Shipday Studio handles your personal data: Stripe payments, email briefs and GitHub Pages hosting. No tracking cookies.
+- [Imprint](https://shipdaystudio.com/imprint/): Legal notice (Impressum) for Shipday Studio: operator and contact.
