@@ -7,12 +7,12 @@ import { pageMeta } from "@/lib/seo";
 export const metadata: Metadata = pageMeta({
   path: "/privacy",
   title: "Privacy Policy",
-  description: "How Shipday Studio handles your personal data: Stripe payments, email briefs and GitHub Pages hosting. No tracking cookies.",
+  description: "How Shipday Studio handles your personal data: Stripe payments, email via Resend, GitHub Pages hosting. No tracking cookies.",
 });
 
 export default function Privacy() {
   return (
-    <LegalPage title="Privacy Policy" updated="21 October 2026">
+    <LegalPage title="Privacy Policy" updated="24 October 2026">
       <p>
         This policy explains what personal data Shipday Studio collects and why. We follow the Swiss Federal Act on Data
         Protection (FADP) and, where it applies to you, the EU General Data Protection Regulation (GDPR).
@@ -35,9 +35,11 @@ export default function Privacy() {
       <ul>
         <li><strong>Stripe</strong> (Stripe, Inc. and Stripe Payments Europe, Ltd.): payment processing and subscriptions. Stripe also processes data for its own fraud prevention and legal obligations; see <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">stripe.com/privacy</a>.</li>
         <li><strong>GitHub</strong> (GitHub, Inc., USA): website hosting via GitHub Pages; see <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub&apos;s privacy statement</a>.</li>
-        <li><strong>Our domain and email providers</strong>: emails to {site.email} are forwarded by our domain registrar to the mailbox we use to answer them.</li>
-        <li><strong>AI and design tools</strong> used to produce your work, limited to the parts of your brief needed for your project.</li>
+        <li><strong>Resend</strong> (Resend, Inc., USA): receives emails sent to {site.email} and sends our replies, order confirmations and file deliveries; see <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Resend&apos;s privacy policy</a>.</li>
+        <li><strong>Vercel</strong> (Vercel Inc., USA): runs the small service that passes each incoming email on to the mailboxes we answer from. It handles the email only in transit and stores no message content; see <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Vercel&apos;s privacy policy</a>.</li>
+        <li><strong>AI, automation and design tools</strong> that help us read and answer your messages and produce your work, limited to the parts of your brief needed for that.</li>
       </ul>
+      <p>If you contact us on X or Reddit instead of by email, those platforms also process your messages under their own privacy policies.</p>
       <p>Some of these providers process data outside Switzerland, including in the EU and the USA. Where that happens we rely on adequacy decisions (such as the Swiss-US Data Privacy Framework, where the provider is certified) or standard contractual clauses.</p>
 
       <h2>How long we keep it</h2>
