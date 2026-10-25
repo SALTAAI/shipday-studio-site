@@ -114,6 +114,60 @@
         "type": "redirect",
         "redirect_url": "https://shipdaystudio.com/thanks/?product=upkeep"
       }
+    },
+    {
+      "sku": "thumbnail_creator_lite",
+      "name": "Creator Lite Thumbnail Plan",
+      "product_id": "prod_VVGOJErAnjLeCz",
+      "price_id": "price_1UUFrpITWxIMUnKVKvnBhVMO",
+      "unit_amount": 7900,
+      "currency": "usd",
+      "type": "recurring",
+      "interval": "month",
+      "metadata": {
+        "brand": "shipday_studio",
+        "sku": "thumbnail_creator_lite"
+      },
+      "statement_descriptor": "SHIPDAY CREATOR LITE",
+      "monthly_quota": 4,
+      "weekly_cap": 1,
+      "payment_link_id": "plink_1UUFs1ITWxIMUnKV0jhEDxzI",
+      "payment_link_url": "https://buy.stripe.com/8x2eVedWkamKbIT5kacjS06",
+      "after_completion": {
+        "type": "redirect",
+        "redirect_url": "https://shipdaystudio.com/thanks/?product=creator-lite"
+      },
+      "link_settings": "mirrors plink_1UUFIiITWxIMUnKVGgwQ22sm (Creator plan): promo codes on, ToS required, payment_method_collection always, customer_creation if_required, phone collection off, no automatic tax, custom field 'project', subscription metadata brand/sku",
+      "created_at": "2026-10-25T02:12:00+01:00"
+    },
+    {
+      "sku": "channel_launch_kit",
+      "name": "Channel Launch Kit",
+      "product_id": "prod_VVGOHabI1YGiEE",
+      "price_id": "price_1UUFrsITWxIMUnKVmDeWKaZs",
+      "unit_amount": 19900,
+      "currency": "usd",
+      "type": "one_time",
+      "metadata": {
+        "brand": "shipday_studio",
+        "sku": "channel_launch_kit"
+      },
+      "statement_descriptor": "SHIPDAY LAUNCH KIT",
+      "includes": [
+        "logo (2 concepts, 1 final with files)",
+        "channel banner",
+        "profile picture",
+        "4 custom thumbnails"
+      ],
+      "turnaround_hours": 48,
+      "payment_link_id": "plink_1UUFsCITWxIMUnKVtd1W8KX7",
+      "payment_link_url": "https://buy.stripe.com/cNi28s8C0gL814f9AqcjS07",
+      "after_completion": {
+        "type": "redirect",
+        "redirect_url": "https://shipdaystudio.com/thanks/?product=launch-kit"
+      },
+      "link_settings": "mirrors plink_1UT49QITWxIMUnKVYGrx3SgS (Logo pack): promo codes on, ToS required, invoice_creation on, customer_creation always, phone collection off, no automatic tax, custom field 'project', 48h submit message",
+      "created_at": "2026-10-25T02:12:00+01:00"
     }
   ],
   "thank_you_page": "https://shipdaystudio.com/thanks/",
@@ -130,5 +184,5 @@
     "unknown": "no client_reference_id on the session = untagged link (old copy, direct share or Stripe receipt)",
     "added_at": "2026-10-25T02:30:00+02:00"
   },
-  "updated_at": "2026-10-25T02:30:00+02:00"
+  "updated_at": "2026-10-25T02:12:00+01:00"
 }

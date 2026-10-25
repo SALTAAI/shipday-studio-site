@@ -122,6 +122,17 @@ export const offers: Offer[] = [
         stripeLink: `https://buy.stripe.com/00w8wQ9G43Ym3cn3c2cjS04${SITE_REF}`,
       },
       {
+        id: "creator-lite",
+        name: "Creator Lite",
+        label: "Creator Lite, 4 thumbnails/month, $79/mo",
+        summary: "4 custom YouTube thumbnails a month (up to 1 a week), each delivered within 24h of its brief. Cancel any time.",
+        price: 79,
+        unit: "/month",
+        turnaround: "Ongoing",
+        includes: ["4 thumbnails a month, 1280×720", "Up to 1 a week, each in 24h", "Source files included", "Cancel any time"],
+        stripeLink: `https://buy.stripe.com/8x2eVedWkamKbIT5kacjS06${SITE_REF}`,
+      },
+      {
         id: "creator-plan",
         name: "Creator plan",
         label: "Creator plan, 12 thumbnails/month, $179/mo",
@@ -142,6 +153,19 @@ export const offers: Offer[] = [
     summary: "Three logo concepts. Pick one, get the final files.",
     includes: ["3 distinct concepts", "Final SVG + PNG files", "Light & dark versions", "1 revision round"],
     stripeLink: `https://buy.stripe.com/00w14obOc9iG9AL9AqcjS02${SITE_REF}`,
+    packLabel: "3 logo concepts, $149 total",
+    options: [
+      {
+        id: "launch-kit",
+        name: "Channel Launch Kit",
+        label: "Channel Launch Kit: logo, banner, profile picture + 4 thumbnails, $199, 48h",
+        summary: "Everything a new channel needs: a logo, a channel banner, a profile picture and 4 custom thumbnails, delivered within 48h of your brief.",
+        price: 199,
+        turnaround: "48h",
+        includes: ["Logo (2 concepts, final SVG + PNG)", "Channel banner, 2560×1440", "Profile picture, 800×800", "4 thumbnails, 1280×720", "1 revision round"],
+        stripeLink: `https://buy.stripe.com/cNi28s8C0gL814f9AqcjS07${SITE_REF}`,
+      },
+    ],
   },
   {
     id: "upkeep",
@@ -173,7 +197,7 @@ export const steps = [
 export const faq = [
   {
     q: "Who is behind Shipday Studio?",
-    a: "Shipday Studio is an independent, fully remote design studio. Production runs on an AI-assisted workflow, and every deliverable is reviewed by a human before delivery, which is how we keep prices fixed and turnaround short.",
+    a: "Shipday Studio is an independent, fully remote design studio. Production runs on an AI-assisted workflow, and every deliverable is quality-checked before delivery, with revisions included, which is how we keep prices fixed and turnaround short.",
   },
   {
     q: "Do you work with clients in my country or industry?",

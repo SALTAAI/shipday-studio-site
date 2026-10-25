@@ -33,7 +33,7 @@ export default function ThanksPage() {
             <h2 className="text-xl font-bold">Questions?</h2>
             <p className="mt-2 max-w-2xl text-muted">
               Reply to your Stripe receipt or email{" "}
-              <a className="font-semibold text-ink underline hover:text-accent" href={`mailto:${site.email}`}>{site.email}</a>. A human reads every message.
+              <a className="font-semibold text-ink underline hover:text-accent" href={`mailto:${site.email}`}>{site.email}</a>. We read and answer every message.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/" className="btn-ghost">Back home</Link>

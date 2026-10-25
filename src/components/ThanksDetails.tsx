@@ -8,6 +8,8 @@ const all = allOffers();
 
 function deliveryLine(o: Purchase | null) {
   if (!o) return "Your delivery clock starts once your brief is in, and finished files arrive by email within your package's turnaround.";
+  if (o.id === "creator-lite") return "Your Creator Lite plan is active. Send a brief for each thumbnail (up to 1 a week, 4 a month) and each one is delivered by email within 24h of its brief being complete, with one revision round included.";
+  if (o.id === "launch-kit") return "Your Channel Launch Kit (logo, channel banner, profile picture and 4 thumbnails) is delivered by email within 48h of your brief being complete, with one revision round included.";
   if (o.id === "creator-plan") return "Your Creator plan is active. Send a brief for each thumbnail (up to 3 a week, 12 a month) and each one is delivered by email within 24h of its brief being complete, with one revision round included.";
   if (o.id === "upkeep") return "Your Upkeep plan is active. Once we have your site details, send change requests any time and we handle them for you each month.";
   return `Your ${o.name.toLowerCase()} is delivered by email within ${o.turnaround} of your brief being complete, with one revision round included.`;

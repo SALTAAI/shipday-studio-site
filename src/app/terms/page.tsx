@@ -47,7 +47,7 @@ export default function Terms() {
       <h2>3. Prices and payment</h2>
       <ul>
         <li>All prices are in US dollars (USD) and are fixed for the package described.</li>
-        <li>One-off packages are paid in full upfront. Upkeep and the Creator plan are subscriptions billed monthly in advance by Stripe. Creator plan thumbnails that are not requested within a billing month do not carry over.</li>
+        <li>One-off packages are paid in full upfront. Upkeep, Creator Lite and the Creator plan are subscriptions billed monthly in advance by Stripe. Creator Lite and Creator plan thumbnails that are not requested within a billing month do not carry over.</li>
         <li>Any taxes or fees that apply are shown on the Stripe checkout page before you pay. Your bank or card provider may charge currency conversion fees.</li>
       </ul>
 
@@ -60,7 +60,7 @@ export default function Terms() {
 
       <h2>5. Revisions</h2>
       <p>
-        Each one-off package (landing page, thumbnail pack, logo pack) includes <strong>one revision round</strong>: one consolidated list
+        Each one-off package (landing page, thumbnail pack, logo pack, Channel Launch Kit) includes <strong>one revision round</strong>: one consolidated list
         of changes, sent within 14 days of delivery, that stays within the original brief. We deliver revisions within the same
         turnaround as the original package. New features, new directions or extra rounds can be quoted separately. Upkeep covers small
         edits as described in the plan and has no revision rounds.
@@ -71,7 +71,7 @@ export default function Terms() {
         <li><strong>Before work starts:</strong> cancel by email for a full refund, no questions asked. Work starts when we email you to confirm we&apos;ve begun.</li>
         <li><strong>After work starts:</strong> because the work is custom, we don&apos;t refund it, but we&apos;ll use your revision round to put things right.</li>
         <li><strong>If we can&apos;t deliver:</strong> full refund.</li>
-        <li><strong>Upkeep and the Creator plan:</strong> cancel any time by emailing {site.email}. The plan stops at the end of the month you&apos;ve already paid for; partial months aren&apos;t refunded.</li>
+        <li><strong>Upkeep, Creator Lite and the Creator plan:</strong> cancel any time by emailing {site.email}. The plan stops at the end of the month you&apos;ve already paid for; partial months aren&apos;t refunded.</li>
       </ul>
       <p>Refunds go back to the original payment method through Stripe.</p>
 
@@ -91,7 +91,7 @@ export default function Terms() {
 
       <h2>9. How we work</h2>
       <p>
-        We use AI-assisted tools as part of our production process. Every deliverable is reviewed by a person before it is sent.
+        We use AI-assisted tools as part of our production process. Every deliverable is quality-checked before it is sent, and revisions are included as described in section 5.
         We don&apos;t knowingly copy third-party work, and we&apos;ll fix any problem you report with material we created.
       </p>
 

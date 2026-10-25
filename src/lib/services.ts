@@ -101,7 +101,7 @@ export const services: ServicePage[] = [
       { title: "3. The build", body: "Clean static HTML and CSS with real text, proper headings, alt text, a page title and meta description. Fast to load, readable by screen readers and search engines, and easy for any developer to edit." },
       { title: "4. Going live", body: "We deploy the page to a domain and hosting account in your name and connect your existing form, booking calendar or payment link if you use one. You keep the accounts and the files." },
       { title: "5. One revision round", body: "After delivery, send one consolidated list of changes within 14 days and we apply it. After that, small edits are covered by Upkeep at $49 a month, which you can cancel any time." },
-      { title: "6. How the price stays fixed", body: "One page, one scope, no calls, no hourly billing. Production runs on an AI-assisted workflow and every page is reviewed by a human before delivery, which is what keeps the price and the 48 hours predictable." },
+      { title: "6. How the price stays fixed", body: "One page, one scope, no calls, no hourly billing. Production runs on an AI-assisted workflow and every page is quality-checked before delivery, with a revision round included, which is what keeps the price and the 48 hours predictable." },
     ],
     fit: [
       "You need one page that explains an offer and asks for one action, and you want to know the full cost before you start.",
@@ -120,7 +120,7 @@ export const services: ServicePage[] = [
       { q: "What exactly happens in the 48 hours?", a: "The clock starts once payment is confirmed and your brief is complete. We write the copy, design and build the page, review it, deploy it and email you the live link. If something is missing from the brief, we ask by email and the clock pauses until you reply." },
       { q: "How many sections does the page have?", a: "Usually five to seven: a hero with the main action, benefits or features, how it works, proof you can back up, the offer or pricing, an FAQ and a closing call to action. The exact mix depends on what you sell." },
       { q: "What if I change my mind before you start?", a: "If we haven't started work yet, you can cancel for a full refund through Stripe. Once work has started, the revision round is how changes are handled. Full details are in the terms." },
-      { q: "Why is it cheaper than an agency?", a: "Because the scope is deliberately small and fixed: one page, no meetings, an AI-assisted workflow with human review, and one revision round. If you need a multi-page site, strategy workshops or a long-term partner, an agency is the better fit." },
+      { q: "Why is it cheaper than an agency?", a: "Because the scope is deliberately small and fixed: one page, no meetings, an AI-assisted workflow, a quality check before delivery, and one revision round. If you need a multi-page site, strategy workshops or a long-term partner, an agency is the better fit." },
     ],
     related: ["landing-page-design", "website-redesign", "saas-landing-page-design", "ecommerce-landing-page-design", "logo-design-price", "youtube-thumbnail-price", "website-upkeep-price"],
   },
@@ -677,7 +677,7 @@ export const services: ServicePage[] = [
     samples: { kind: "thumbnails", ids: ["space", "crime", "edu", "finance-b", "finance-a", "tech", "travel", "gaming-a", "gaming-b"] },
     moreHref: "/work/thumbnails/",
     faq: [
-      { q: "Where does the imagery come from?", a: "Production runs on an AI-assisted workflow: imagery is generated or composed for each thumbnail, then finished and reviewed by a human before delivery. We don't use copyrighted film or game stills, and you can send your own footage frames to use instead." },
+      { q: "Where does the imagery come from?", a: "Production runs on an AI-assisted workflow: imagery is generated or composed for each thumbnail, then finished and quality-checked before delivery, with a revision round included. We don't use copyrighted film or game stills, and you can send your own footage frames to use instead." },
       { q: "Can you match an existing channel style?", a: "Yes. Send your channel link and a few current thumbnails, and we keep the fonts, colours and framing consistent, or suggest a cleaner series look if you want a refresh." },
       { q: "Can I test two versions of one video?", a: "Yes. Inside your pack of four, ask for an A/B pair: two different angles on the same video, like the finance and gaming pairs on this page." },
       { q: "Are these from real channels?", a: "No. Every sample is a concept for a fictional channel, made to show the range of faceless styles we design." },
@@ -704,7 +704,7 @@ export const services: ServicePage[] = [
       { title: "3. Exports and source files", body: "You get the 1280×720 exports ready to upload, plus editable source files, so you can change a word or a number later without coming back to us." },
       { title: "4. A look your viewers recognise", body: "Colours, type and framing that stay consistent across the four, or match your existing channel style if you send a few current thumbnails, so returning viewers spot your uploads." },
       { title: "5. One revision round", body: "After delivery, send one consolidated list of changes within 14 days that stays within the original brief, and we deliver the revised files within the same 24-hour turnaround." },
-      { title: "6. How the price stays fixed", body: "Four thumbnails, one scope, no calls, no hourly billing. Production runs on an AI-assisted workflow and every thumbnail is reviewed by a human before delivery, which keeps the price and the 24 hours predictable." },
+      { title: "6. How the price stays fixed", body: "Four thumbnails, one scope, no calls, no hourly billing. Production runs on an AI-assisted workflow and every thumbnail is quality-checked before delivery, with a revision round included, which keeps the price and the 24 hours predictable." },
     ],
     fit: [
       "You publish regularly and want four thumbnails at a known price before you commit: one pack covers four uploads.",
@@ -788,7 +788,7 @@ export const services: ServicePage[] = [
       { title: "3. You pick one", body: "Choose the direction that fits. The chosen logo is the one we finish; the other two concepts are not delivered as final files and stay with us." },
       { title: "4. One revision round", body: "Send one consolidated list of changes within 14 days of delivery that stays within the original brief, such as a colour, a weight or the spacing, and we deliver the revised files within the same 48-hour turnaround." },
       { title: "5. The final files", body: "The chosen logo as scalable SVG and high-resolution PNG, in versions for light and dark backgrounds, ready for your site, socials, signage and print. Once paid in full, it's yours to use anywhere, for any purpose." },
-      { title: "6. How the price stays fixed", body: "Three concepts, one scope, no calls, no hourly billing. Production runs on an AI-assisted workflow and every concept is reviewed by a human before delivery, which keeps the price and the 48 hours predictable." },
+      { title: "6. How the price stays fixed", body: "Three concepts, one scope, no calls, no hourly billing. Production runs on an AI-assisted workflow and every concept is quality-checked before delivery, with a revision round included, which keeps the price and the 48 hours predictable." },
     ],
     fit: [
       "You're starting a business, shop, studio, club, channel or side project and want to know the full cost of a logo before you start.",
@@ -856,7 +856,7 @@ export const services: ServicePage[] = [
       { q: "Are there any extra costs?", a: "No add-ons from us. Upkeep is $49 in US dollars, billed monthly in advance by Stripe, and any taxes or fees that apply are shown on the Stripe checkout page before you pay. Your bank or card provider may charge a currency conversion fee. Domain and hosting fees go to those providers directly." },
       { q: "How do I cancel?", a: "Email hello@shipdaystudio.com any time. Upkeep stops at the end of the month you've already paid for. Partial months aren't refunded. Full details are in the terms." },
       { q: "Does Upkeep include revisions, redesigns or new pages?", a: "No. Upkeep covers small edits as described on this page and has no revision rounds; those belong to the one-off packages. A redesign, extra pages or new features are not part of the plan." },
-      { q: "Who makes the changes?", a: "We use AI-assisted tools as part of our production process, and every change is reviewed by a person before it is sent to you." },
+      { q: "Who makes the changes?", a: "We use AI-assisted tools as part of our production process, and every change is quality-checked before it is sent to you." },
       { q: "Are the sample sites real businesses?", a: "No. Osteria Fennella, Kettlefin Strength and Vesperkeel are concepts for fictional brands, shown because a restaurant menu, a gym timetable and a game roadmap are typical of details that change after launch." },
     ],
     related: ["landing-page-price", "landing-page-design", "local-business-website-design", "restaurant-website-design", "gym-website-design", "indie-game-landing-page"],

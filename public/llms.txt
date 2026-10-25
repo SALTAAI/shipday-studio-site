@@ -1,8 +1,8 @@
 # Shipday Studio
 
-> Remote, fixed-price design studio for businesses, creators and brands worldwide, in any industry. Landing pages ($390, live in 48h), YouTube thumbnails (4 for $79 total, or 1 for $20, 24h; Creator plan of 12 a month for $179/month), logo packs (3 concepts for $149, 48h) and website upkeep ($49/month). Prices in USD, paid up front through Stripe checkout. No calls, no quotes, no hourly billing.
+> Remote, fixed-price design studio for businesses, creators and brands worldwide, in any industry. Landing pages ($390, live in 48h), YouTube thumbnails (4 for $79 total, or 1 for $20, 24h; Creator Lite plan of 4 a month for $79/month; Creator plan of 12 a month for $179/month), logo packs (3 concepts for $149, 48h), a Channel Launch Kit (logo, banner, profile picture and 4 thumbnails for $199, 48h) and website upkeep ($49/month). Prices in USD, paid up front through Stripe checkout. No calls, no quotes, no hourly billing.
 
-How ordering works: pick a package and pay through Stripe, then email a short brief to hello@shipdaystudio.com. Each one-off package includes 1 revision round. Production uses an AI-assisted workflow and every deliverable is reviewed by a human before delivery. Every sample on the site is a concept for a fictional brand, not a client project.
+How ordering works: pick a package and pay through Stripe, then email a short brief to hello@shipdaystudio.com. Each one-off package includes 1 revision round. Production is AI-assisted, and every deliverable is quality-checked before delivery, with revisions included. Every sample on the site is a concept for a fictional brand, not a client project.
 
 Contact: hello@shipdaystudio.com · X: https://x.com/ShipdayStudio
 
@@ -11,8 +11,10 @@ Contact: hello@shipdaystudio.com · X: https://x.com/ShipdayStudio
 - [Landing page, $390, 48h](https://buy.stripe.com/3cIeVebOc8eCaEPbIycjS00?client_reference_id=site): copy written for you, custom mobile-first design, deployed to your domain, 1 revision round
 - [Thumbnail pack, 4 thumbnails, $79 total, 24h](https://buy.stripe.com/9B6bJ2aK8amK9AL4g6cjS01?client_reference_id=site): 4 YouTube thumbnails at 1280×720, bold legible titles, source files, 1 revision round
 - [Single thumbnail, $20, 24h](https://buy.stripe.com/00w8wQ9G43Ym3cn3c2cjS04?client_reference_id=site): 1 YouTube thumbnail at 1280×720, bold legible title, source file, 1 revision round
+- [Creator Lite, 4 thumbnails/month, $79/month](https://buy.stripe.com/8x2eVedWkamKbIT5kacjS06?client_reference_id=site): 4 YouTube thumbnails a month (up to 1 a week), each delivered within 24h of its brief, source files, cancel any time
 - [Creator plan, 12 thumbnails/month, $179/month](https://buy.stripe.com/cNi28s9G4gL88wH7sicjS05?client_reference_id=site): 12 YouTube thumbnails a month (up to 3 a week), each delivered within 24h of its brief, source files, cancel any time
 - [Logo pack, $149, 48h](https://buy.stripe.com/00w14obOc9iG9AL9AqcjS02?client_reference_id=site): 3 distinct concepts, final SVG + PNG files, light and dark versions, 1 revision round
+- [Channel Launch Kit, $199, 48h](https://buy.stripe.com/cNi28s8C0gL814f9AqcjS07?client_reference_id=site): logo (2 concepts, final SVG + PNG), channel banner, profile picture and 4 YouTube thumbnails, 1 revision round
 - [Upkeep, $49/month](https://buy.stripe.com/6oUeVedWk9iG8wHdQGcjS03?client_reference_id=site): text and image swaps, small layout tweaks, dependency updates, cancel any time
 - [Order page](https://shipdaystudio.com/order/): all packages and how to send the brief
 
