@@ -15,7 +15,7 @@ export default function ThumbnailsIndex() {
       offer="thumbnails"
       current="/work/thumbnails/"
       title="Thumbnail examples"
-      intro="Thumbnail concepts for gaming, finance, tech, education, travel, documentary, faceless channels, Roblox games and more, all at 1280×720. Click any thumbnail to open it full size."
+      intro="Thumbnail concepts for gaming, finance, tech, education, travel, documentary, faceless channels, Roblox games and more, all at 1280×720. Click any thumbnail for a larger preview. Previews on this site are watermarked; clients get clean files."
       cta="Get a thumbnail pack"
     />
   );

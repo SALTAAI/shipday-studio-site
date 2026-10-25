@@ -8,3 +8,23 @@ next-env.d.ts
 # local order submissions (contain personal data)
 data/orders.json
 .DS_Store
+
+# local credentials (working copies; canonical store is 1Password)
+.secrets/
+
+# fulfilment ledgers and client deliveries (personal data, client files): never commit to the public site repo
+data/projects.json
+data/tasks.json
+data/*.lock
+deliveries/
+data/send-log.jsonl
+RULES.md
+FULFILLMENT.md
+backlog.md
+data/
+drafts/
+MAC-OFFLINE.md
+
+# private masters and clean originals: never in the public repo (tools/protect.py)
+samples/
+screens/

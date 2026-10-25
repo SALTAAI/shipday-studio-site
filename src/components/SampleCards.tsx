@@ -96,7 +96,7 @@ export function Thumb({ t, sizes, priority = false }: { t: (typeof thumbSamples)
     <a href={t.file} target="_blank" rel="noopener" className="block overflow-hidden rounded-xl border border-line bg-ink shadow-sm">
       <img
         src={t.file}
-        srcSet={t.small ? `${t.small} 640w, ${t.file} 1280w` : undefined}
+
         sizes={t.small ? sizes : undefined}
         alt={t.alt}
         width={1280}
@@ -105,7 +105,7 @@ export function Thumb({ t, sizes, priority = false }: { t: (typeof thumbSamples)
         decoding="async"
         className="aspect-video w-full object-cover"
       />
-      <span className="sr-only"> (open full size, 1280×720)</span>
+      <span className="sr-only"> (open larger preview)</span>
     </a>
   );
 }
@@ -164,7 +164,7 @@ export function LogoFigure({ l }: { l: (typeof logoSamples)[number] }) {
       <a href={l.file} target="_blank" rel="noopener" className="block overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
         <img
           src={l.file}
-          srcSet={l.small ? `${l.small} 800w, ${l.file} 1600w` : undefined}
+
           sizes={l.small ? "(min-width: 1152px) 540px, (min-width: 768px) 50vw, 100vw" : undefined}
           alt={l.alt}
           width={l.size[0]}
@@ -173,7 +173,7 @@ export function LogoFigure({ l }: { l: (typeof logoSamples)[number] }) {
           decoding="async"
           className="aspect-[4/3] w-full object-cover"
         />
-        <span className="sr-only"> (open full size)</span>
+        <span className="sr-only"> (open larger preview)</span>
       </a>
       <figcaption className="mt-2 text-sm">
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">{l.industry}</span>
@@ -191,7 +191,7 @@ export function KitFigure({ k }: { k: (typeof kitSamples)[number] }) {
       <a href={k.board} target="_blank" rel="noopener" className="block overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
         <img
           src={k.board}
-          srcSet={`${k.small} 800w, ${k.board} 1600w`}
+
           sizes="(min-width: 1152px) 540px, (min-width: 768px) 50vw, 100vw"
           alt={k.alt}
           width={1600}
@@ -200,7 +200,7 @@ export function KitFigure({ k }: { k: (typeof kitSamples)[number] }) {
           decoding="async"
           className="aspect-[4/3] w-full object-cover"
         />
-        <span className="sr-only"> (open full size)</span>
+        <span className="sr-only"> (open larger preview)</span>
       </a>
       <figcaption className="mt-2 text-sm">
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">{k.niche}</span>

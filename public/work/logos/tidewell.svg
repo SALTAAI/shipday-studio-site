@@ -1,4 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" font-family="Inter, 'Helvetica Neue', Arial, sans-serif"><rect width="600" height="600" fill="#E0F2FE"/>
-<g transform="translate(300 250)"><circle r="120" fill="#0369A1"/><path d="M-120 10 Q-80 -30 -40 10 T40 10 T120 10 V60 Q60 140 0 120 Q-80 130 -110 60Z" fill="#7DD3FC"/><path d="M-110 50 Q-70 15 -30 50 T50 50 T120 50" stroke="#E0F2FE" stroke-width="10" fill="none" stroke-linecap="round"/><circle cx="30" cy="-45" r="22" fill="#FDE68A"/></g>
-<text x="300" y="460" font-size="64" font-weight="800" fill="#0C4A6E" text-anchor="middle" letter-spacing="-1">tidewell</text>
-<text x="300" y="505" font-size="20" fill="#0369A1" text-anchor="middle" letter-spacing="6">SWIM SCHOOL</text></svg>

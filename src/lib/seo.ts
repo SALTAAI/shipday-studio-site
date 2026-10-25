@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "./site";
 
-export const ogImage = { url: "/og.png", width: 1200, height: 630, alt: "Shipday Studio: landing pages in 48h for $390" };
+export const ogImage = { url: "/og.png", width: 1200, height: 630, alt: "Shipday Studio: YouTube thumbnails, 1 for $20, 4 for $79, back in 24h" };
 
 /** Per-page metadata with a trailing-slash canonical (matches trailingSlash: true), Open Graph and Twitter card. */
 export function pageMeta({ path, title, description, absoluteTitle = false, image }: { path: string; title: string; description: string; absoluteTitle?: boolean; image?: { url: string; alt: string } }): Metadata {

@@ -89,7 +89,7 @@ export function SampleGallery() {
 
       {/* Thumbnails */}
       <div id="panel-thumbnails" role="tabpanel" aria-labelledby="tab-thumbnails" hidden={active !== "thumbnails"} className="mt-8">
-        <p className="max-w-2xl text-muted">Seven niches, built at 1280×720. Every channel is fictional. Click any thumbnail to open it full size.</p>
+        <p className="max-w-2xl text-muted">Seven niches, built at 1280×720. Every channel is fictional. Click any thumbnail for a larger preview. Previews on this site are watermarked; clients get clean files.</p>
 
         <h3 className="mt-8 text-sm font-bold uppercase tracking-[0.14em] text-muted">A/B pairs: two concepts for the same video</h3>
         <div className="mt-4 grid gap-6">
@@ -152,7 +152,7 @@ export function SampleGallery() {
               <a href={l.file} target="_blank" rel="noopener" className="block overflow-hidden rounded-2xl border border-line shadow-sm">
                 <img
                   src={l.file}
-                  srcSet={`${l.small} 800w, ${l.file} 1600w`}
+
                   sizes="(min-width: 1152px) 540px, (min-width: 768px) 50vw, 100vw"
                   alt={l.alt}
                   width={1600}
@@ -161,7 +161,7 @@ export function SampleGallery() {
                   decoding="async"
                   className="aspect-[4/3] w-full object-cover"
                 />
-                <span className="sr-only"> (open full size)</span>
+                <span className="sr-only"> (open larger preview)</span>
               </a>
               <figcaption className="mt-2 text-sm">
                 <span className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">{l.industry}</span>

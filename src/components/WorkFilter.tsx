@@ -103,7 +103,7 @@ export function WorkFilter({ kind }: { kind: Kind }) {
               <a href={t.file} target="_blank" rel="noopener" className="block overflow-hidden rounded-xl border border-line bg-ink shadow-sm">
                 <img
                   src={t.file}
-                  srcSet={t.small ? `${t.small} 640w, ${t.file} 1280w` : undefined}
+
                   sizes={t.small ? "(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw" : undefined}
                   alt={t.alt}
                   width={1280}
@@ -112,7 +112,7 @@ export function WorkFilter({ kind }: { kind: Kind }) {
                   decoding="async"
                   className="aspect-video w-full object-cover"
                 />
-                <span className="sr-only"> (open full size)</span>
+                <span className="sr-only"> (open larger preview)</span>
               </a>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 <Tag>{t.niche}</Tag><Tag>{t.look}</Tag>{t.pair && <Tag>A/B pair · {t.pair.variant}</Tag>}
@@ -139,7 +139,7 @@ export function WorkFilter({ kind }: { kind: Kind }) {
                   style={{ aspectRatio: `${l.size[0]} / ${l.size[1]}` }}
                   className="w-full object-cover"
                 />
-                <span className="sr-only"> (open full size)</span>
+                <span className="sr-only"> (open larger preview)</span>
               </a>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 <Tag>{l.industry}</Tag><Tag>{l.look}</Tag>{l.system && <Tag>Brand system</Tag>}
