@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BuyButton } from "@/components/BuyButton";
 import { turnaroundLabel } from "@/components/OfferCards";
-import { LandingCard, LogoFigure, PanelFooter, RedesignBlock, ThumbFigure } from "@/components/SampleCards";
+import { KitFigure, LandingCard, LogoFigure, PanelFooter, RedesignBlock, ThumbFigure } from "@/components/SampleCards";
 import {
   Breadcrumb,
   CtaSection,
@@ -17,7 +17,7 @@ import {
   heroTitleClassLong,
   heroTitleClassXLong,
 } from "@/components/HomeSections";
-import { cases, formatPrice, getOffer, getOption, logoSamples, site, thumbSamples, type Buyable, type OfferOption } from "@/lib/site";
+import { cases, formatPrice, getOffer, getOption, kitSamples, logoSamples, site, thumbSamples, type Buyable, type OfferOption } from "@/lib/site";
 import { getService, type SampleSet, type ServicePage as Service } from "@/lib/services";
 
 /**
@@ -29,6 +29,7 @@ import { getService, type SampleSet, type ServicePage as Service } from "@/lib/s
 const pickCases = (slugs: string[]) => slugs.map((slug) => cases.find((c) => c.slug === slug)).filter((c): c is (typeof cases)[number] => Boolean(c));
 const pickThumbs = (ids: string[]) => ids.map((id) => thumbSamples.find((t) => t.id === id)).filter((t): t is (typeof thumbSamples)[number] => Boolean(t));
 const pickLogos = (ids: string[]) => ids.map((id) => logoSamples.find((l) => l.id === id)).filter((l): l is (typeof logoSamples)[number] => Boolean(l));
+const pickKits = (ids: string[]) => ids.map((id) => kitSamples.find((k) => k.id === id)).filter((k): k is (typeof kitSamples)[number] => Boolean(k));
 
 /** Homepage gallery proportions: 2 large + 3 small per 5, or rows of 3 / 2 depending on the count. */
 function landingSpan(n: number, i: number) {
@@ -61,6 +62,13 @@ function Samples({ sm }: { sm: SampleSet }) {
       </div>
     );
   }
+  if (sm.kind === "kits") {
+    return (
+      <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2">
+        {pickKits(sm.ids).map((k) => <KitFigure key={k.id} k={k} />)}
+      </div>
+    );
+  }
   const list = pickLogos(sm.ids);
   return (
     <div className={`mt-8 grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2 ${list.length <= 3 ? "lg:grid-cols-3" : ""}`}>
@@ -85,6 +93,7 @@ export function SampleCollage({ sets, moreHref }: { sets: SampleSet[]; moreHref:
   const lcases = sets.flatMap((x) => (x.kind === "landing" ? pickCases(x.slugs) : []));
   const thumbs = sets.flatMap((x) => (x.kind === "thumbnails" ? pickThumbs(x.ids) : []));
   const logos = sets.flatMap((x) => (x.kind === "logos" ? pickLogos(x.ids) : []));
+  const kits = sets.flatMap((x) => (x.kind === "kits" ? pickKits(x.ids) : []));
   const logoImg = (l?: (typeof logoSamples)[number]) => (l ? { src: l.small ?? l.file, width: l.size[0] / 2, height: l.size[1] / 2 } : undefined);
 
   if (lcases.length) {
@@ -101,6 +110,20 @@ export function SampleCollage({ sets, moreHref }: { sets: SampleSet[]; moreHref:
         secondary={second ? { src: second.card ?? second.image, width: 960, height: 720 } : thumbs[0] ? { src: thumbs[0].small ?? thumbs[0].file, width: 640, height: 360 } : undefined}
         phone={c.mobile ? { src: c.mobile, width: 360, height: 779 } : undefined}
         logo={logoImg(logo)}
+      />
+    );
+  }
+  if (kits.length) {
+    // Channel kits: the banners stacked, one kit thumbnail overlapping, the first kit's profile picture in the corner.
+    const kitThumb = thumbs[0] ?? thumbSamples.find((t) => t.id === kits[0].thumb);
+    return (
+      <HeroCollage
+        href={moreHref}
+        srLabel=" See more thumbnail concepts"
+        badge="Concept · fictional channel"
+        stack={kits.slice(0, 2).map((k) => ({ src: k.banner, alt: k.bannerAlt, width: 1280, height: 720 }))}
+        secondary={kitThumb ? { src: kitThumb.small ?? kitThumb.file, width: 640, height: 360 } : undefined}
+        logo={{ src: kits[0].pfp, width: 400, height: 400 }}
       />
     );
   }
@@ -129,14 +152,20 @@ export function pagePlans(s: Service): OfferOption[] {
   return (s.plans ?? []).map(getOption).filter((x): x is OfferOption => Boolean(x));
 }
 
-/** What a page's main call to action buys: its first plan, or else its package. */
+/** The one-off option a page sells instead of its package (e.g. the Channel Launch Kit), if any. */
+export function pageBuy(s: Service): OfferOption | undefined {
+  return s.buy ? getOption(s.buy) : undefined;
+}
+
+/** What a page's main call to action buys: its first plan, its one-off option, or else its package. */
 export function pageOffer(s: Service): Buyable {
-  return pagePlans(s)[0] ?? getOffer(s.offer);
+  return pagePlans(s)[0] ?? pageBuy(s) ?? getOffer(s.offer);
 }
 
 export function serviceJsonLd(s: Service) {
   const o = getOffer(s.offer);
   const plans = pagePlans(s);
+  const buy = pageBuy(s);
   const url = `${site.url}/services/${s.slug}/`;
   return {
     "@context": "https://schema.org",
@@ -150,7 +179,7 @@ export function serviceJsonLd(s: Service) {
         url,
         provider: { "@id": `${site.url}/#organization` },
         areaServed: { "@type": "Place", name: "Worldwide" },
-        offers: (plans.length ? plans : [o, ...(o.options ?? [])]).map((x) => ({
+        offers: (plans.length ? plans : buy ? [buy] : [o, ...(o.options ?? [])]).map((x) => ({
           "@type": "Offer",
           name: x.name,
           price: x.price,
@@ -182,6 +211,7 @@ export function serviceJsonLd(s: Service) {
 
 export function ServicePageView({ s }: { s: Service }) {
   const plans = pagePlans(s);
+  const buy = pageBuy(s);
   const o = pageOffer(s);
   const price = formatPrice(o);
   const m = s.monthlyCopy;
@@ -267,7 +297,7 @@ export function ServicePageView({ s }: { s: Service }) {
       >
         <div className="mt-14 grid gap-6 lg:grid-cols-[2fr_1fr]">
           <div>
-            <h3 className="text-xl font-bold">{m ? m.whatYouGet : <>What you get with {monthly ? o.name : `the ${o.name.toLowerCase()}`}</>}</h3>
+            <h3 className="text-xl font-bold">{m ? m.whatYouGet : <>What you get with {monthly || buy ? (buy ? `the ${o.name}` : o.name) : `the ${o.name.toLowerCase()}`}</>}</h3>
             <ul className="mt-6 grid gap-6 sm:grid-cols-2">
               {s.sections.map((x) => (
                 <li key={x.title} className="rounded-3xl border border-line bg-white p-6">
@@ -300,7 +330,7 @@ export function ServicePageView({ s }: { s: Service }) {
             </div>
           ))}
           {s.beforeAfter && <RedesignBlock />}
-          <PanelFooter offer={s.offer} items={plans.length > 1 ? plans : undefined} cta={cta} note={m ? m.footerNote : monthly ? "Billed monthly, cancel any time by email." : `${turnaround} after your brief, one revision round included.`} more={s.moreHref} moreLabel="See more examples" />
+          <PanelFooter offer={s.offer} items={plans.length > 1 ? plans : buy ? [buy] : undefined} cta={cta} note={m ? m.footerNote : monthly ? "Billed monthly, cancel any time by email." : `${turnaround} after your brief, one revision round included.`} more={s.moreHref} moreLabel="See more examples" />
         </div>
       </WorkSection>
 

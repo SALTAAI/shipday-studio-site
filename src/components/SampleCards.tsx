@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BuyButton } from "@/components/BuyButton";
-import { cases, formatPrice, getOffer, logoSamples, redesign, thumbSamples, type Buyable, type ServiceId } from "@/lib/site";
+import { cases, formatPrice, getOffer, kitSamples, logoSamples, redesign, thumbSamples, type Buyable, type ServiceId } from "@/lib/site";
 
 /** Sample-work cards shared by the homepage gallery and every service page, so they always look the same. */
 
@@ -179,6 +179,33 @@ export function LogoFigure({ l }: { l: (typeof logoSamples)[number] }) {
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">{l.industry}</span>
         <span className="block"><span className="font-semibold">{l.name}</span> <span className="text-muted">· {l.note}</span></span>
         <span className="block text-xs text-muted">Concept · fictional brand</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+/** One Channel Launch Kit board (banner, profile picture, logo and a thumbnail together), in the logo-board style. */
+export function KitFigure({ k }: { k: (typeof kitSamples)[number] }) {
+  return (
+    <figure>
+      <a href={k.board} target="_blank" rel="noopener" className="block overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
+        <img
+          src={k.board}
+          srcSet={`${k.small} 800w, ${k.board} 1600w`}
+          sizes="(min-width: 1152px) 540px, (min-width: 768px) 50vw, 100vw"
+          alt={k.alt}
+          width={1600}
+          height={1200}
+          loading="lazy"
+          decoding="async"
+          className="aspect-[4/3] w-full object-cover"
+        />
+        <span className="sr-only"> (open full size)</span>
+      </a>
+      <figcaption className="mt-2 text-sm">
+        <span className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">{k.niche}</span>
+        <span className="block"><span className="font-semibold">{k.channel}</span> <span className="text-muted">· {k.note}</span></span>
+        <span className="block text-xs text-muted">Concept · fictional channel</span>
       </figcaption>
     </figure>
   );

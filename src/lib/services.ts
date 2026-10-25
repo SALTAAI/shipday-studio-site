@@ -7,7 +7,8 @@ import type { ServiceId } from "./site";
 export type SampleSet =
   | { kind: "landing"; slugs: string[] }
   | { kind: "thumbnails"; ids: string[] }
-  | { kind: "logos"; ids: string[] };
+  | { kind: "logos"; ids: string[] }
+  | { kind: "kits"; ids: string[] };
 
 export type ServicePage = {
   slug: string;
@@ -36,6 +37,8 @@ export type ServicePage = {
   /** Optional heading and intro for the samples section (defaults suit one-off packages). */
   workHeading?: string;
   workIntro?: string;
+  /** One-off package option sold on this page instead of the main package (option id in site.ts), e.g. "launch-kit". */
+  buy?: string;
   /** Monthly plans sold on this page (package option ids in site.ts); the first is the main call to action. */
   plans?: string[];
   /** Copy for subscription pages built on the shared layout. Without it, monthly pages use the Upkeep defaults. */
@@ -657,7 +660,7 @@ export const services: ServicePage[] = [
       { q: "Can I order packs regularly?", a: "Yes. Each pack is a separate fixed-price order of 4 thumbnails, so you can order one per batch of uploads. If you upload every week, a monthly plan is simpler: Creator Lite is 4 thumbnails a month for $79/mo (at most 1 a week) and the Creator plan is 12 a month for $179/mo (up to 3 a week), cancel any time." },
       { q: "Are the samples from real channels?", a: "No. Every sample on this page is a concept for a fictional channel, made to show the range of styles we design." },
     ],
-    related: ["youtube-thumbnail-price", "youtube-thumbnail-subscription", "roblox-thumbnail-design", "faceless-youtube-thumbnails", "logo-design", "indie-game-landing-page"],
+    related: ["youtube-thumbnail-price", "youtube-thumbnail-subscription", "roblox-thumbnail-design", "youtube-channel-branding", "faceless-youtube-thumbnails", "logo-design", "indie-game-landing-page"],
   },
   {
     slug: "faceless-youtube-thumbnails",
@@ -811,7 +814,7 @@ export const services: ServicePage[] = [
       { q: "I'm starting a new channel. Where do I begin?", a: "If you also need a logo, banner and profile picture, the Channel Launch Kit is $199 for all of that plus 4 thumbnails, delivered within 48 hours of a complete brief. A plan can follow once you're uploading regularly." },
       { q: "Are the samples from real channels?", a: "No. Every sample on this page is a concept for a fictional channel, made to show the range of styles we design." },
     ],
-    related: ["youtube-thumbnail-design", "youtube-thumbnail-price", "faceless-youtube-thumbnails", "logo-design"],
+    related: ["youtube-thumbnail-design", "youtube-thumbnail-price", "youtube-channel-branding", "faceless-youtube-thumbnails", "logo-design"],
   },
   {
     slug: "roblox-thumbnail-design",
@@ -861,7 +864,64 @@ export const services: ServicePage[] = [
       { q: "Do I own the thumbnails?", a: "Yes. Once paid, you own the final thumbnails and can use them however you like. Drafts and unused ideas stay with us. Full details are in the terms." },
       { q: "Are the samples from real games?", a: "No. Every sample on this page is a concept for a fictional game or channel, made by us. We don't use Roblox logos or other games' art in them." },
     ],
-    related: ["youtube-thumbnail-design", "youtube-thumbnail-price", "youtube-thumbnail-subscription", "indie-game-landing-page", "logo-design"],
+    related: ["youtube-thumbnail-design", "youtube-thumbnail-price", "youtube-thumbnail-subscription", "youtube-channel-branding", "indie-game-landing-page", "logo-design"],
+  },
+  {
+    slug: "youtube-channel-branding",
+    offer: "logo",
+    buy: "launch-kit",
+    label: "YouTube channel branding kit",
+    metaTitle: "YouTube channel branding kit, $199 in 48h",
+    metaDescription:
+      "YouTube channel branding in one kit: a logo (2 concepts), a 2560×1440 banner, an 800×800 profile picture and 4 thumbnails. $199 one-time, in 48h.",
+    eyebrow: "YouTube channel branding",
+    h1: "Logo, banner, profile picture and 4 thumbnails, in 48 hours.",
+    h1Accent: "in 48 hours.",
+    intro: [
+      "Starting a channel, or relaunching one? The Channel Launch Kit gives it one look from the first upload: a logo, a channel banner, a profile picture and 4 thumbnails, designed together so they match on your channel page, in search and in the subscriptions feed.",
+      "It's $199, paid once, and delivered within 48 hours of a complete brief, with one revision round for the whole kit. Bought separately, a logo pack ($149, 3 concepts) and a thumbnail pack ($79) come to $228, without the banner or the profile picture.",
+    ],
+    sections: [
+      { title: "A logo, 2 concepts", body: "Two different directions for your channel name or mark. Pick one and get the final logo as SVG and PNG, in versions for light and dark backgrounds." },
+      { title: "Channel banner, 2560×1440", body: "Made at YouTube's 2560×1440 banner size, with your channel name and any text kept inside the centred 1546×423 safe area, the part that stays visible on phones, computers and TVs." },
+      { title: "Profile picture, 800×800", body: "Built from your logo and checked as a tiny circle, the size it shows at next to your videos and comments, so it still reads when it's small." },
+      { title: "4 thumbnails, 1280×720", body: "For your first uploads, in the same colours and type as the banner and logo, with bold titles that read on a phone. Each comes with its editable source file." },
+      { title: "Designed as one set", body: "Logo first, then the banner, profile picture and thumbnails built around it, so the channel looks like one brand instead of four separate orders." },
+      { title: "One brief, one round of changes", body: "One email brief starts the 48-hour clock. After delivery, one revision round covers the whole kit: send one list of changes within 14 days." },
+    ],
+    fit: [
+      "You're starting a YouTube channel and need a logo, banner, profile picture and your first thumbnails before you upload.",
+      "You're relaunching or renaming a channel and want everything to match again.",
+      "You want one fixed price paid once, not a quote, a call or a monthly bill.",
+    ],
+    notIncluded: [
+      "Video editing, intros, outros, animated logos or any other motion or animated assets.",
+      "Trademark searches or registration, or checking that a channel name is free to use.",
+      "Guaranteed clicks, CTR, views or subscribers. We design for clarity; results depend on your videos and audience.",
+      "Rush delivery, extra logo concepts or more than 4 thumbnails. More thumbnails later: 4 for $79 total, or Creator Lite at $79/mo.",
+      "Stream overlays, emotes, merch or end screens.",
+    ],
+    samples: { kind: "kits", ids: ["glitchpaw", "slow-kettle"] },
+    extras: [
+      { title: "Thumbnails from the kits", note: "One of the 4 thumbnails from each kit at 1280×720, plus a concept from another niche.", samples: { kind: "thumbnails", ids: ["kit-glitchpaw", "kit-slow-kettle", "roblox-egg"] } },
+    ],
+    moreHref: "/work/thumbnails/",
+    workHeading: "Two channel kits we've made",
+    workIntro: "Concepts for two fictional channels, not client work: Glitchpaw (gaming) and Slow Kettle (one-pot cooking). Each board shows the banner, profile picture, logo and one of the 4 thumbnails together, the way they'd sit on a channel.",
+    faq: [
+      { q: "What exactly is in the kit?", a: "A logo (2 concepts; you pick one and get the final SVG and PNG files), a channel banner at 2560×1440, a profile picture at 800×800 and 4 thumbnails at 1280×720 with their source files. One revision round covers the whole kit." },
+      { q: "What should I send in the brief?", a: "Your channel name, what the channel is about, the titles of your first 4 videos, colours you like, a few channels whose look you like, and any photos or screenshots you want used. Five minutes is plenty. If something is missing we ask by email, and the 48-hour clock pauses until you reply." },
+      { q: "When does the 48 hours start?", a: "Once payment is confirmed and your brief is complete. Everything arrives by email within 48 hours. There's no rush option." },
+      { q: "Is this made with AI?", a: "Production is AI-assisted: artwork for the banner and thumbnails is generated or composed for your channel, then we design the layouts and text, finish every file and quality-check it before delivery, with one revision round included. If you need channel art made without AI, we're not the right fit." },
+      { q: "Can I get just the logo or just thumbnails?", a: "Yes. The logo pack is $149 for 3 concepts. Thumbnails are $20 for 1 or $79 total for 4. If you upload every week, Creator Lite is 4 thumbnails a month for $79/mo and the Creator plan is 12 a month for $179/mo, cancel any time. They're all in the pricing cards on this page." },
+      { q: "Do I own everything?", a: "Yes. Once paid, you own the final logo, banner, profile picture and thumbnails and can use them however you like. The logo concept you don't pick stays with us. Full details are in the terms." },
+      { q: "Will this get my channel more subscribers?", a: "Nobody can honestly promise that. A consistent, readable look helps people recognise your channel, but views and subscribers depend on your videos, titles and audience." },
+      { q: "Can you check that my channel name or logo is free to use?", a: "Every concept is designed from scratch, but we don't run trademark searches. If you plan to register your channel name or logo, have a search done first." },
+      { q: "Do you make animated intros or edit videos?", a: "No. The kit covers still images only: logo, banner, profile picture and thumbnails." },
+      { q: "What if I change my mind before you start?", a: "If we haven't started work yet, you can cancel by email for a full refund through Stripe. Once work has started, the revision round is how changes are handled." },
+      { q: "Are the samples from real channels?", a: "No. Glitchpaw and Slow Kettle are fictional channels we made up to show what a kit looks like together. No real channel's logo or art is used." },
+    ],
+    related: ["logo-design", "youtube-thumbnail-design", "youtube-thumbnail-subscription", "roblox-thumbnail-design", "faceless-youtube-thumbnails"],
   },
   {
     slug: "logo-design",
@@ -900,7 +960,7 @@ export const services: ServicePage[] = [
       { q: "Can you design a logo for any industry?", a: "Yes. The samples cover energy tech, restaurants, perfume, esports, professional services and a kids' club, all fictional brands. Tell us your audience and the feeling you want." },
       { q: "Do you check that the logo is unique?", a: "Every concept is designed from scratch, but we can't run legal trademark searches. If you plan to register a trademark, have a quick search done before filing." },
     ],
-    related: ["logo-design-price", "landing-page-design", "youtube-thumbnail-design"],
+    related: ["logo-design-price", "youtube-channel-branding", "landing-page-design", "youtube-thumbnail-design"],
   },
   {
     slug: "logo-design-price",

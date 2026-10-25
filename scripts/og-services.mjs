@@ -21,7 +21,8 @@ const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, 
 const priceLabel = (o) => `$${o.price}${o.unit ?? ""}`;
 
 const html = (s) => {
-  const o = offers.find((x) => x.id === s.offer);
+  // Pages that sell a one-off option (e.g. the Channel Launch Kit) show that option instead of the package.
+  const o = (s.buy && offers.flatMap((x) => x.options ?? []).find((x) => x.id === s.buy)) || offers.find((x) => x.id === s.offer);
   // Pages that sell monthly plans (e.g. the thumbnail subscription page) show each plan's price instead of the package.
   const plans = (s.plans ?? []).map((id) => offers.flatMap((x) => x.options ?? []).find((x) => x.id === id)).filter(Boolean);
   const size = s.h1.length > 70 ? 58 : s.h1.length > 55 ? 64 : 72;

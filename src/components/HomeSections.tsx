@@ -21,6 +21,7 @@ export function HeroCollage({
   secondary,
   phone,
   logo,
+  badge,
 }: {
   href: string;
   external?: boolean;
@@ -35,6 +36,8 @@ export function HeroCollage({
   phone?: Img;
   /** Square image overlapping the top-right corner. */
   logo?: Img;
+  /** Concept badge label (defaults to "Concept · fictional brand"). */
+  badge?: string;
 }) {
   return (
     <div className="relative mx-auto w-full max-w-md lg:max-w-none">
@@ -52,7 +55,7 @@ export function HeroCollage({
             ))}
           </span>
         )}
-        <span className="absolute bottom-4 right-4"><ConceptBadge dark /></span>
+        <span className="absolute bottom-4 right-4"><ConceptBadge dark label={badge} /></span>
         <span className="sr-only">{srLabel}</span>
       </a>
       {secondary && (

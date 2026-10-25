@@ -679,6 +679,10 @@ export const thumbSamples: ThumbSample[] = [
     alt: "Roblox-style video thumbnail concept for a fictional survival game: 'Don't swim' and 'Day 47 / 100' beside a blocky avatar wading away from a giant blocky shark" },
   { id: "roblox-horror", file: "/work/v4/thumb-roblox-horror.webp", small: "/work/v4/thumb-roblox-horror-640.webp", niche: "Roblox games", title: "Escaping the hallway on night 5", look: "Rich & detailed", concept: "Concept · fictional game",
     alt: "Roblox-style horror thumbnail concept for a fictional game: 'He's faster' in white and red and a 'Night 5' tag as a blocky avatar runs from a shadow monster with red eyes down a green-lit school hallway" },
+  { id: "kit-glitchpaw", file: "/work/v4/thumb-kit-glitchpaw.webp", small: "/work/v4/thumb-kit-glitchpaw-640.webp", niche: "Gaming", title: "1 HP left vs. the Titan boss", look: "Rich & detailed",
+    alt: "Gaming thumbnail concept from the Glitchpaw channel kit (fictional channel): '1 HP' in lime and 'Left' in white with a red 'vs. Titan MK-9' tag, beside a small purple robot cat in front of a giant mech boss" },
+  { id: "kit-slow-kettle", file: "/work/v4/thumb-kit-slow-kettle.webp", small: "/work/v4/thumb-kit-slow-kettle-640.webp", niche: "Food & cooking", title: "Sunday stew, 1 pot, 3 hours", look: "Balanced",
+    alt: "Cooking thumbnail concept from the Slow Kettle channel kit (fictional channel): 'Sunday' in cream serif and 'Stew' in orange with a '1 pot · 3 hours' tag, beside a steaming bowl of beef and carrot stew on a dark wooden table" },
   { id: "mics", file: thumbnails[0].file, niche: "Tech review", title: "I tried 5 budget mics", look: "Clean & simple", alt: thumbnails[0].alt },
   { id: "sourdough", file: thumbnails[1].file, niche: "Food & cooking", title: "30 day sourdough", look: "Clean & simple", alt: thumbnails[1].alt },
   { id: "1k-month", file: thumbnails[2].file, niche: "Money & finance", title: "My first $1K month", look: "Clean & simple", alt: thumbnails[2].alt },
@@ -701,6 +705,36 @@ export type LogoSample = {
   system?: boolean;
   featured?: number;
 };
+
+/** Channel Launch Kit concepts: logo, banner, profile picture and one thumbnail shown together. Every channel is fictional. */
+export type KitSample = {
+  id: string;
+  channel: string;
+  niche: string;
+  note: string;
+  /** 1600x1200 kit board (banner, profile picture, logo and one thumbnail together). */
+  board: string;
+  small: string;
+  /** 1280x720 preview of the 2560x1440 banner. */
+  banner: string;
+  /** 400x400 profile picture. */
+  pfp: string;
+  /** Matching thumbnail in thumbSamples. */
+  thumb: string;
+  alt: string;
+  bannerAlt: string;
+};
+
+export const kitSamples: KitSample[] = [
+  { id: "glitchpaw", channel: "Glitchpaw", niche: "Gaming channel", note: "Indie boss-fight runs", thumb: "kit-glitchpaw",
+    board: "/work/v4/kit-glitchpaw-board.webp", small: "/work/v4/kit-glitchpaw-board-800.webp", banner: "/work/v4/kit-glitchpaw-banner.webp", pfp: "/work/v4/kit-glitchpaw-pfp.webp",
+    alt: "Channel kit concept for Glitchpaw, a fictional gaming channel: a neon city banner with a purple robot-cat mark and the Glitchpaw wordmark, a round profile picture of the mark with a lime ring, the logo on dark, and a '1 HP left' boss-fight thumbnail",
+    bannerAlt: "Glitchpaw channel banner concept (fictional channel): a purple robot-cat mark and the Glitchpaw wordmark over a rainy neon city skyline" },
+  { id: "slow-kettle", channel: "Slow Kettle", niche: "Cooking channel", note: "One-pot dinners", thumb: "kit-slow-kettle",
+    board: "/work/v4/kit-slow-kettle-board.webp", small: "/work/v4/kit-slow-kettle-board-800.webp", banner: "/work/v4/kit-slow-kettle-banner.webp", pfp: "/work/v4/kit-slow-kettle-pfp.webp",
+    alt: "Channel kit concept for Slow Kettle, a fictional cooking channel: a cream banner with a terracotta kettle mark, the Slow Kettle serif wordmark and a stew photo, a round terracotta profile picture, the logo on cream, and a 'Sunday stew' thumbnail",
+    bannerAlt: "Slow Kettle channel banner concept (fictional channel): a terracotta kettle mark, the Slow Kettle wordmark and 'One-pot dinners, low and slow' next to a photo of a bowl of stew" },
+];
 
 /** All logo concepts. Every brand is fictional. */
 export const logoSamples: LogoSample[] = [

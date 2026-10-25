@@ -17,7 +17,7 @@ export const metadata: Metadata = pageMeta({
 const groups = [
   { offer: "landing" as const, title: "Landing pages" },
   { offer: "thumbnails" as const, title: "YouTube and Roblox thumbnails" },
-  { offer: "logo" as const, title: "Logos" },
+  { offer: "logo" as const, title: "Logos and YouTube channel kits" },
   { offer: "upkeep" as const, title: "Website upkeep" },
 ];
 
@@ -61,7 +61,7 @@ export default function ServicesIndex() {
           const o = getOffer(g.offer);
           return (
             <div key={g.offer} className="mt-12">
-              <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-muted">{g.title} · {formatPrice(o)} · {turnaroundLabel(o.turnaround)}</h3>
+              <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-muted">{g.title} · {items.some((s) => pageOffer(s).price > o.price) ? "From " : ""}{formatPrice(o)} · {turnaroundLabel(o.turnaround)}</h3>
               <ul className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {items.map((s) => {
                   const so = pageOffer(s);

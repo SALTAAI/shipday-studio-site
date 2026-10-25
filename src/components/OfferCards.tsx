@@ -13,6 +13,7 @@ const explainer: Record<ServiceId, { slug: string; label: string }> = {
 /** Extra explainer links inside a card, e.g. the monthly thumbnail plans page in the thumbnail card. */
 const moreExplainers: Partial<Record<ServiceId, { slug: string; label: string }[]>> = {
   thumbnails: [{ slug: "youtube-thumbnail-subscription", label: "Monthly plans explained" }],
+  logo: [{ slug: "youtube-channel-branding", label: "Channel Launch Kit explained" }],
 };
 
 export function turnaroundLabel(t: string) {
