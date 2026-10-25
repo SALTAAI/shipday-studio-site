@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMeta({
 
 export default function Terms() {
   return (
-    <LegalPage title="Terms of Service" updated="21 October 2026">
+    <LegalPage title="Terms of Service" updated="25 October 2026">
       <p>
         These terms apply to every order placed with Shipday Studio, Switzerland (&quot;we&quot;, &quot;us&quot;;
         operator details in the <Link href="/imprint/">Imprint</Link>). By paying for a package you (&quot;you&quot;, the client) agree
@@ -28,6 +28,12 @@ export default function Terms() {
             {o.turnaround === "Ongoing" ? ", billed monthly" : `, delivered within ${o.turnaround}`}. Includes: {o.includes.map((i) => i.charAt(0).toLowerCase() + i.slice(1)).join(", ")}.
           </li>
         ))}
+        {offers.flatMap((o) => o.options ?? []).map((x) => (
+          <li key={x.id}>
+            <strong>{x.name}</strong>: ${x.price}{x.unit ?? ""}
+            {x.unit === "/month" ? ", billed monthly" : `, delivered within ${x.turnaround}`}. Includes: {x.includes.map((i) => i.charAt(0).toLowerCase() + i.slice(1)).join(", ")}.
+          </li>
+        ))}
       </ul>
 
       <h2>2. How ordering works</h2>
@@ -41,7 +47,7 @@ export default function Terms() {
       <h2>3. Prices and payment</h2>
       <ul>
         <li>All prices are in US dollars (USD) and are fixed for the package described.</li>
-        <li>One-off packages are paid in full upfront. Upkeep is a subscription billed monthly in advance by Stripe.</li>
+        <li>One-off packages are paid in full upfront. Upkeep and the Creator plan are subscriptions billed monthly in advance by Stripe. Creator plan thumbnails that are not requested within a billing month do not carry over.</li>
         <li>Any taxes or fees that apply are shown on the Stripe checkout page before you pay. Your bank or card provider may charge currency conversion fees.</li>
       </ul>
 
@@ -65,7 +71,7 @@ export default function Terms() {
         <li><strong>Before work starts:</strong> cancel by email for a full refund, no questions asked. Work starts when we email you to confirm we&apos;ve begun.</li>
         <li><strong>After work starts:</strong> because the work is custom, we don&apos;t refund it, but we&apos;ll use your revision round to put things right.</li>
         <li><strong>If we can&apos;t deliver:</strong> full refund.</li>
-        <li><strong>Upkeep:</strong> cancel any time by emailing {site.email}. It stops at the end of the month you&apos;ve already paid for; partial months aren&apos;t refunded.</li>
+        <li><strong>Upkeep and the Creator plan:</strong> cancel any time by emailing {site.email}. The plan stops at the end of the month you&apos;ve already paid for; partial months aren&apos;t refunded.</li>
       </ul>
       <p>Refunds go back to the original payment method through Stripe.</p>
 

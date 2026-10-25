@@ -34,6 +34,57 @@
       }
     },
     {
+      "sku": "thumbnail_single",
+      "name": "Single YouTube Thumbnail",
+      "description": "1 custom YouTube thumbnail, delivered in 24h after the brief",
+      "product_id": "prod_VVFkvrbWeyKwg8",
+      "price_id": "price_1UUFFAITWxIMUnKVeHwIyGH8",
+      "unit_amount": 2000,
+      "currency": "usd",
+      "type": "one_time",
+      "tax_behavior": "unspecified",
+      "statement_descriptor": "SHIPDAY THUMBNAIL",
+      "metadata": {
+        "brand": "shipday_studio",
+        "sku": "thumbnail_single"
+      },
+      "payment_link_id": "plink_1UUFG8ITWxIMUnKVIufZEQWC",
+      "payment_link_url": "https://buy.stripe.com/00w8wQ9G43Ym3cn3c2cjS04",
+      "after_completion": {
+        "type": "redirect",
+        "redirect_url": "https://shipdaystudio.com/thanks/?product=thumbnail-single"
+      },
+      "link_settings": "mirrors plink_1UT49NITWxIMUnKVtcmBinFp ($79 pack): promo codes on, ToS required, invoice_creation on, customer_creation always, phone collection off, no automatic tax, custom field 'project', 24h submit message",
+      "created_at": "2026-10-25T02:25:00+02:00"
+    },
+    {
+      "sku": "thumbnail_creator_plan",
+      "name": "Creator Thumbnail Plan",
+      "description": "12 custom YouTube thumbnails per month (up to 3 a week), each delivered within 24h of its brief. Cancel anytime.",
+      "product_id": "prod_VVFnuqApwYjYmG",
+      "price_id": "price_1UUFINITWxIMUnKVJGK65qzB",
+      "unit_amount": 17900,
+      "currency": "usd",
+      "type": "recurring",
+      "interval": "month",
+      "tax_behavior": "unspecified",
+      "statement_descriptor": "SHIPDAY CREATOR PLAN",
+      "metadata": {
+        "brand": "shipday_studio",
+        "sku": "thumbnail_creator_plan"
+      },
+      "monthly_quota": 12,
+      "weekly_cap": 3,
+      "payment_link_id": "plink_1UUFIiITWxIMUnKVGgwQ22sm",
+      "payment_link_url": "https://buy.stripe.com/cNi28s9G4gL88wH7sicjS05",
+      "after_completion": {
+        "type": "redirect",
+        "redirect_url": "https://shipdaystudio.com/thanks/?product=creator-plan"
+      },
+      "link_settings": "mirrors plink_1UT49TITWxIMUnKV2IeoPNE6 (Upkeep subscription): promo codes on, ToS required, payment_method_collection always, phone collection off, no automatic tax, custom field 'project', subscription metadata brand/sku",
+      "created_at": "2026-10-25T02:28:00+02:00"
+    },
+    {
       "sku": "logo_pack",
       "name": "Logo Pack",
       "product_id": "prod_VU2DrTgJHWtDE7",
@@ -66,5 +117,18 @@
     }
   ],
   "thank_you_page": "https://shipdaystudio.com/thanks/",
-  "redirects_updated_at": "2026-10-21T23:25:00+02:00"
+  "redirects_updated_at": "2026-10-21T23:25:00+02:00",
+  "tracking": {
+    "param": "client_reference_id",
+    "how": "Append ?client_reference_id=<value> to a buy.stripe.com link. Stripe copies it onto the Checkout Session (checkout.session.client_reference_id). Allowed: letters, digits, '-' and '_' only, max 200 chars.",
+    "values": {
+      "x-reply": "link posted in a public X reply",
+      "x-dm": "link sent in an X DM",
+      "reddit": "link posted in a Reddit comment, post or DM",
+      "site": "every buy link on shipdaystudio.com (added in the site code via SITE_REF)"
+    },
+    "unknown": "no client_reference_id on the session = untagged link (old copy, direct share or Stripe receipt)",
+    "added_at": "2026-10-25T02:30:00+02:00"
+  },
+  "updated_at": "2026-10-25T02:30:00+02:00"
 }

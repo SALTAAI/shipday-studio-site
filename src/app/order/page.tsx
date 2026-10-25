@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { offers, formatPrice, site, briefMailto, cases, faq, getOffer, logoSamples, thumbSamples } from "@/lib/site";
+import { allOffers, formatPrice, site, briefMailto, cases, faq, getOffer, logoSamples, thumbSamples } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 import { services } from "@/lib/services";
 import { CtaSection, FaqSection, HeroCollage, HeroSection, HowSection, PricingSection, heroTicks } from "@/components/HomeSections";
@@ -26,7 +26,7 @@ const orderJsonLd = {
       "@id": `${site.url}/order/#catalog`,
       name: "Shipday Studio fixed-price design packages",
       url: `${site.url}/order/`,
-      itemListElement: offers.map((o) => ({
+      itemListElement: allOffers().map((o) => ({
         "@type": "Offer",
         name: o.name,
         description: o.summary,

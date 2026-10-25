@@ -1,23 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { offers, site, briefMailto, type Offer, type ServiceId } from "@/lib/site";
+import { allOffers, site, briefMailto } from "@/lib/site";
 
-const ids = offers.map((o) => o.id) as string[];
+type Purchase = ReturnType<typeof allOffers>[number];
+const all = allOffers();
 
-function deliveryLine(o: Offer | null) {
+function deliveryLine(o: Purchase | null) {
   if (!o) return "Your delivery clock starts once your brief is in, and finished files arrive by email within your package's turnaround.";
+  if (o.id === "creator-plan") return "Your Creator plan is active. Send a brief for each thumbnail (up to 3 a week, 12 a month) and each one is delivered by email within 24h of its brief being complete, with one revision round included.";
   if (o.id === "upkeep") return "Your Upkeep plan is active. Once we have your site details, send change requests any time and we handle them for you each month.";
   return `Your ${o.name.toLowerCase()} is delivered by email within ${o.turnaround} of your brief being complete, with one revision round included.`;
 }
 
 /** Reads ?product= on the client (static export) and tailors the confirmation copy. Falls back to generic copy. */
 export function ThanksDetails() {
-  const [offer, setOffer] = useState<Offer | null>(null);
+  const [offer, setOffer] = useState<Purchase | null>(null);
 
   useEffect(() => {
     const p = new URLSearchParams(window.location.search).get("product");
-    if (p && ids.includes(p)) setOffer(offers.find((o) => o.id === (p as ServiceId)) ?? null);
+    if (p) setOffer(all.find((o) => o.id === p) ?? null);
   }, []);
 
   const steps = [
@@ -46,7 +48,7 @@ export function ThanksDetails() {
             <p className="mt-0.5 text-lg font-bold">{offer.name}</p>
           </div>
           <p className="rounded-full bg-accent/10 px-3 py-1 text-sm font-semibold text-accent">
-            {offer.id === "upkeep" ? "Monthly, cancel any time" : `Delivered in ${offer.turnaround}`}
+            {offer.unit === "/month" ? "Monthly, cancel any time" : `Delivered in ${offer.turnaround}`}
           </p>
         </div>
       )}

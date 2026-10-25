@@ -59,9 +59,31 @@ export type Offer = {
   summary: string;
   includes: string[];
   featured?: boolean;
-  /** Live Stripe Payment Link for this service (see stripe-catalog.json). */
+  /** Live Stripe Payment Link for this service (see stripe-catalog.json), tagged with client_reference_id=site. */
+  stripeLink: string;
+  /** Extra ways to buy the same service (e.g. a single thumbnail or a monthly plan), shown inside its pricing card. */
+  options?: OfferOption[];
+  /** Plain label for the main package when options are listed next to it, e.g. "4 thumbnails, $79 total". */
+  packLabel?: string;
+};
+
+/** A smaller or recurring variant of a package, bought through its own Stripe Payment Link. */
+export type OfferOption = {
+  /** Value of ?product= on the /thanks/ redirect for this option's Payment Link. */
+  id: string;
+  name: string;
+  /** Short line shown in the pricing card, e.g. "1 thumbnail, $20, 24h". */
+  label: string;
+  summary: string;
+  price: number;
+  unit?: string;
+  turnaround: string;
+  includes: string[];
   stripeLink: string;
 };
+
+/** Source tag appended to every Stripe Payment Link on the website (convention in stripe-catalog.json and RULES.md). */
+export const SITE_REF = "?client_reference_id=site";
 
 export const offers: Offer[] = [
   {
@@ -77,7 +99,7 @@ export const offers: Offer[] = [
       "1 revision round",
     ],
     featured: true,
-    stripeLink: "https://buy.stripe.com/3cIeVebOc8eCaEPbIycjS00",
+    stripeLink: `https://buy.stripe.com/3cIeVebOc8eCaEPbIycjS00${SITE_REF}`,
   },
   {
     id: "thumbnails",
@@ -86,7 +108,31 @@ export const offers: Offer[] = [
     turnaround: "24h",
     summary: "Four YouTube thumbnails built to be read at a glance.",
     includes: ["4 thumbnails, 1280×720", "Bold, legible titles", "Source files included", "1 revision round"],
-    stripeLink: "https://buy.stripe.com/9B6bJ2aK8amK9AL4g6cjS01",
+    stripeLink: `https://buy.stripe.com/9B6bJ2aK8amK9AL4g6cjS01${SITE_REF}`,
+    packLabel: "4 thumbnails, $79 total",
+    options: [
+      {
+        id: "thumbnail-single",
+        name: "Single thumbnail",
+        label: "1 thumbnail, $20, 24h",
+        summary: "One custom YouTube thumbnail, delivered within 24h of your brief.",
+        price: 20,
+        turnaround: "24h",
+        includes: ["1 thumbnail, 1280×720", "Bold, legible title", "Source file included", "1 revision round"],
+        stripeLink: `https://buy.stripe.com/00w8wQ9G43Ym3cn3c2cjS04${SITE_REF}`,
+      },
+      {
+        id: "creator-plan",
+        name: "Creator plan",
+        label: "Creator plan, 12 thumbnails/month, $179/mo",
+        summary: "12 custom YouTube thumbnails a month (up to 3 a week), each delivered within 24h of its brief. Cancel any time.",
+        price: 179,
+        unit: "/month",
+        turnaround: "Ongoing",
+        includes: ["12 thumbnails a month, 1280×720", "Up to 3 a week, each in 24h", "Source files included", "Cancel any time"],
+        stripeLink: `https://buy.stripe.com/cNi28s9G4gL88wH7sicjS05${SITE_REF}`,
+      },
+    ],
   },
   {
     id: "logo",
@@ -95,7 +141,7 @@ export const offers: Offer[] = [
     turnaround: "48h",
     summary: "Three logo concepts. Pick one, get the final files.",
     includes: ["3 distinct concepts", "Final SVG + PNG files", "Light & dark versions", "1 revision round"],
-    stripeLink: "https://buy.stripe.com/00w14obOc9iG9AL9AqcjS02",
+    stripeLink: `https://buy.stripe.com/00w14obOc9iG9AL9AqcjS02${SITE_REF}`,
   },
   {
     id: "upkeep",
@@ -105,7 +151,7 @@ export const offers: Offer[] = [
     turnaround: "Ongoing",
     summary: "Small edits and updates to your site, handled for you.",
     includes: ["Text & image swaps", "Small layout tweaks", "Dependency updates", "Cancel any time"],
-    stripeLink: "https://buy.stripe.com/6oUeVedWk9iG8wHdQGcjS03",
+    stripeLink: `https://buy.stripe.com/6oUeVedWk9iG8wHdQGcjS03${SITE_REF}`,
   },
 ];
 
@@ -667,6 +713,14 @@ export const logoSamples: LogoSample[] = [
 
 export function getOffer(id: ServiceId) {
   return offers.find((o) => o.id === id)!;
+}
+
+/** Every package and package option, for JSON-LD, Terms and the /thanks/ page. */
+export function allOffers() {
+  return offers.flatMap((o) => [
+    { id: o.id as string, name: o.name, summary: o.summary, price: o.price, unit: o.unit, turnaround: o.turnaround, includes: o.includes, stripeLink: o.stripeLink },
+    ...(o.options ?? []).map((x) => ({ id: x.id, name: x.name, summary: x.summary, price: x.price, unit: x.unit, turnaround: x.turnaround, includes: x.includes, stripeLink: x.stripeLink })),
+  ]);
 }
 
 export function formatPrice(o: Offer) {

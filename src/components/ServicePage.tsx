@@ -139,18 +139,18 @@ export function serviceJsonLd(s: Service) {
         url,
         provider: { "@id": `${site.url}/#organization` },
         areaServed: { "@type": "Place", name: "Worldwide" },
-        offers: {
+        offers: [o, ...(o.options ?? [])].map((x) => ({
           "@type": "Offer",
-          name: o.name,
-          price: o.price,
+          name: x.name,
+          price: x.price,
           priceCurrency: "USD",
-          ...(o.unit === "/month"
-            ? { priceSpecification: { "@type": "UnitPriceSpecification", price: o.price, priceCurrency: "USD", unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } }
+          ...(x.unit === "/month"
+            ? { priceSpecification: { "@type": "UnitPriceSpecification", price: x.price, priceCurrency: "USD", unitCode: "MON", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } } }
             : {}),
           availability: "https://schema.org/InStock",
-          url: o.stripeLink,
+          url: x.stripeLink,
           seller: { "@id": `${site.url}/#organization` },
-        },
+        })),
       },
       {
         "@type": "FAQPage",

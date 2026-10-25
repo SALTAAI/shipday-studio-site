@@ -44,6 +44,26 @@ export function OfferCards({ featured, current }: { featured?: ServiceId; curren
             ))}
           </ul>
           <div className="flex-1" />
+          {o.options && (
+            <div className={`mt-6 border-t pt-4 text-sm ${isFeatured ? "border-paper/20" : "border-line"}`}>
+              {o.packLabel && <p className="font-semibold">{o.packLabel}</p>}
+              <ul className="mt-2 space-y-2">
+                {o.options.map((x) => (
+                  <li key={x.id}>
+                    <a
+                      href={x.stripeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-offer={x.id}
+                      className={`font-semibold underline underline-offset-4 ${isFeatured ? "text-paper/85 hover:text-sun" : "text-ink hover:text-accent"}`}
+                    >
+                      {x.label}<span className="sr-only"> (opens Stripe checkout in a new tab)</span> <span aria-hidden="true">→</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {explainer[o.id].slug !== current && (
             <Link
               href={`/services/${explainer[o.id].slug}/`}

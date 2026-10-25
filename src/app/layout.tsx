@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { site, offers } from "@/lib/site";
+import { site, allOffers } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 
 const home = pageMeta({ path: "/", title: `${site.name} | Landing pages in 48h, fixed price`, description: site.description, absoluteTitle: true });
@@ -34,7 +34,7 @@ const org = {
   address: { "@type": "PostalAddress", addressCountry: "CH" },
   sameAs: [site.x.url],
   knowsLanguage: "en",
-  makesOffer: offers.map((o) => ({
+  makesOffer: allOffers().map((o) => ({
     "@type": "Offer",
     name: o.name,
     description: o.summary,
