@@ -61,6 +61,10 @@ export default function Terms() {
         On Creator Lite and the Creator plan, each thumbnail is its own request: send one brief per video, and that thumbnail is delivered within
         24 hours of its complete brief, up to the weekly limit of your plan (1 a week on Creator Lite, 3 a week on the Creator plan).
       </p>
+      <p>
+        First orders: on your first order of a single thumbnail or a thumbnail pack, your first thumbnail arrives within 6 hours of your
+        complete brief. For a pack, that&apos;s the first of the four; the other three follow within the 24 hours.
+      </p>
 
       <h2>5. Revisions</h2>
       <p>
@@ -81,6 +85,7 @@ export default function Terms() {
       <ul>
         <li><strong>Before work starts:</strong> cancel by email for a full refund, no questions asked. Work starts when we email you to confirm we&apos;ve begun.</li>
         <li><strong>After work starts:</strong> because the work is custom, we don&apos;t refund it, but we&apos;ll use your revision round to put things right.</li>
+        <li><strong>First order, don&apos;t like it:</strong> on your first order of a single thumbnail ($20) or a thumbnail pack ($79), if you don&apos;t like the first concept we send, tell us within 7 days of receiving it and you get a full refund. You then don&apos;t use the files. One per customer.</li>
         <li><strong>If we can&apos;t deliver:</strong> full refund.</li>
         <li><strong>Upkeep, Creator Lite and the Creator plan:</strong> cancel any time by emailing {site.email}. The plan stops at the end of the month you&apos;ve already paid for; partial months aren&apos;t refunded.</li>
       </ul>

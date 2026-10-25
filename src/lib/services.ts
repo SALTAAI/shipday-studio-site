@@ -635,7 +635,7 @@ export const services: ServicePage[] = [
     h1Accent: "in 24 hours.",
     intro: [
       "A thumbnail has a fraction of a second in a crowded feed. We design each one around a single focal point and a three-to-four word hook that adds something the title doesn't, then check it at the size it actually shows on a phone.",
-      "The pack is 4 custom thumbnails at 1280×720 for $79, with source files and one revision round, delivered within 24 hours of your brief.",
+      "The pack is 4 custom thumbnails at 1280×720 for $79, with source files and one revision round, delivered within 24 hours of your brief. First order with us? Your first thumbnail lands within 6 hours, and if you don't like it, you get your money back. That goes for the $79 pack and the $20 single.",
     ],
     sections: [
       { title: "One idea per thumbnail", body: "One subject, one emotion, one short hook. Clutter is the most common reason a thumbnail gets scrolled past." },
@@ -658,6 +658,8 @@ export const services: ServicePage[] = [
     faq: [
       { q: "What should I send in the brief?", a: "Your channel link, the four video titles or topics, any face shots or frames you want used, and a few thumbnails you like from other channels." },
       { q: "Can I order packs regularly?", a: "Yes. Each pack is a separate fixed-price order of 4 thumbnails, so you can order one per batch of uploads. If you upload every week, a monthly plan is simpler: Creator Lite is 4 thumbnails a month for $79/mo (at most 1 a week) and the Creator plan is 12 a month for $179/mo (up to 3 a week), cancel any time." },
+      { q: "What if I don't like the first one?", a: "On your first order (the $20 single or the $79 pack), tell us within 7 days of getting the first thumbnail and we refund you in full. No back and forth. If it's close, we'll fix it in your revision round instead." },
+      { q: "How fast is the first thumbnail?", a: "On a first order it arrives within 6 hours of your complete brief. For a pack, the other three follow within 24 hours, in the same look." },
       { q: "Are the samples from real channels?", a: "No. Every sample on this page is a concept for a fictional channel, made to show the range of styles we design." },
     ],
     related: ["youtube-thumbnail-price", "youtube-thumbnail-subscription", "roblox-thumbnail-design", "youtube-channel-branding", "faceless-youtube-thumbnails", "logo-design", "indie-game-landing-page"],
