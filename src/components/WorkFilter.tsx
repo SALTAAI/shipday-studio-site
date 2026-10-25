@@ -118,7 +118,7 @@ export function WorkFilter({ kind }: { kind: Kind }) {
                 <Tag>{t.niche}</Tag><Tag>{t.look}</Tag>{t.pair && <Tag>A/B pair · {t.pair.variant}</Tag>}
               </div>
               <p className="mt-2 font-semibold">{t.title}</p>
-              <p className="text-xs text-muted">Concept · fictional channel</p>
+              <p className="text-xs text-muted">{t.concept ?? "Concept · fictional channel"}</p>
             </li>
           ))}
         </ul>

@@ -16,7 +16,7 @@ export const metadata: Metadata = pageMeta({
 /** Services grouped by package, in the order of the pricing cards. */
 const groups = [
   { offer: "landing" as const, title: "Landing pages" },
-  { offer: "thumbnails" as const, title: "YouTube thumbnails" },
+  { offer: "thumbnails" as const, title: "YouTube and Roblox thumbnails" },
   { offer: "logo" as const, title: "Logos" },
   { offer: "upkeep" as const, title: "Website upkeep" },
 ];

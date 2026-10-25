@@ -643,6 +643,8 @@ export type ThumbSample = {
   featured?: number;
   /** A/B concept pairs share a pair id: two different takes on the same video. */
   pair?: { id: string; variant: "A" | "B"; angle: string };
+  /** Caption label; defaults to "Concept · fictional channel" (e.g. "Concept · fictional game"). */
+  concept?: string;
 };
 
 /** All thumbnail concepts. Every channel is fictional. */
@@ -669,6 +671,14 @@ export const thumbSamples: ThumbSample[] = [
     alt: "Documentary thumbnail concept for a fictional channel and fictional case: 'The missing tape' in white and red beside an old cassette recorder circled in red on a desk of case files" },
   { id: "space", file: "/work/v3/thumb-space.webp", small: "/work/v3/thumb-space-640.webp", niche: "Faceless & AI channels", title: "What's inside a black hole?", look: "Clean & simple", featured: 9,
     alt: "Faceless science channel thumbnail concept: 'What's inside?' in white and orange next to a glowing black hole on a black starfield" },
+  { id: "roblox-egg", file: "/work/v4/thumb-roblox-egg.webp", small: "/work/v4/thumb-roblox-egg-640.webp", niche: "Roblox games", title: "Hatching a 1 in 10,000 pet", look: "Rich & detailed", concept: "Concept · fictional game",
+    alt: "Roblox-style video thumbnail concept for a fictional game: '1 in 10,000' and 'It hatched?!' beside a blocky avatar bursting out of a cracked rainbow egg, with a small orange dragon pet" },
+  { id: "roblox-obby", file: "/work/v4/thumb-roblox-obby.webp", small: "/work/v4/thumb-roblox-obby-640.webp", niche: "Roblox games", title: "Emberspire Obby: 100 new stages", look: "Rich & detailed", concept: "Concept · fictional game",
+    alt: "Roblox-style experience thumbnail concept for a fictional obby game: 'Emberspire Obby' and a '100 new stages' badge beside a blocky avatar jumping between glowing platforms over lava" },
+  { id: "roblox-shark", file: "/work/v4/thumb-roblox-shark.webp", small: "/work/v4/thumb-roblox-shark-640.webp", niche: "Roblox games", title: "100 days at sea with a shark", look: "Balanced", concept: "Concept · fictional game",
+    alt: "Roblox-style video thumbnail concept for a fictional survival game: 'Don't swim' and 'Day 47 / 100' beside a blocky avatar wading away from a giant blocky shark" },
+  { id: "roblox-horror", file: "/work/v4/thumb-roblox-horror.webp", small: "/work/v4/thumb-roblox-horror-640.webp", niche: "Roblox games", title: "Escaping the hallway on night 5", look: "Rich & detailed", concept: "Concept · fictional game",
+    alt: "Roblox-style horror thumbnail concept for a fictional game: 'He's faster' in white and red and a 'Night 5' tag as a blocky avatar runs from a shadow monster with red eyes down a green-lit school hallway" },
   { id: "mics", file: thumbnails[0].file, niche: "Tech review", title: "I tried 5 budget mics", look: "Clean & simple", alt: thumbnails[0].alt },
   { id: "sourdough", file: thumbnails[1].file, niche: "Food & cooking", title: "30 day sourdough", look: "Clean & simple", alt: thumbnails[1].alt },
   { id: "1k-month", file: thumbnails[2].file, niche: "Money & finance", title: "My first $1K month", look: "Clean & simple", alt: thumbnails[2].alt },

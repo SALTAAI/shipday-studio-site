@@ -151,7 +151,7 @@ export function ThumbFigure({ t }: { t: (typeof thumbSamples)[number] }) {
       <Thumb t={t} sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw" />
       <figcaption className="mt-2 text-sm">
         <span className="font-semibold">{t.niche}{t.pair ? ` · version ${t.pair.variant}` : ""}</span> <span className="text-muted">· {t.pair ? t.pair.angle : t.title}</span>
-        <span className="block text-xs text-muted">Concept · fictional channel</span>
+        <span className="block text-xs text-muted">{t.concept ?? "Concept · fictional channel"}</span>
       </figcaption>
     </figure>
   );
