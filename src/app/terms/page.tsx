@@ -57,13 +57,24 @@ export default function Terms() {
         information we&apos;ll ask by email, and the clock pauses until you answer. If we miss the stated turnaround, tell us and
         we&apos;ll prioritise your order; if we can&apos;t deliver at all, you get a full refund.
       </p>
+      <p>
+        On Creator Lite and the Creator plan, each thumbnail is its own request: send one brief per video, and that thumbnail is delivered within
+        24 hours of its complete brief, up to the weekly limit of your plan (1 a week on Creator Lite, 3 a week on the Creator plan).
+      </p>
 
       <h2>5. Revisions</h2>
       <p>
-        Each one-off package (landing page, thumbnail pack, logo pack, Channel Launch Kit) includes <strong>one revision round</strong>: one consolidated list
-        of changes, sent within 14 days of delivery, that stays within the original brief. We deliver revisions within the same
-        turnaround as the original package. New features, new directions or extra rounds can be quoted separately. Upkeep covers small
-        edits as described in the plan and has no revision rounds.
+        Each one-off package (landing page, single thumbnail, thumbnail pack, logo pack, Channel Launch Kit) includes <strong>one revision round</strong>: one consolidated list
+        of changes, sent within 14 days of delivery, that stays within the original brief. For the Channel Launch Kit, that one round covers the whole kit. We deliver revisions within the same
+        turnaround as the original package. New features, new directions or extra rounds can be quoted separately.
+      </p>
+      <p>
+        Creator Lite and the Creator plan include <strong>one revision round per thumbnail</strong>: one consolidated list of changes for that thumbnail,
+        sent within 14 days of its delivery, that stays within that video&apos;s brief. We deliver the revised thumbnail within 24 hours.
+        Thumbnails beyond the monthly or weekly limit of your plan aren&apos;t included; you can order extras as a single thumbnail ($20 each).
+      </p>
+      <p>
+        Upkeep covers small edits as described in the plan and has no revision rounds.
       </p>
 
       <h2>6. Refunds and cancellation</h2>
