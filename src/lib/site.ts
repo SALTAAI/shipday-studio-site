@@ -15,19 +15,98 @@ export const site = {
   },
 };
 
-/** Pre-filled mailto link for sending a brief after paying. */
-export function briefMailto(service?: string) {
+/** Brief questions per package id (same order and wording as tools/intake.py CHECKS, so the first email is usually complete). */
+const briefFields: Record<string, string[]> = {
+  thumbnails: [
+    "Channel (link or name) and what it's about:",
+    "The 4 videos (a working title or one-line topic each):",
+    "1.",
+    "2.",
+    "3.",
+    "4.",
+    "Exact words on each thumbnail (or leave blank and we write them):",
+    "Look to match (your current thumbnails or a channel you like):",
+    "Face or product in it? Attach the photo(s):",
+    "Language for the text:",
+  ],
+  "thumbnail-single": [
+    "Channel (link or name) and what it's about:",
+    "The video (working title or one-line topic):",
+    "Exact words on the thumbnail (or leave blank and we write them):",
+    "Look to match (your current thumbnails or a channel you like):",
+    "Face or product in it? Attach the photo(s):",
+    "Language for the text:",
+  ],
+  "creator-lite": [
+    "Channel (link or name) and what it's about:",
+    "First video (working title or one-line topic):",
+    "Exact words on the thumbnail (or leave blank and we write them):",
+    "Look to match (your current thumbnails or a channel you like):",
+    "Face or product in it? Attach the photo(s):",
+    "Language for the text:",
+  ],
+  "creator-plan": [
+    "Channel (link or name) and what it's about:",
+    "First video (working title or one-line topic):",
+    "Exact words on the thumbnail (or leave blank and we write them):",
+    "Look to match (your current thumbnails or a channel you like):",
+    "Face or product in it? Attach the photo(s):",
+    "Language for the text:",
+  ],
+  "launch-kit": [
+    "Exact channel name (spelling and capitals as they should appear):",
+    "What the channel is about and who it's for (link if it exists):",
+    "The first 4 videos (a working title or one-line topic each):",
+    "1.",
+    "2.",
+    "3.",
+    "4.",
+    "Banner text besides the name (upload schedule, tagline, handle):",
+    "Looks, channels or colours you like or want to avoid:",
+    "Face or product in it? Attach the photo(s):",
+    "Language for the text:",
+  ],
+  logo: [
+    "Exact name (spelling and capitals as they should appear):",
+    "What the business does and who it's for:",
+    "Tagline with the logo? If so, what is it:",
+    "Styles, logos or colours you like or want to avoid:",
+    "Where it'll be used most (website, app icon, signage, social, print):",
+  ],
+  landing: [
+    "What you do or sell, in a couple of sentences:",
+    "Who the page is for:",
+    "The one action a visitor should take, and where it goes:",
+    "Key facts we must get right (offer, prices, hours, contact details):",
+    "Logo, colours, fonts or photos to use (attach or link):",
+    "Sites you like the look of:",
+    "Where it should go live (your domain and host):",
+  ],
+  upkeep: [
+    "Site URL:",
+    "How we get access (host, repo or CMS):",
+    "First change you'd like:",
+  ],
+};
+
+const genericBriefFields = [
+  "What I do / my project:",
+  "Who it's for:",
+  "Links (site, socials, examples I like):",
+  "Text, logo or files to include (attach or link):",
+];
+
+/** Pre-filled mailto link for sending a brief after paying. Pass the package id (as in ?product=) to get that package's questions. */
+export function briefMailto(service?: string, id?: string) {
   const subject = `Brief: ${service ?? "my Shipday Studio order"}`;
+  const fields = (id && briefFields[id]) || genericBriefFields;
   const body = [
     "Hi Shipday Studio,",
     "",
     `Package: ${service ?? ""}`,
     "Email used at Stripe checkout: ",
     "",
-    "What I do / my project:",
-    "Who it's for:",
-    "Links (site, socials, examples I like):",
-    "Text, logo or files to include (attach or link):",
+    ...fields,
     "Anything else:",
   ].join("\n");
   return `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
