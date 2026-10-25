@@ -4,6 +4,7 @@ import { pageMeta } from "@/lib/seo";
 import { services } from "@/lib/services";
 import { cases, faq, formatPrice, getOffer, logoSamples, site, steps, thumbSamples, type ServiceId } from "@/lib/site";
 import { turnaroundLabel } from "@/components/OfferCards";
+import { pageOffer, pagePlans } from "@/components/ServicePage";
 import { CtaSection, ContentSection, FaqSection, HeroCollage, HeroSection, HowSection, PricingSection, heroTicks, heroTitleClassLong } from "@/components/HomeSections";
 
 export const metadata: Metadata = pageMeta({
@@ -63,14 +64,15 @@ export default function ServicesIndex() {
               <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-muted">{g.title} · {formatPrice(o)} · {turnaroundLabel(o.turnaround)}</h3>
               <ul className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {items.map((s) => {
-                  const so = getOffer(s.offer);
+                  const so = pageOffer(s);
+                  const from = pagePlans(s).length > 1 ? "From " : "";
                   return (
                     <li key={s.slug}>
                       <Link href={`/services/${s.slug}/`} className="flex h-full flex-col rounded-3xl border border-line bg-white p-6 transition hover:border-ink">
                         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">{s.eyebrow}</span>
                         <span className="mt-2 text-xl font-bold">{s.label}</span>
                         <span className="mt-2 text-sm text-muted">{s.metaDescription}</span>
-                        <span className="mt-auto pt-5 text-sm font-semibold">{formatPrice(so)} · {turnaroundLabel(so.turnaround)} <span aria-hidden="true">→</span></span>
+                        <span className="mt-auto pt-5 text-sm font-semibold">{from}{formatPrice(so)} · {turnaroundLabel(so.turnaround)} <span aria-hidden="true">→</span></span>
                       </Link>
                     </li>
                   );

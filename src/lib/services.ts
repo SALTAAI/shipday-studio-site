@@ -36,6 +36,21 @@ export type ServicePage = {
   /** Optional heading and intro for the samples section (defaults suit one-off packages). */
   workHeading?: string;
   workIntro?: string;
+  /** Monthly plans sold on this page (package option ids in site.ts); the first is the main call to action. */
+  plans?: string[];
+  /** Copy for subscription pages built on the shared layout. Without it, monthly pages use the Upkeep defaults. */
+  monthlyCopy?: {
+    ticks: string[];
+    howHeading: string;
+    emailLabel: string;
+    steps: { title: string; body: string }[];
+    pricingHeading: string;
+    pricingIntro: string;
+    whatYouGet: string;
+    footerNote: string;
+    ctaHeading: string;
+    ctaText: string;
+  };
   faq: { q: string; a: string }[];
   related: string[];
 };
@@ -639,10 +654,10 @@ export const services: ServicePage[] = [
     moreHref: "/work/thumbnails/",
     faq: [
       { q: "What should I send in the brief?", a: "Your channel link, the four video titles or topics, any face shots or frames you want used, and a few thumbnails you like from other channels." },
-      { q: "Can I order packs regularly?", a: "Yes. Each pack is a separate fixed-price order of 4 thumbnails, so you can order one per batch of uploads." },
+      { q: "Can I order packs regularly?", a: "Yes. Each pack is a separate fixed-price order of 4 thumbnails, so you can order one per batch of uploads. If you upload every week, a monthly plan is simpler: Creator Lite is 4 thumbnails a month for $79/mo (at most 1 a week) and the Creator plan is 12 a month for $179/mo (up to 3 a week), cancel any time." },
       { q: "Are the samples from real channels?", a: "No. Every sample on this page is a concept for a fictional channel, made to show the range of styles we design." },
     ],
-    related: ["youtube-thumbnail-price", "faceless-youtube-thumbnails", "logo-design", "indie-game-landing-page"],
+    related: ["youtube-thumbnail-price", "youtube-thumbnail-subscription", "faceless-youtube-thumbnails", "logo-design", "indie-game-landing-page"],
   },
   {
     slug: "faceless-youtube-thumbnails",
@@ -682,7 +697,7 @@ export const services: ServicePage[] = [
       { q: "Can I test two versions of one video?", a: "Yes. Inside your pack of four, ask for an A/B pair: two different angles on the same video, like the finance and gaming pairs on this page." },
       { q: "Are these from real channels?", a: "No. Every sample is a concept for a fictional channel, made to show the range of faceless styles we design." },
     ],
-    related: ["youtube-thumbnail-design", "youtube-thumbnail-price", "logo-design"],
+    related: ["youtube-thumbnail-design", "youtube-thumbnail-price", "youtube-thumbnail-subscription", "logo-design"],
   },
   {
     slug: "youtube-thumbnail-price",
@@ -714,12 +729,12 @@ export const services: ServicePage[] = [
     notIncluded: [
       "Video editing, scripts, voice-over, channel art or animated intros.",
       "Hand-drawn character illustration, or copyrighted game art, film stills or celebrity images you don't have the rights to use.",
-      "Guaranteed click-through rates or views. We design for clarity at phone size and leave testing to you. More thumbnails mean another pack; extra rounds or new directions can be quoted separately.",
+      "Guaranteed click-through rates or views. We design for clarity at phone size and leave testing to you. More thumbnails mean another pack or a monthly plan; extra rounds or new directions can be quoted separately.",
     ],
     samples: { kind: "thumbnails", ids: ["gaming-a", "gaming-b", "finance-a", "finance-b", "crime", "space"] },
     moreHref: "/work/thumbnails/",
     faq: [
-      { q: "Are there any extra costs after the $79?", a: "No. The price is fixed in US dollars, and any taxes or fees that apply are shown on the Stripe checkout page before you pay. Your bank or card provider may charge a currency conversion fee. If you need more than four thumbnails, you order another pack." },
+      { q: "Are there any extra costs after the $79?", a: "No. The price is fixed in US dollars, and any taxes or fees that apply are shown on the Stripe checkout page before you pay. Your bank or card provider may charge a currency conversion fee. If you need more than four thumbnails, you order another pack, or pick a monthly plan: Creator Lite is 4 thumbnails a month for $79/mo and the Creator plan is 12 a month for $179/mo." },
       { q: "What exactly happens in the 24 hours?", a: "The clock starts once payment is confirmed and your brief is complete. We design the four thumbnails, check each at phone size, review them and email you the exports and source files. If something is missing from the brief, we ask by email and the clock pauses until you reply." },
       { q: "What do I need to send?", a: "Your channel link, the four video titles or topics, any face shots or frames you want used, and a few thumbnails you like from other channels. Five minutes is plenty." },
       { q: "Can one pack include an A/B test?", a: "Yes. Inside your pack of four, ask for an A/B pair: two different angles on the same video, such as a challenge-led and a curiosity-led version. The other two thumbnails go to other videos." },
@@ -727,7 +742,76 @@ export const services: ServicePage[] = [
       { q: "What if I change my mind before you start?", a: "If we haven't started work yet, you can cancel by email for a full refund through Stripe. Once work has started, the revision round is how changes are handled." },
       { q: "Are the samples from real channels?", a: "No. Every sample on this page is a concept for a fictional channel, made to show the range of styles we design. The finance and gaming samples are A/B pairs: two takes on the same video." },
     ],
-    related: ["youtube-thumbnail-design", "faceless-youtube-thumbnails", "logo-design-price"],
+    related: ["youtube-thumbnail-design", "youtube-thumbnail-subscription", "faceless-youtube-thumbnails", "logo-design-price"],
+  },
+  {
+    slug: "youtube-thumbnail-subscription",
+    offer: "thumbnails",
+    plans: ["creator-lite", "creator-plan"],
+    label: "Monthly thumbnail plans",
+    metaTitle: "YouTube thumbnail subscription, from $79/month",
+    metaDescription:
+      "YouTube thumbnail subscription for weekly uploads: 4 thumbnails a month for $79/mo or 12 for $179/mo, each within 24h of its brief. Cancel any time. Worldwide.",
+    eyebrow: "Thumbnail plans for weekly uploads",
+    h1: "A fresh thumbnail for every upload, on one monthly plan.",
+    h1Accent: "on one monthly plan.",
+    intro: [
+      "If you upload every week, ordering thumbnails one at a time gets old. A plan gives you a set number each month: email the video title when you need one, and it's back within 24 hours of the brief.",
+      "Two plans, both billed monthly in USD by Stripe. Creator Lite is 4 thumbnails a month for $79/mo, at most 1 a week. The Creator plan is 12 a month for $179/mo, up to 3 a week. Each thumbnail comes with its source file and one revision round. Unused thumbnails don't roll over, and you can cancel any time.",
+    ],
+    sections: [
+      { title: "1. Creator Lite: 4 a month, $79/mo", body: "For channels that upload about once a week. At most 1 thumbnail a week and 4 per billing month, each delivered within 24 hours of its brief." },
+      { title: "2. Creator plan: 12 a month, $179/mo", body: "For channels that post two or three times a week, like a weekly gaming or Roblox series. Up to 3 thumbnails a week and 12 per billing month, each delivered within 24 hours of its brief." },
+      { title: "3. One email per video", body: "Your first brief covers the channel: the link, the style you want and a few thumbnails you like. After that, each request is one email with the video title or topic and any frames or face shots to use. The 24-hour clock starts once that brief is complete." },
+      { title: "4. Files and a revision round", body: "Every thumbnail comes as a 1280×720 export plus its editable source file, with one revision round: one consolidated list of changes that stays within that video's brief." },
+      { title: "5. A look viewers recognise", body: "The same fonts, colours and framing from upload to upload, or a match to your current style if you send a few thumbnails, so returning viewers spot your videos in a crowded feed." },
+      { title: "6. Billed monthly, cancel any time", body: "Billed monthly in advance in US dollars by Stripe. Thumbnails you don't request within a billing month don't carry over. Cancel any time by email: the plan stops at the end of the month you've paid for, and partial months aren't refunded." },
+    ],
+    fit: [
+      "You upload every week, or several times a week, and want each thumbnail ready within a day of the brief.",
+      "You run a series (gaming, Roblox, finance, explainers, faceless) and want every episode to look like part of the set.",
+      "You'd rather pay one known amount a month than order and pay for each thumbnail separately.",
+    ],
+    notIncluded: [
+      "Video editing, scripts, voice-over or animated intros.",
+      "Channel art beyond thumbnails. Starting a new channel? The Channel Launch Kit ($199) covers a logo, banner, profile picture and 4 thumbnails; it's in the logo card above.",
+      "Guaranteed click-through rates or views. We design for clarity at phone size and leave testing to you.",
+      "More than your plan's weekly or monthly number, and no rollover of unused thumbnails. Need one extra? A single thumbnail is $20. Copyrighted game art, film stills or celebrity images you don't have the rights to use are out too.",
+    ],
+    samples: { kind: "thumbnails", ids: ["gaming-a", "gaming-b", "finance-a", "finance-b", "space", "crime", "edu", "tech", "travel"] },
+    moreHref: "/work/thumbnails/",
+    workHeading: "Thumbnails for channels that upload every week",
+    workIntro: "Concepts for fictional channels, not client work. The gaming and finance pairs are A/B versions of the same video; the space and true-crime ones are faceless.",
+    monthlyCopy: {
+      ticks: ["Secure Stripe checkout", "Each thumbnail in 24h", "Cancel any time by email"],
+      howHeading: "Subscribe, email a video title, get the thumbnail. No meetings.",
+      emailLabel: "Email your first brief",
+      steps: [
+        { title: "Pick a plan", body: "Stripe checkout: $79/mo for 4 or $179/mo for 12, in USD, billed monthly in advance. No quote, no call." },
+        { title: "Email each video", body: "Send the title or topic to hello@shipdaystudio.com from the email you used at checkout, one email per video." },
+        { title: "Get it in 24 hours", body: "The 1280×720 export and source file within 24 hours of a complete brief, with one revision round." },
+      ],
+      pricingHeading: "Thumbnail plans: $79/month for 4 or $179/month for 12.",
+      pricingIntro: "What you see is what you pay: billed monthly in advance by Stripe, cancel any time by email. Unused thumbnails don't roll over. One-off thumbnails are in the same card: 1 for $20, or 4 for $79 total.",
+      whatYouGet: "What you get with a thumbnail plan",
+      footerNote: "Billed monthly, each thumbnail in 24h, cancel any time by email.",
+      ctaHeading: "A thumbnail for every upload, from $79/month.",
+      ctaText: "Remote, for creators worldwide, in any niche. Subscribe online, then email your first video to hello@shipdaystudio.com.",
+    },
+    faq: [
+      { q: "Which plan fits my channel?", a: "About one upload a week: Creator Lite, 4 thumbnails a month for $79/mo. Two or three uploads a week: the Creator plan, 12 a month for $179/mo, up to 3 a week. Not ready for a plan? A single thumbnail is $20 and a pack of 4 is $79 total, with no subscription." },
+      { q: "How do I request a thumbnail?", a: "Email hello@shipdaystudio.com from the email you used at checkout, one email per video, with the title or topic and any frames or face shots you want used. Each thumbnail is delivered within 24 hours of a complete brief. If something is missing, we ask by email and the clock pauses until you reply." },
+      { q: "What counts as a week and a month?", a: "A week runs Monday to Sunday. The billing month runs from the day you subscribed to the same day the next month. Creator Lite covers 1 thumbnail a week and 4 a month; the Creator plan covers up to 3 a week and 12 a month." },
+      { q: "What happens to thumbnails I don't use?", a: "They don't carry over. Each billing month starts fresh, so pick the plan that matches how often you actually upload." },
+      { q: "Can I get more than my plan covers?", a: "Yes. An extra thumbnail is $20 as a single order. If you're regularly over Creator Lite, move to the Creator plan: cancel Creator Lite by email and it stops at the end of the month you've already paid for." },
+      { q: "How do I cancel?", a: "Email hello@shipdaystudio.com any time. The plan stops at the end of the month you've already paid for. Partial months aren't refunded. Full details are in the terms." },
+      { q: "Do I own the thumbnails?", a: "Yes. Once paid, you own the final thumbnails and can use them however you like. Drafts and unused ideas stay with us. Full details are in the terms." },
+      { q: "Is this made with AI?", a: "Production runs on an AI-assisted workflow: imagery is generated or composed for each thumbnail, then finished and quality-checked before delivery, with one revision round per thumbnail. We don't use copyrighted game art or film stills, and you can send your own footage frames to use instead." },
+      { q: "Will a plan get me more views?", a: "Nobody can honestly promise that. We design every thumbnail to read clearly at phone size and stay consistent across your uploads; how it performs is down to your video, title and audience, so test and keep what works." },
+      { q: "I'm starting a new channel. Where do I begin?", a: "If you also need a logo, banner and profile picture, the Channel Launch Kit is $199 for all of that plus 4 thumbnails, delivered within 48 hours of a complete brief. A plan can follow once you're uploading regularly." },
+      { q: "Are the samples from real channels?", a: "No. Every sample on this page is a concept for a fictional channel, made to show the range of styles we design." },
+    ],
+    related: ["youtube-thumbnail-design", "youtube-thumbnail-price", "faceless-youtube-thumbnails", "logo-design"],
   },
   {
     slug: "logo-design",

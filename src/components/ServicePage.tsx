@@ -17,7 +17,7 @@ import {
   heroTitleClassLong,
   heroTitleClassXLong,
 } from "@/components/HomeSections";
-import { cases, formatPrice, getOffer, logoSamples, site, thumbSamples } from "@/lib/site";
+import { cases, formatPrice, getOffer, getOption, logoSamples, site, thumbSamples, type Buyable, type OfferOption } from "@/lib/site";
 import { getService, type SampleSet, type ServicePage as Service } from "@/lib/services";
 
 /**
@@ -124,8 +124,19 @@ export function SampleCollage({ sets, moreHref }: { sets: SampleSet[]; moreHref:
   );
 }
 
+/** The monthly plans a page sells (e.g. Creator Lite and the Creator plan), in call-to-action order. */
+export function pagePlans(s: Service): OfferOption[] {
+  return (s.plans ?? []).map(getOption).filter((x): x is OfferOption => Boolean(x));
+}
+
+/** What a page's main call to action buys: its first plan, or else its package. */
+export function pageOffer(s: Service): Buyable {
+  return pagePlans(s)[0] ?? getOffer(s.offer);
+}
+
 export function serviceJsonLd(s: Service) {
   const o = getOffer(s.offer);
+  const plans = pagePlans(s);
   const url = `${site.url}/services/${s.slug}/`;
   return {
     "@context": "https://schema.org",
@@ -139,7 +150,7 @@ export function serviceJsonLd(s: Service) {
         url,
         provider: { "@id": `${site.url}/#organization` },
         areaServed: { "@type": "Place", name: "Worldwide" },
-        offers: [o, ...(o.options ?? [])].map((x) => ({
+        offers: (plans.length ? plans : [o, ...(o.options ?? [])]).map((x) => ({
           "@type": "Offer",
           name: x.name,
           price: x.price,
@@ -170,14 +181,21 @@ export function serviceJsonLd(s: Service) {
 }
 
 export function ServicePageView({ s }: { s: Service }) {
-  const o = getOffer(s.offer);
+  const plans = pagePlans(s);
+  const o = pageOffer(s);
   const price = formatPrice(o);
+  const m = s.monthlyCopy;
   const turnaround = turnaroundLabel(o.turnaround);
   const related = s.related.map(getService).filter((r): r is Service => Boolean(r));
   const t = splitTitle(s.h1, s.h1Accent);
   // Upkeep is a monthly subscription: no turnaround clock, no revision round (Terms §5), so its copy differs; the layout doesn't.
   const monthly = o.unit === "/month";
   const cta = monthly ? "Subscribe" : "Order now";
+  // Pages that sell several plans show one button per plan (same button styles and places as everywhere else).
+  const planButtons = (first: string, rest: string, extra = "") =>
+    plans.map((p, i) => (
+      <BuyButton key={p.id} offer={p} className={`${i === 0 ? first : rest} ${extra}`.trim()}>{p.name} · {formatPrice(p)}</BuyButton>
+    ));
   return (
     <>
       <HeroSection
@@ -189,13 +207,17 @@ export function ServicePageView({ s }: { s: Service }) {
         titleClass={s.h1.length > 70 ? heroTitleClassXLong : s.h1.length > 48 ? heroTitleClassLong : heroTitleClass}
         body={s.intro[0]}
         actions={
-          <>
-            <BuyButton offer={o} className="btn-accent">{cta} · {price}</BuyButton>
-            <a href="#work" className="btn-ghost">See sample concepts</a>
-          </>
+          plans.length > 1 ? (
+            <>{planButtons("btn-accent", "btn-ghost")}</>
+          ) : (
+            <>
+              <BuyButton offer={o} className="btn-accent">{cta} · {price}</BuyButton>
+              <a href="#work" className="btn-ghost">See sample concepts</a>
+            </>
+          )
         }
-        ticks={monthly ? ["Secure Stripe checkout", "Cancel any time by email", "Your site and accounts stay yours"] : heroTicks}
-        stats={monthly ? [["Billing", "Monthly"], ["Price", price], ["Cancel", "Any time"]] : [["Turnaround", o.turnaround], ["Fixed price", price], ["Revision round", "Included"]]}
+        ticks={m ? m.ticks : monthly ? ["Secure Stripe checkout", "Cancel any time by email", "Your site and accounts stay yours"] : heroTicks}
+        stats={monthly ? [["Billing", "Monthly"], [plans.length > 1 ? "From" : "Price", price], ["Cancel", "Any time"]] : [["Turnaround", o.turnaround], ["Fixed price", price], ["Revision round", "Included"]]}
         visual={<ServiceCollage s={s} />}
       />
 
@@ -210,10 +232,12 @@ export function ServicePageView({ s }: { s: Service }) {
       />
 
       <HowSection
-        heading={monthly ? "Subscribe, email a change, it's handled. No meetings." : "Pay, send a brief, get your files. No meetings."}
-        emailLabel={monthly ? "Email your changes" : undefined}
+        heading={m ? m.howHeading : monthly ? "Subscribe, email a change, it's handled. No meetings." : "Pay, send a brief, get your files. No meetings."}
+        emailLabel={m ? m.emailLabel : monthly ? "Email your changes" : undefined}
         steps={
-          monthly
+          m
+            ? m.steps
+            : monthly
             ? [
                 { title: "Subscribe securely", body: `Stripe checkout: ${price} in USD, billed monthly in advance. No quote, no call.` },
                 { title: "Email your changes", body: `Send them to ${site.email} from the email you used at checkout.` },
@@ -228,9 +252,11 @@ export function ServicePageView({ s }: { s: Service }) {
       />
 
       <PricingSection
-        heading={`${o.name}: ${price}, fixed price in USD.`}
+        heading={m ? m.pricingHeading : `${o.name}: ${price}, fixed price in USD.`}
         intro={
-          monthly
+          m
+            ? m.pricingIntro
+            : monthly
             ? "What you see is what you pay: billed monthly in advance by Stripe, cancel any time by email. Upkeep covers small edits and has no revision rounds. The one-off packages are here too, at the same fixed prices."
             : "What you see is what you pay. One revision round is included, and turnaround starts once we have your payment and brief. The other packages are here too, at the same fixed prices."
         }
@@ -241,7 +267,7 @@ export function ServicePageView({ s }: { s: Service }) {
       >
         <div className="mt-14 grid gap-6 lg:grid-cols-[2fr_1fr]">
           <div>
-            <h3 className="text-xl font-bold">What you get with {monthly ? o.name : `the ${o.name.toLowerCase()}`}</h3>
+            <h3 className="text-xl font-bold">{m ? m.whatYouGet : <>What you get with {monthly ? o.name : `the ${o.name.toLowerCase()}`}</>}</h3>
             <ul className="mt-6 grid gap-6 sm:grid-cols-2">
               {s.sections.map((x) => (
                 <li key={x.title} className="rounded-3xl border border-line bg-white p-6">
@@ -274,7 +300,7 @@ export function ServicePageView({ s }: { s: Service }) {
             </div>
           ))}
           {s.beforeAfter && <RedesignBlock />}
-          <PanelFooter offer={s.offer} cta={cta} note={monthly ? "Billed monthly, cancel any time by email." : `${turnaround} after your brief, one revision round included.`} more={s.moreHref} moreLabel="See more examples" />
+          <PanelFooter offer={s.offer} items={plans.length > 1 ? plans : undefined} cta={cta} note={m ? m.footerNote : monthly ? "Billed monthly, cancel any time by email." : `${turnaround} after your brief, one revision round included.`} more={s.moreHref} moreLabel="See more examples" />
         </div>
       </WorkSection>
 
@@ -288,9 +314,15 @@ export function ServicePageView({ s }: { s: Service }) {
       />
 
       <CtaSection
-        heading={`${o.name}, ${price}. ${turnaround}.`}
-        text={monthly ? <>Remote, for clients worldwide, in any industry. Subscribe online, then email your changes to {site.email}.</> : <>Remote, for clients worldwide, in any industry. Pay online, then email your brief to {site.email}.</>}
-        action={<BuyButton offer={o} className="btn-accent relative mt-8">{cta} · {price}</BuyButton>}
+        heading={m ? m.ctaHeading : `${o.name}, ${price}. ${turnaround}.`}
+        text={m ? <>{m.ctaText}</> : monthly ? <>Remote, for clients worldwide, in any industry. Subscribe online, then email your changes to {site.email}.</> : <>Remote, for clients worldwide, in any industry. Pay online, then email your brief to {site.email}.</>}
+        action={
+          plans.length > 1 ? (
+            <div className="relative mt-8 flex flex-wrap justify-center gap-3">{planButtons("btn-accent", "btn-ghost", "")}</div>
+          ) : (
+            <BuyButton offer={o} className="btn-accent relative mt-8">{cta} · {price}</BuyButton>
+          )
+        }
       />
     </>
   );

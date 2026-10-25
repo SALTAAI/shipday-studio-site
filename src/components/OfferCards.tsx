@@ -10,6 +10,11 @@ const explainer: Record<ServiceId, { slug: string; label: string }> = {
   upkeep: { slug: "website-upkeep-price", label: "What Upkeep covers" },
 };
 
+/** Extra explainer links inside a card, e.g. the monthly thumbnail plans page in the thumbnail card. */
+const moreExplainers: Partial<Record<ServiceId, { slug: string; label: string }[]>> = {
+  thumbnails: [{ slug: "youtube-thumbnail-subscription", label: "Monthly plans explained" }],
+};
+
 export function turnaroundLabel(t: string) {
   return t === "Ongoing" ? "Monthly, cancel any time" : `Delivered in ${t}`;
 }
@@ -72,6 +77,15 @@ export function OfferCards({ featured, current }: { featured?: ServiceId; curren
               {explainer[o.id].label}<span className="sr-only">: {o.name}</span> <span aria-hidden="true">→</span>
             </Link>
           )}
+          {(moreExplainers[o.id] ?? []).filter((x) => x.slug !== current).map((x) => (
+            <Link
+              key={x.slug}
+              href={`/services/${x.slug}/`}
+              className={`mt-3 text-sm font-semibold underline underline-offset-4 ${isFeatured ? "text-paper/85 hover:text-sun" : "text-ink hover:text-accent"}`}
+            >
+              {x.label}<span className="sr-only">: {o.name}</span> <span aria-hidden="true">→</span>
+            </Link>
+          ))}
           <BuyButton offer={o} className={`mt-6 ${isFeatured ? "btn-accent" : "btn-primary"} w-full`} />
         </article>
         );

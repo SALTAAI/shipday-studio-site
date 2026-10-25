@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BuyButton } from "@/components/BuyButton";
-import { cases, formatPrice, getOffer, logoSamples, redesign, thumbSamples, type ServiceId } from "@/lib/site";
+import { cases, formatPrice, getOffer, logoSamples, redesign, thumbSamples, type Buyable, type ServiceId } from "@/lib/site";
 
 /** Sample-work cards shared by the homepage gallery and every service page, so they always look the same. */
 
@@ -16,16 +16,20 @@ export function ConceptBadge({ label = "Concept · fictional brand", dark = fals
   );
 }
 
-export function PanelFooter({ offer, cta, note, more, moreLabel }: { offer: ServiceId; cta: string; note: string; more: string; moreLabel: string }) {
-  const o = getOffer(offer);
+export function PanelFooter({ offer, items, cta, note, more, moreLabel }: { offer: ServiceId; items?: Buyable[]; cta: string; note: string; more: string; moreLabel: string }) {
+  // `items` lists several plans (e.g. Creator Lite and the Creator plan); otherwise the package itself.
+  const list: Buyable[] = items?.length ? items : [getOffer(offer)];
+  const many = list.length > 1;
   return (
     <div className="mt-10 flex flex-col gap-4 rounded-2xl border border-line bg-paper p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
       <p className="text-sm text-muted">
-        <span className="font-semibold text-ink">{o.name} · {formatPrice(o)}</span> · {note}
+        <span className="font-semibold text-ink">{list.map((o) => `${o.name} · ${formatPrice(o)}`).join(" or ")}</span> · {note}
       </p>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <Link href={more} className="btn-ghost px-5 py-2.5 text-center text-sm">{moreLabel} →</Link>
-        <BuyButton offer={o} className="btn-primary px-5 py-2.5 text-sm">{cta} · {formatPrice(o)}</BuyButton>
+        {list.map((o) => (
+          <BuyButton key={o.id} offer={o} className="btn-primary px-5 py-2.5 text-center text-sm">{many ? o.name : cta} · {formatPrice(o)}</BuyButton>
+        ))}
       </div>
     </div>
   );

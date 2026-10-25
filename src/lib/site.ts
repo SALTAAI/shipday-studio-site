@@ -747,6 +747,14 @@ export function allOffers() {
   ]);
 }
 
-export function formatPrice(o: Offer) {
+/** Anything with a Stripe Payment Link: a package or one of its options (e.g. a monthly thumbnail plan). */
+export type Buyable = { id: string; name: string; price: number; unit?: string; turnaround: string; stripeLink: string };
+
+/** A package option by id, e.g. "creator-lite" or "creator-plan". */
+export function getOption(id: string): OfferOption | undefined {
+  return offers.flatMap((o) => o.options ?? []).find((x) => x.id === id);
+}
+
+export function formatPrice(o: { price: number; unit?: string }) {
   return `$${o.price}${o.unit ?? ""}`;
 }
