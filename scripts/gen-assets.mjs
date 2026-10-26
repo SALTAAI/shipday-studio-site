@@ -1,9 +1,11 @@
 // Generates original sample-work SVGs for fictional brands. No dependencies.
 // Usage: node scripts/gen-assets.mjs
+// Writes to samples/site-masters/legacy-svg/ (gitignored, private). Never write SVG samples into public/:
+// the site repo is public and samples there must be protect.py previews (RULES.md, "Samples and watermarks").
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const root = new URL("../public/", import.meta.url).pathname;
+const root = new URL("../samples/site-masters/legacy-svg/", import.meta.url).pathname;
 const out = (p, s) => { mkdirSync(join(root, p, ".."), { recursive: true }); writeFileSync(join(root, p), s.trim() + "\n"); };
 const FONT = `font-family="Inter, 'Helvetica Neue', Arial, sans-serif"`;
 const SERIF = `font-family="Georgia, 'Times New Roman', serif"`;

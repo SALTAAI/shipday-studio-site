@@ -33,8 +33,8 @@ export default function Imprint() {
 
       <h2>Sample work</h2>
       <p>
-        All brands shown as sample work on this site (Northdrift Ceramics, Quillbyte, Fennel &amp; Fig, Tidewell, Brightloom, Cobalt Owl and
-        the thumbnail channels) are fictional and were created to illustrate our style. Any resemblance to real businesses is unintended.
+        All brands shown as sample work on this site (for example Vantorel, Maison Orrevel, Osteria Fennella, Aurivane,
+        Vexhound and the thumbnail and channel-kit channels) are fictional and were created to illustrate our style. Any resemblance to real businesses is unintended.
       </p>
 
       <h2>Links to other websites</h2>

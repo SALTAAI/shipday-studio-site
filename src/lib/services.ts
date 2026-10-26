@@ -172,7 +172,7 @@ export const services: ServicePage[] = [
       "Docs sites, blogs or multi-page marketing sites.",
       "Pricing calculators, logins or anything that needs a back end.",
     ],
-    samples: { kind: "landing", slugs: ["vantorel", "quillbyte"] },
+    samples: { kind: "landing", slugs: ["vantorel", "vesperkeel"] },
     moreHref: "/work/landing-pages/",
     faq: [
       { q: "Can you work from a Figma file or an existing site?", a: "Yes. Send whatever you have: a deck, a Notion doc, screenshots or an old landing page. We rewrite and redesign from there." },
@@ -211,7 +211,7 @@ export const services: ServicePage[] = [
       "Email marketing sequences or funnels across several pages.",
       "Professional photography (we design around the photos you have, or use abstract imagery).",
     ],
-    samples: { kind: "landing", slugs: ["calm-podium", "fennel-and-fig", "kettlefin-strength", "halvenna-studio"] },
+    samples: { kind: "landing", slugs: ["calm-podium", "kettlefin-strength", "halvenna-studio"] },
     moreHref: "/work/landing-pages/",
     faq: [
       { q: "I don't have testimonials yet. Is that a problem?", a: "No. We never invent them. The page leans on a clear promise, your approach, what is included and an honest refund policy, and leaves a section ready for real testimonials when you have them." },
@@ -251,12 +251,12 @@ export const services: ServicePage[] = [
       "Product photography: we design with your photos, or clearly placeholder imagery until you have them.",
       "Paid ads, email flows or SEO campaigns. Upkeep ($49/month) covers small edits after launch.",
     ],
-    samples: { kind: "landing", slugs: ["haldane-and-oat", "maison-orrevel", "northdrift-ceramics"] },
+    samples: { kind: "landing", slugs: ["haldane-and-oat", "maison-orrevel"] },
     extras: [
       {
         title: "Brand logo concept",
-        note: "Logos are a separate $149 pack, shown because new product brands often order both. The textile studio is fictional.",
-        samples: { kind: "logos", ids: ["brightloom"] },
+        note: "Logos are a separate $149 pack, shown because new product brands often order both. The perfume house is fictional.",
+        samples: { kind: "logos", ids: ["maison-orrevel"] },
       },
     ],
     moreHref: "/work/landing-pages/",
@@ -265,7 +265,7 @@ export const services: ServicePage[] = [
       { q: "Where does the page live?", a: "On a domain or subdomain you own: your main domain if the store sits elsewhere, or a campaign address such as launch.yourbrand.com. We deploy it to hosting in your name, so you keep the accounts and the code. A version built as a Shopify theme section or template isn't included." },
       { q: "Can visitors buy straight from the page?", a: "Buttons can go to a product page, a pre-filled cart link or a checkout or payment link your platform provides, and we can place your platform's buy-button embed if it offers one. We don't build a cart of our own." },
       { q: "What do I need to send?", a: "Product names, prices and links to the product pages, a few photos, and a line on who buys it and why. Packaging, brand colours or an old site help with the look. If something is missing we ask, and the clock pauses until you reply." },
-      { q: "Is Haldane & Oat a real brand?", a: "No. It's a concept for a fictional linen bedding label, made to show the approach: colourway swatches from the first screen, a bestseller row, a materials story and care instructions. Its prices are illustrative. Maison Orrevel and Northdrift Ceramics are fictional brands too." },
+      { q: "Is Haldane & Oat a real brand?", a: "No. It's a concept for a fictional linen bedding label, made to show the approach: colourway swatches from the first screen, a bestseller row, a materials story and care instructions. Its prices are illustrative. Maison Orrevel is a fictional brand too." },
     ],
     related: ["landing-page-design", "landing-page-price", "logo-design", "website-redesign"],
   },
@@ -385,7 +385,7 @@ export const services: ServicePage[] = [
       {
         title: "Restaurant and café logo concepts",
         note: "Logos are a separate $149 pack, shown here because many restaurants order both. All brands are fictional.",
-        samples: { kind: "logos", ids: ["osteria-fennella", "lunebrook", "cobalt-owl"] },
+        samples: { kind: "logos", ids: ["osteria-fennella", "lunebrook"] },
       },
     ],
     moreHref: "/work/landing-pages/",

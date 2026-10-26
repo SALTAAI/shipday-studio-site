@@ -11,7 +11,7 @@ mkdirSync(OUT, { recursive: true });
 
 const pages = process.env.PAGES
   ? process.env.PAGES.split(",").map((p) => p.split("="))
-  : [["home", "/"], ["order", "/order/"], ["terms", "/terms/"], ["privacy", "/privacy/"], ["imprint", "/imprint/"], ["work", "/work/quillbyte/"], ["404", "/this-page-does-not-exist/"]];
+  : [["home", "/"], ["order", "/order/"], ["terms", "/terms/"], ["privacy", "/privacy/"], ["imprint", "/imprint/"], ["work", "/work/vantorel/"], ["404", "/this-page-does-not-exist/"]];
 const viewports = [["desktop", { width: 1440, height: 900 }, 1], ["mobile", { width: 390, height: 844 }, 2]];
 
 const browser = await chromium.launch({

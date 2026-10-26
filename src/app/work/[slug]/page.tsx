@@ -1,22 +1,32 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { cases, faq, getOffer, formatPrice, logoSamples, site, type CaseStudy } from "@/lib/site";
+import { cases, retiredCases, faq, getOffer, formatPrice, logoSamples, site, type CaseStudy } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 import { services } from "@/lib/services";
 import { BuyButton } from "@/components/BuyButton";
 import { turnaroundLabel } from "@/components/OfferCards";
 import { LandingCard } from "@/components/SampleCards";
-import { Breadcrumb, CtaSection, FaqSection, HeroCollage, HeroSection, PricingSection, heroTicks } from "@/components/HomeSections";
+import { Breadcrumb, CtaSection, FaqSection, HeroCollage, HeroSection, PricingSection, TextHero, heroTicks } from "@/components/HomeSections";
+
+const LANDING = "/work/landing-pages/";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return cases.map((c) => ({ slug: c.slug }));
+  // Retired slugs stay exported as forwarding pages so old links and indexed URLs don't 404.
+  return [...cases, ...retiredCases].map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
+  const retired = retiredCases.find((x) => x.slug === slug);
+  if (retired) {
+    return {
+      ...pageMeta({ path: LANDING, title: "Landing page examples", description: `${retired.brand} was an earlier concept and has been retired. Redirecting to the current landing page examples.` }),
+      robots: { index: false, follow: true },
+    };
+  }
   const c = cases.find((x) => x.slug === slug);
   if (!c) return {};
   const lead = `${c.headline}. Concept landing page for a fictional brand by Shipday Studio`;
@@ -61,6 +71,8 @@ function caseJsonLd(c: CaseStudy) {
 
 export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const retired = retiredCases.find((x) => x.slug === slug);
+  if (retired) return <RetiredCase brand={retired.brand} />;
   const c = cases.find((x) => x.slug === slug);
   if (!c) notFound();
   const others = cases.filter((x) => x.slug !== c.slug && x.card).slice(0, 6);
@@ -185,6 +197,28 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         action={<BuyButton offer={o} className="btn-accent relative mt-8">Get a page like this · {price}</BuyButton>}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseJsonLd(c)) }} />
+    </>
+  );
+}
+
+/** GitHub Pages can't do server redirects: meta refresh + location.replace to the landing page examples, with a plain link fallback. */
+function RetiredCase({ brand }: { brand: string }) {
+  return (
+    <>
+      <meta httpEquiv="refresh" content={`0; url=${LANDING}`} />
+      <script dangerouslySetInnerHTML={{ __html: `location.replace(${JSON.stringify(LANDING)});` }} />
+      <TextHero
+        pill="Landing page examples"
+        title={<>{brand} has been <span className="text-accent">retired.</span></>}
+        body={<>That early concept is no longer shown. Taking you to the current landing page examples.</>}
+        actions={
+          <>
+            <Link href={LANDING} className="btn-accent">See landing page examples</Link>
+            <Link href="/work/thumbnails/" className="btn-ghost">Thumbnails</Link>
+            <Link href="/work/logos/" className="btn-ghost">Logos</Link>
+          </>
+        }
+      />
     </>
   );
 }

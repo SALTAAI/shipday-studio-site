@@ -621,66 +621,16 @@ export const cases: CaseStudy[] = [
     card: "/work/v2/haldane-and-oat-card.webp",
     stats: stats("7"),
   },
-  {
-    slug: "northdrift-ceramics",
-    brand: "Northdrift Ceramics",
-    kind: "Maker shop launch",
-    industry: "Retail & DTC",
-    look: "Clean & simple",
-    style: "Calm maker minimal",
-    headline: "A calm, tactile launch page for a one-person pottery studio",
-    summary: "Pre-order page for a small-batch ceramics drop, built around photography and a waitlist.",
-    brief:
-      "Imagined brief: a solo potter wants one page to announce a spring collection, explain the making process and collect waitlist sign-ups before the shop opens.",
-    approach: [
-      "Warm clay-and-sand palette with plenty of whitespace so the pieces carry the page.",
-      "Process told in three short beats: throw, glaze, fire.",
-      "One clear action repeated twice: join the waitlist.",
-    ],
-    palette: ["#F4EDE4", "#C8734A", "#2E2A26", "#9DB4A0"],
-    image: "/work/landing/northdrift-ceramics.svg",
-    stats: stats("6"),
-  },
-  {
-    slug: "quillbyte",
-    brand: "Quillbyte",
-    kind: "SaaS waitlist",
-    industry: "SaaS & tech",
-    look: "Clean & simple",
-    style: "Focused dark product page",
-    headline: "A crisp product page for an AI newsletter-drafting tool",
-    summary: "Dark, focused SaaS landing page with a product mock, three benefits and pricing teaser.",
-    brief:
-      "Imagined brief: a two-founder team needs a credible page to share on launch day: what the product does, why it's different and an email capture for early access.",
-    approach: [
-      "Dark UI with a single violet accent to feel technical without being cold.",
-      "Hero shows the product, not stock art: a drafted newsletter mid-edit.",
-      "Social proof slots left empty, ready for real beta feedback.",
-    ],
-    palette: ["#0F0E17", "#7C5CFF", "#E8E6F3", "#2CE6B5"],
-    image: "/work/landing/quillbyte.svg",
-    stats: stats("7"),
-  },
-  {
-    slug: "fennel-and-fig",
-    brand: "Fennel & Fig",
-    kind: "Creator course",
-    industry: "Coaching & courses",
-    look: "Balanced",
-    style: "Friendly creator course",
-    headline: "A friendly sales page for a meal-prep creator's first course",
-    summary: "Course landing page with curriculum, creator bio, review placeholders and a single price.",
-    brief:
-      "Imagined brief: a food creator with a YouTube audience wants a page to sell a 4-week meal-prep course, linking from video descriptions.",
-    approach: [
-      "Fresh greens and fig purple, rounded shapes and big friendly type.",
-      "Curriculum laid out week by week so buyers know exactly what they get.",
-      "Price and guarantee side by side to reduce hesitation.",
-    ],
-    palette: ["#F7F5EC", "#3F7D4E", "#7A3B69", "#F2B84B"],
-    image: "/work/landing/fennel-and-fig.svg",
-    stats: stats("8"),
-  },
+];
+
+/**
+ * Retired concepts: their old flat SVG previews were removed from public/ (no protected preview exists),
+ * so their /work/<slug>/ URLs only forward to /work/landing-pages/ (noindex, not in the sitemap).
+ */
+export const retiredCases: { slug: string; brand: string }[] = [
+  { slug: "northdrift-ceramics", brand: "Northdrift Ceramics" },
+  { slug: "quillbyte", brand: "Quillbyte" },
+  { slug: "fennel-and-fig", brand: "Fennel & Fig" },
 ];
 
 /** Homepage featured landing pages, one per buyer segment. */
@@ -693,22 +643,6 @@ export const redesign = {
   before: { src: "/work/v3/lp-pipewren-before-card.webp", full: "/work/v3/lp-pipewren-before.webp" },
   after: { src: "/work/v3/lp-pipewren-card.webp", demo: "/demos/pipewren/" },
 };
-
-/** Earlier flat SVG thumbnails (thumb-1 is also used in the homepage hero collage). */
-export const thumbnails = [
-  { file: "/work/thumbnails/thumb-1.svg", alt: "Sample thumbnail: 'I tried 5 budget mics' for a fictional tech channel" },
-  { file: "/work/thumbnails/thumb-2.svg", alt: "Sample thumbnail: '30 day sourdough' for a fictional baking channel" },
-  { file: "/work/thumbnails/thumb-3.svg", alt: "Sample thumbnail: 'My first $1K month' for a fictional founder channel" },
-  { file: "/work/thumbnails/thumb-4.svg", alt: "Sample thumbnail: 'Alps on $40 a day' for a fictional travel channel" },
-  { file: "/work/thumbnails/thumb-5.svg", alt: "Sample thumbnail: 'Stop doing this in your UI' for a fictional design channel" },
-  { file: "/work/thumbnails/thumb-6.svg", alt: "Sample thumbnail: '5AM routine, honest review' for a fictional lifestyle channel" },
-];
-
-export const logos = [
-  { file: "/work/logos/tidewell.svg", name: "Tidewell", note: "Swim school" },
-  { file: "/work/logos/brightloom.svg", name: "Brightloom", note: "Textile studio" },
-  { file: "/work/logos/cobalt-owl.svg", name: "Cobalt Owl", note: "Night-shift coffee" },
-];
 
 export type ThumbSample = {
   id: string;
@@ -762,12 +696,6 @@ export const thumbSamples: ThumbSample[] = [
     alt: "Gaming thumbnail concept from the Glitchpaw channel kit (fictional channel): '1 HP' in lime and 'Left' in white with a red 'vs. Titan MK-9' tag, beside a small purple robot cat in front of a giant mech boss" },
   { id: "kit-slow-kettle", file: "/work/v4/thumb-kit-slow-kettle.webp", small: "/work/v4/thumb-kit-slow-kettle-640.webp", niche: "Food & cooking", title: "Sunday stew, 1 pot, 3 hours", look: "Balanced",
     alt: "Cooking thumbnail concept from the Slow Kettle channel kit (fictional channel): 'Sunday' in cream serif and 'Stew' in orange with a '1 pot · 3 hours' tag, beside a steaming bowl of beef and carrot stew on a dark wooden table" },
-  { id: "mics", file: thumbnails[0].file, niche: "Tech review", title: "I tried 5 budget mics", look: "Clean & simple", alt: thumbnails[0].alt },
-  { id: "sourdough", file: thumbnails[1].file, niche: "Food & cooking", title: "30 day sourdough", look: "Clean & simple", alt: thumbnails[1].alt },
-  { id: "1k-month", file: thumbnails[2].file, niche: "Money & finance", title: "My first $1K month", look: "Clean & simple", alt: thumbnails[2].alt },
-  { id: "alps", file: thumbnails[3].file, niche: "Travel vlog", title: "Alps on $40 a day", look: "Clean & simple", alt: thumbnails[3].alt },
-  { id: "ui-tips", file: thumbnails[4].file, niche: "Design & creative", title: "Stop doing this in your UI", look: "Clean & simple", alt: thumbnails[4].alt },
-  { id: "5am", file: thumbnails[5].file, niche: "Lifestyle", title: "5AM routine, honest review", look: "Clean & simple", alt: thumbnails[5].alt },
 ];
 
 export type LogoSample = {
@@ -853,9 +781,6 @@ export const logoSamples: LogoSample[] = [
   { id: "pipewren", name: "Pipewren", industry: "Local services", note: "Plumbing & heating", look: "Clean & simple",
     file: "/work/v3/logo-pipewren.webp", small: "/work/v3/logo-pipewren-800.webp", size: [1600, 800],
     alt: "Pipewren logo concept for a fictional plumber: a pipe bend with a copper drop in a rounded navy tile, and a bold wordmark, on white and navy tiles" },
-  { id: "tidewell", name: "Tidewell", industry: "Kids & community", note: "Swim school", look: "Clean & simple", file: logos[0].file, size: [600, 600], alt: "Tidewell logo concept for a fictional swim school" },
-  { id: "brightloom", name: "Brightloom", industry: "Retail & crafts", note: "Textile studio", look: "Balanced", file: logos[1].file, size: [600, 600], alt: "Brightloom logo concept for a fictional textile studio" },
-  { id: "cobalt-owl", name: "Cobalt Owl", industry: "Restaurants & hospitality", note: "Night-shift coffee", look: "Balanced", file: logos[2].file, size: [600, 600], alt: "Cobalt Owl logo concept for a fictional night-shift coffee bar" },
 ];
 
 export function getOffer(id: ServiceId) {
