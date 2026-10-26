@@ -43,8 +43,8 @@ h1{margin-top:18px;font-size:${size}px;line-height:1.05;font-weight:900;letter-s
 <div class="brand"><svg width="52" height="52" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1d1d24"/><path d="M14 40 L32 14 L50 40 Z" fill="#FF5A1F"/><rect x="12" y="44" width="40" height="7" rx="3.5" fill="#FAFAF7"/></svg>Shipday Studio</div>
 <div class="eyebrow">${esc(s.eyebrow)}</div>
 <h1>${esc(s.h1)}</h1></div>
-<div class="chips">${plans.length > 1 ? `${plans.map((p) => `<div class="chip">${esc(p.name)} <b>${priceLabel(p).replace("/month", "/mo")}</b></div>`).join("")}<div class="chip">Cancel any time</div>` : `<div class="chip">${esc(o.name)} <b>${priceLabel(o)}</b></div>${o.turnaround === "Ongoing" ? '<div class="chip">Billed <b>monthly</b></div><div class="chip">Cancel any time · no calls</div>' : `<div class="chip">Delivered in <b>${esc(o.turnaround)}</b></div><div class="chip">Fixed price · no calls</div>`}`}</div>
-<div class="url">shipdaystudio.com/services/${s.slug}/ · remote, clients worldwide, any industry</div></body></html>`;
+<div class="chips">${s.chips ? s.chips.map((c) => `<div class="chip">${c}</div>`).join("") : plans.length > 1 ? `${plans.map((p) => `<div class="chip">${esc(p.name)} <b>${priceLabel(p).replace("/month", "/mo")}</b></div>`).join("")}<div class="chip">Cancel any time</div>` : `<div class="chip">${esc(o.name)} <b>${priceLabel(o)}</b></div>${o.turnaround === "Ongoing" ? '<div class="chip">Billed <b>monthly</b></div><div class="chip">Cancel any time · no calls</div>' : `<div class="chip">Delivered in <b>${esc(o.turnaround)}</b></div><div class="chip">Fixed price · no calls</div>`}`}</div>
+<div class="url">shipdaystudio.com${s.path ?? `/services/${s.slug}/`} · remote, clients worldwide, any industry</div></body></html>`;
 };
 
 const outDir = join(root, "public/og/services");
@@ -60,6 +60,22 @@ for (const s of services) {
   });
   if (overflow) console.warn(`WARN ${s.slug}: headline overlaps the chips`);
   await page.screenshot({ path: join(outDir, `${s.slug}.png`) });
+  console.log("og", s.slug);
+}
+// Portfolio pages that are linked in DMs and posts get their own card too (chips are trusted HTML, written here).
+const extras = [
+  {
+    slug: "work-thumbnails",
+    path: "/work/thumbnails/",
+    out: join(root, "public/og/work-thumbnails.png"),
+    eyebrow: "YouTube thumbnail examples",
+    h1: "Thumbnails built to be read at phone size, in 24 hours.",
+    chips: ["1 thumbnail <b>$20</b>", "4 thumbnails <b>$79 total</b>", "First-order preview in <b>6h</b>"],
+  },
+];
+for (const s of extras) {
+  await page.setContent(html(s), { waitUntil: "load" });
+  await page.screenshot({ path: s.out });
   console.log("og", s.slug);
 }
 await browser.close();

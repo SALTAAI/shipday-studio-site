@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BuyButton } from "@/components/BuyButton";
 import { WorkFilter } from "@/components/WorkFilter";
-import { faq, featuredCases, formatPrice, getOffer, logoSamples, site, thumbSamples, type ServiceId } from "@/lib/site";
+import { faq as mainFaq, featuredCases, formatPrice, getOffer, getOption, logoSamples, site, thumbSamples, type ServiceId } from "@/lib/site";
 import { services, type SampleSet } from "@/lib/services";
 import { turnaroundLabel } from "@/components/OfferCards";
 import { SampleCollage } from "@/components/ServicePage";
@@ -20,6 +20,14 @@ export function WorkIndex({
   title,
   intro,
   cta,
+  entry,
+  ticks,
+  stats,
+  pricingHeading,
+  pricingIntro,
+  ctaHeading,
+  ctaText,
+  faq,
 }: {
   kind: "landing" | "thumbnails" | "logos";
   offer: ServiceId;
@@ -27,8 +35,20 @@ export function WorkIndex({
   title: string;
   intro: string;
   cta: string;
+  /** Cheaper first step sold next to the package (option id in site.ts), e.g. the $20 single thumbnail. Becomes the main button. */
+  entry?: { id: string; label: string };
+  ticks?: string[];
+  stats?: [string, string][];
+  pricingHeading?: string;
+  pricingIntro?: string;
+  ctaHeading?: string;
+  ctaText?: string;
+  /** Category FAQ; defaults to the main site FAQ. */
+  faq?: { q: string; a: string }[];
 }) {
   const o = getOffer(offer);
+  const e = entry ? getOption(entry.id) : undefined;
+  const qa = faq ?? mainFaq;
   const url = `${site.url}${current}`;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -43,6 +63,9 @@ export function WorkIndex({
         publisher: { "@id": `${site.url}/#organization` },
         inLanguage: "en",
       },
+      ...(faq
+        ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }]
+        : []),
       {
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -63,6 +86,16 @@ export function WorkIndex({
         : [{ kind: "logos", ids: logoSamples.map((l) => l.id) }];
   const related = services.filter((s) => s.offer === offer);
   const lastSpace = title.lastIndexOf(" ");
+  // With an entry option (e.g. 1 thumbnail for $20), it leads and the package sits next to it, in the same button styles.
+  const buttons = (extra = "") =>
+    e && entry ? (
+      <>
+        <BuyButton offer={e} className={`btn-accent ${extra}`.trim()}>{entry.label} · {formatPrice(e)}</BuyButton>
+        <BuyButton offer={o} className={`btn-ghost ${extra}`.trim()}>{o.packLabel ?? cta}</BuyButton>
+      </>
+    ) : (
+      <BuyButton offer={o} className={`btn-accent ${extra}`.trim()}>{cta} · {price}</BuyButton>
+    );
   return (
     <>
       <HeroSection
@@ -72,13 +105,17 @@ export function WorkIndex({
         accent={title.slice(lastSpace + 1)}
         body={intro}
         actions={
-          <>
-            <BuyButton offer={o} className="btn-accent">{cta} · {price}</BuyButton>
-            <a href="#work" className="btn-ghost">Browse the examples</a>
-          </>
+          e ? (
+            buttons()
+          ) : (
+            <>
+              {buttons()}
+              <a href="#work" className="btn-ghost">Browse the examples</a>
+            </>
+          )
         }
-        ticks={heroTicks}
-        stats={[["Turnaround", o.turnaround], ["Fixed price", price], ["Revision round", "Included"]]}
+        ticks={ticks ?? heroTicks}
+        stats={stats ?? [["Turnaround", o.turnaround], ["Fixed price", price], ["Revision round", "Included"]]}
         visual={<SampleCollage sets={sets} moreHref="#work" />}
       />
 
@@ -109,22 +146,28 @@ export function WorkIndex({
       </section>
 
       <PricingSection
-        heading={`${o.name}: ${price}, fixed price in USD.`}
-        intro="What you see is what you pay. Every one-off package includes one revision round, and turnaround starts once we have your payment and brief."
+        heading={pricingHeading ?? `${o.name}: ${price}, fixed price in USD.`}
+        intro={pricingIntro ?? "What you see is what you pay. Every one-off package includes one revision round, and turnaround starts once we have your payment and brief."}
         featured={offer}
         linksLabel="Details and samples by need:"
         links={[...related.map((s) => ({ href: `/services/${s.slug}/`, label: s.label })), { href: "/services/", label: "All services" }]}
       />
 
       <FaqSection
-        intro={<>Something else? Email <a className="underline hover:text-accent" href={`mailto:${site.email}`}>{site.email}</a>.</>}
-        faq={faq}
+        intro={
+          faq ? (
+            <>More in the <Link href="/#faq" className="underline hover:text-accent">main FAQ</Link> and the <Link href="/terms/" className="underline hover:text-accent">terms</Link>. Something else? Email <a className="underline hover:text-accent" href={`mailto:${site.email}`}>{site.email}</a>.</>
+          ) : (
+            <>Something else? Email <a className="underline hover:text-accent" href={`mailto:${site.email}`}>{site.email}</a>.</>
+          )
+        }
+        faq={qa}
       />
 
       <CtaSection
-        heading={`${o.name}, ${price}. ${turnaroundLabel(o.turnaround)}.`}
-        text={<>{o.summary} Pay online, then email your brief to {site.email}.</>}
-        action={<BuyButton offer={o} className="btn-accent relative mt-8">{cta} · {price}</BuyButton>}
+        heading={ctaHeading ?? `${o.name}, ${price}. ${turnaroundLabel(o.turnaround)}.`}
+        text={<>{ctaText ?? o.summary} Pay online, then email your brief to {site.email}.</>}
+        action={e ? <div className="relative mt-8 flex flex-wrap justify-center gap-3">{buttons()}</div> : <BuyButton offer={o} className="btn-accent relative mt-8">{cta} · {price}</BuyButton>}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </>
