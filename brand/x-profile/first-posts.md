@@ -49,7 +49,7 @@ If you know what you need, you shouldn't need a call to find out what it costs.
 ```
 How Shipday Studio keeps prices fixed:
 
-Production runs on an AI-assisted workflow, and every deliverable is reviewed by a human before it ships. That's how turnaround stays short.
+Production runs on an AI-assisted workflow, and every deliverable is quality-checked before it ships, with revisions included. That's how turnaround stays short.
 
 You own the final files once paid. No lock-in.
 ```
