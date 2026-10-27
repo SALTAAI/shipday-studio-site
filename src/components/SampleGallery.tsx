@@ -89,7 +89,7 @@ export function SampleGallery() {
 
       {/* Thumbnails */}
       <div id="panel-thumbnails" role="tabpanel" aria-labelledby="tab-thumbnails" hidden={active !== "thumbnails"} className="mt-8">
-        <p className="max-w-2xl text-muted">Seven niches, built at 1280×720. Every channel is fictional. Click any thumbnail for a larger preview. Previews on this site are watermarked; clients get clean files.</p>
+        <p className="max-w-2xl text-muted">Seven niches, built at 1280×720. Every channel is fictional. Click any thumbnail for a larger view. Clients get the editable source files.</p>
 
         <h3 className="mt-8 text-sm font-bold uppercase tracking-[0.14em] text-muted">A/B pairs: two concepts for the same video</h3>
         <div className="mt-4 grid gap-6">

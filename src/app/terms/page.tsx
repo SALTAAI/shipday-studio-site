@@ -102,7 +102,7 @@ export default function Terms() {
       <h2>8. Ownership</h2>
       <p>
         Once you&apos;ve paid in full, you own the final deliverables and may use them for any purpose. Until then, and for
-        anything refunded, all rights stay with us. Previews, samples and watermarked files (on this site, on social media or sent to you)
+        anything refunded, all rights stay with us. Watermarked buyer-preview files (sent before payment acceptance, or used in lead outreach)
         are for viewing only and aren&apos;t licensed for any use. Unused concepts and drafts remain ours. We may show the work in our portfolio only with your permission. Third-party items (such as fonts,
         stock images or hosting services) stay subject to their own licences.
       </p>

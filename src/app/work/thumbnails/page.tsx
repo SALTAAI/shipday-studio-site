@@ -17,7 +17,7 @@ const thumbFaq = [
   { q: "One thumbnail, a pack or a plan?", a: "Trying us out: 1 thumbnail for $20. A batch of uploads: 4 thumbnails for $79 total. About one upload a week: Creator Lite, 4 a month for $79/mo. Two or three a week: the Creator plan, 12 a month for $179/mo. Monthly plans cancel any time. Starting a channel: the Channel Launch Kit is a logo, banner, profile picture and 4 thumbnails for $199." },
   { q: "Is this made with AI?", a: "Production is AI-assisted: the scene is generated or composed for each thumbnail, then we add the text, finish it and quality-check it before delivery, with one revision round included. If you need thumbnails made without AI, we're not the right fit." },
   { q: "What size are the thumbnails?", a: "1280×720 (16:9), YouTube's recommended size, with the editable source file. We check every title at the size it shows on a phone. Roblox experience thumbnails use the same 16:9 size." },
-  { q: "Do I own the thumbnails?", a: "Yes. Once paid, you own the final thumbnails and can use them however you like. Previews on this site are watermarked; clients get clean files." },
+  { q: "Do I own the thumbnails?", a: "Yes. Once paid, you own the final thumbnails and can use them however you like. First-order concepts are delivered as a watermarked preview until you accept; then you get the clean files." },
   { q: "Are the samples from real channels?", a: "No. Every sample on this page is a concept for a fictional channel, made to show the range of styles we design." },
   { q: "What currency do you charge in?", a: "All prices are in US dollars (USD), paid up front through Stripe checkout. Your bank may convert at its own rate." },
 ];
@@ -29,7 +29,7 @@ export default function ThumbnailsIndex() {
       offer="thumbnails"
       current="/work/thumbnails/"
       title="Thumbnail examples"
-      intro="Thumbnail concepts for gaming, finance, tech, education, travel, documentary, faceless channels, Roblox games and more, all at 1280×720. Click any thumbnail for a larger preview. Previews on this site are watermarked; clients get clean files."
+      intro="Thumbnail concepts for gaming, finance, tech, education, travel, documentary, faceless channels, Roblox games and more, all at 1280×720. Click any thumbnail for a larger view. Clients get the editable source files."
       cta="Get a thumbnail pack"
       entry={{ id: "thumbnail-single", label: "Try 1 thumbnail" }}
       ticks={["First order: preview in 6h, or a full refund", "Secure Stripe checkout", "You own the final files"]}

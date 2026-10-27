@@ -7,9 +7,10 @@ Checks (no secrets, no writes, public reads only):
   3. /thanks/?product=<id> exists for every catalog redirect
   4. no banned claims or private strings in any page (human-reviewed, owner name, bot inbox, other studio)
   5. IndexNow key file is live
-  6. no free work (RULES.md "No free work"): every local site sample is a tools/protect.py output <= 640px with no
-     metadata, no SVG samples in public/, every /work/ and /demos/ image the live pages use is a manifest output
-     (sha256 match) <= 640px, and RULES.md has its "No free work" section
+  6. site quality (AK t102u/t103u) + no free work on buyer previews: every local site sample is CLEAN (NOT a
+     protect.py watermarked output, no PREVIEW badge, no metadata), no SVG samples in public/, every live
+     /work/ and /demos/ image is clean and web-sized; tools/site_quality_gate.py must pass; RULES.md has
+     "No free work" and "Site quality bar" sections. Buyer/Zernio media still must be protect.py outputs.
   7. optional: --reddit URL... checks each comment permalink is visible logged-out (catches shadow-hidden comments)
 
 Exit 1 on any FAIL so a routine can escalate instead of waiting.
@@ -121,18 +122,18 @@ def main():
         ost, _ = get_bytes(SITE + og)
         check(ost == 200, f"DM landing OG image {ost} {og}")
 
-    # 6. No free work: samples protected locally and live.
+    # 6. Site quality (AK t102u/t103u): site samples are CLEAN; buyer-preview protect never applies to the site.
     sys.path.insert(0, str(ROOT / "tools"))
     import protect
     from PIL import Image
     local = protect.site_images()
-    bad = protect.check_files(local)
+    bad = protect.check_site_files(local)
     for b in bad:
-        check(False, f"unprotected site image: {b}")
+        check(False, f"site image quality: {b}")
     svgs = sorted((ROOT / "public").rglob("*.svg"))
     for sv in svgs:
         check(False, f"SVG sample in public/: {sv.relative_to(ROOT)}")
-    check(not bad and not svgs, f"{len(local)} local site images protected (<=640px, watermarked, no metadata)")
+    check(not bad and not svgs, f"{len(local)} local site images clean (no watermark, no metadata)")
     outs = protect.load_manifest()["outputs"]
     live_bad = 0
     for path in sorted(live_imgs):
@@ -140,11 +141,27 @@ def main():
         if st != 200:
             check(False, f"live image {st} {path}"); live_bad += 1; continue
         w, h = Image.open(io.BytesIO(b)).size
-        if hashlib.sha256(b).hexdigest() not in outs or max(w, h) > protect.MAX_LONG:
-            check(False, f"live image not protected: {path} {w}x{h}"); live_bad += 1
-    check(live_bad == 0 and len(live_imgs) > 0, f"{len(live_imgs)} live sample images match protect manifest")
+        digest = hashlib.sha256(b).hexdigest()
+        if digest in outs:
+            check(False, f"live image is watermarked protect output: {path} {w}x{h}"); live_bad += 1
+        elif protect.has_preview_watermark(b):
+            check(False, f"live image has PREVIEW watermark: {path}"); live_bad += 1
+        elif ("thumb-" in path or path.rstrip("/").endswith("hero.webp") or "/hero.webp" in path) and w < 1000:
+            check(False, f"live hero/thumb under 1000px wide: {path} {w}x{h}"); live_bad += 1
+    check(live_bad == 0 and len(live_imgs) > 0, f"{len(live_imgs)} live sample images clean (no watermark)")
     rules = (ROOT / "RULES.md").read_text()
     check("## No free work" in rules, "RULES.md has the 'No free work' section")
+    check("## Site quality bar" in rules, "RULES.md has the 'Site quality bar' section")
+    # Hard gate (local image rules always; live screenshots skipped here — pre_deploy / CI run full gate).
+    try:
+        import site_quality_gate
+        gfails = []
+        site_quality_gate.check_images(gfails)
+        for g in gfails:
+            check(False, f"site_quality_gate: {g}")
+        check(not gfails, "site_quality_gate image rules pass")
+    except Exception as e:
+        check(False, f"site_quality_gate error: {type(e).__name__}: {e}")
 
     # 6b. No free work on scheduled social posts (27 Oct 2026, proof post 6ade370a): every image on a
     # scheduled/draft Zernio post must be a protect.py output. Unreadable media or API error = FAIL (fail closed).
