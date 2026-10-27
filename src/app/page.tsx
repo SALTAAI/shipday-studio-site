@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { BuyButton } from "@/components/BuyButton";
-import { cases, faq, industries, logoSamples, steps, thumbSamples, site, getOffer, formatPrice } from "@/lib/site";
+import { cases, faq, industries, logoSamples, steps, thumbSamples, site, getOffer, getOption, formatPrice } from "@/lib/site";
 import { SampleGallery } from "@/components/SampleGallery";
 import { CtaSection, FaqSection, HeroCollage, HeroSection, HowSection, PricingSection, WhoSection, WorkSection, heroTicks } from "@/components/HomeSections";
 import { pageMeta } from "@/lib/seo";
@@ -16,7 +16,7 @@ const faqJsonLd = {
 
 export const metadata: Metadata = pageMeta({
   path: "/",
-  title: `${site.name} | Landing pages in 48h, fixed price`,
+  title: `${site.name} | Thumbnails from $20, logos & pages`,
   description: site.description,
   absoluteTitle: true,
 });
@@ -31,23 +31,23 @@ export default function Home() {
     <>
       <HeroSection
         pill="Remote · clients worldwide · fixed prices in USD"
-        title="Your landing page, "
-        accent="shipped in 48 hours."
+        title="Thumbnails, logos and pages, "
+        accent="shipped in days."
         body={
           <>
-              Fixed-price design for businesses, creators and brands anywhere in the world, in any industry. Pick a
-              package, pay online, email a short brief, and get finished work by a clear deadline. No calls, no quotes,
-              no scope creep.
+              Fixed-price design for businesses, creators and brands anywhere in the world. Try one YouTube thumbnail
+              for $20 — first order preview in 6 hours, or a full refund. Or pick a pack, logo or landing page. No
+              calls, no quotes, no scope creep.
           </>
         }
         actions={
           <>
-            <BuyButton offer={getOffer("landing")} className="btn-accent">Get a landing page · {formatPrice(getOffer("landing"))}</BuyButton>
+            <BuyButton offer={getOption("thumbnail-single")!} className="btn-accent">Try 1 thumbnail · $20</BuyButton>
             <a href="#offers" className="btn-ghost">See all prices</a>
           </>
         }
         ticks={heroTicks}
-        stats={[["Landing page", "48h"], ["Thumbnails", "24h"], ["Revision round", "Included"]]}
+        stats={[["1 thumbnail", "$20"], ["4 thumbnails", "$79"], ["Landing page", "48h"]]}
         visual={
           <HeroCollage
             href={heroCase.demo ?? `/work/${heroCase.slug}/`}
@@ -72,8 +72,9 @@ export default function Home() {
       <HowSection heading="Pay, send a brief, get your files. No meetings." steps={steps} />
 
       <PricingSection
-        heading="Four packages. Fixed prices in USD."
-        intro="What you see is what you pay. Every one-off package includes one revision round, and turnaround starts once we have your payment and brief."
+        heading="Packages. Fixed prices in USD."
+        intro="What you see is what you pay. Start with 1 thumbnail for $20 (first order: preview in 6h or a full refund), or pick a pack, logo or landing page. Every one-off package includes one revision round."
+        featured="thumbnails"
         linksLabel="Details and samples by need:"
         links={services.map((s) => ({ href: `/services/${s.slug}/`, label: s.label }))}
       />
@@ -92,8 +93,8 @@ export default function Home() {
 
       <CtaSection
         heading="Ship it this week."
-        text={<>Pay online, then email your brief to {site.email}. The clock starts once we have both.</>}
-        action={<Link href="/order/" className="btn-accent relative mt-8">Start your order</Link>}
+        text={<>Try 1 thumbnail for $20, or pick a pack. Pay online, then email your brief to {site.email}. First thumbnail order: preview in 6h, or a full refund.</>}
+        action={<BuyButton offer={getOption("thumbnail-single")!} className="btn-accent relative mt-8">Try 1 thumbnail · $20</BuyButton>}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
     </>

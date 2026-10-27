@@ -4,7 +4,7 @@ export const site = {
   email: "hello@shipdaystudio.com",
   tagline: "Fixed-price design for businesses, creators and brands worldwide. Shipped in days, not weeks.",
   description:
-    "Remote, fixed-price design studio for businesses, creators and brands worldwide. Landing pages and logos in 48h, YouTube thumbnails in 24h. No calls.",
+    "Remote, fixed-price design studio for businesses, creators and brands worldwide. YouTube thumbnails from $20 (first order: 6h preview or full refund), logos in 48h, landing pages in 48h. No calls.",
   /** Marketing copy is remote and worldwide. The country appears only in the legal identity (site.legal). No personal name or street address is published anywhere on the site. */
   reach: "Remote studio working with businesses, creators and brands worldwide, in any industry.",
   x: { handle: "@ShipdayStudio", url: "https://x.com/ShipdayStudio" },
@@ -288,7 +288,7 @@ export const faq = [
   },
   {
     q: "What if I don't like the result?",
-    a: "Every one-off package includes one revision round: send one list of changes within 14 days of delivery. If we haven't started work yet, you can cancel for a full refund.",
+    a: "Every one-off package includes one revision round: send one list of changes within 14 days of delivery. On your first thumbnail order (the $20 single or the $79 pack), the first concept arrives as a watermarked preview within 6 hours — tell us within 7 days it's not for you and we refund you in full. If we haven't started work yet on any package, you can cancel for a full refund.",
   },
   {
     q: "Do I own the work?",

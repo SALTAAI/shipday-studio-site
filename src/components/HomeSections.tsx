@@ -155,7 +155,7 @@ export function HeroSection({
   );
 }
 
-export const heroTicks = ["Secure Stripe checkout", "Full refund if work hasn't started", "You own the final files"];
+export const heroTicks = ["Secure Stripe checkout", "First thumbnail order: 6h preview or full refund", "You own the final files"];
 
 export function WhoSection({
   eyebrow,

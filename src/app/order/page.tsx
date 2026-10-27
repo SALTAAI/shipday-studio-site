@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { BuyButton } from "@/components/BuyButton";
 import type { Metadata } from "next";
-import { allOffers, formatPrice, site, briefMailto, cases, faq, getOffer, logoSamples, thumbSamples } from "@/lib/site";
+import { allOffers, formatPrice, site, briefMailto, cases, faq, getOffer, getOption, logoSamples, thumbSamples } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 import { services } from "@/lib/services";
 import { CtaSection, FaqSection, HeroCollage, HeroSection, HowSection, PricingSection, heroTicks } from "@/components/HomeSections";
@@ -8,7 +9,7 @@ import { CtaSection, FaqSection, HeroCollage, HeroSection, HowSection, PricingSe
 export const metadata: Metadata = pageMeta({
   path: "/order",
   title: "Order a fixed-price design package",
-  description: "Pay for a landing page ($390, 48h), thumbnail pack ($79, 24h), logo pack ($149, 48h) or monthly upkeep ($49/mo) via Stripe, then email your brief.",
+  description: "Pay for YouTube thumbnails from $20, a logo pack, landing page or Creator plan. Fixed prices in USD. First thumbnail order: preview in 6h or a full refund.",
 });
 
 const howTo = [
@@ -65,17 +66,17 @@ export default function OrderPage() {
         accent="and pay"
         body={
           <>
-            We work remotely with clients in any country and industry. Prices are fixed and in USD. Turnaround starts once we have both your payment and your brief.
+            We work remotely with clients in any country and industry. Prices are fixed and in USD. Start with 1 thumbnail for $20 — first order preview in 6 hours, or a full refund.
           </>
         }
         actions={
           <>
-            <a href="#offers" className="btn-accent">See the packages</a>
+            <BuyButton offer={getOption("thumbnail-single")!} className="btn-accent">Try 1 thumbnail · $20</BuyButton>
             <a href={briefMailto()} className="btn-ghost">Email my brief</a>
           </>
         }
         ticks={heroTicks}
-        stats={[["Landing page", formatPrice(getOffer("landing"))], ["Thumbnails", formatPrice(getOffer("thumbnails"))], ["Logo pack", formatPrice(getOffer("logo"))]]}
+        stats={[["1 thumbnail", "$20"], ["4 thumbnails", formatPrice(getOffer("thumbnails"))], ["Logo pack", formatPrice(getOffer("logo"))]]}
         visual={
           <HeroCollage
             href={`/work/${heroCase.slug}/`}
@@ -90,8 +91,9 @@ export default function OrderPage() {
       <HowSection heading="Pay, send a brief, get your files. No meetings." steps={howTo} />
 
       <PricingSection
-        heading="Four packages. Fixed prices in USD."
-        intro="What you see is what you pay. Every one-off package includes one revision round, and turnaround starts once we have your payment and brief."
+        heading="Packages. Fixed prices in USD."
+        intro="What you see is what you pay. Start with 1 thumbnail for $20 (first order: preview in 6h or a full refund), or pick a pack, logo or landing page. Every one-off package includes one revision round."
+        featured="thumbnails"
         linksLabel="Details and samples by need:"
         links={services.map((s) => ({ href: `/services/${s.slug}/`, label: s.label }))}
       >
@@ -116,8 +118,8 @@ export default function OrderPage() {
 
       <CtaSection
         heading="Ship it this week."
-        text={<>Pay online, then email your brief to {site.email}. The clock starts once we have both.</>}
-        action={<a href="#offers" className="btn-accent relative mt-8">Pick a package</a>}
+        text={<>Try 1 thumbnail for $20, or pick a pack. Pay online, then email your brief to {site.email}. First thumbnail order: preview in 6h, or a full refund.</>}
+        action={<BuyButton offer={getOption("thumbnail-single")!} className="btn-accent relative mt-8">Try 1 thumbnail · $20</BuyButton>}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orderJsonLd) }} />
     </>

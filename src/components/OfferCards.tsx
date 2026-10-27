@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { offers, formatPrice, type ServiceId } from "@/lib/site";
+import { offers, formatPrice, getOption, type ServiceId } from "@/lib/site";
 import { BuyButton } from "./BuyButton";
 
 /** Each package's price explainer page under /services/. */
@@ -50,11 +50,15 @@ export function OfferCards({ featured, current }: { featured?: ServiceId; curren
             ))}
           </ul>
           <div className="flex-1" />
-          {o.options && (
+          {o.options && (() => {
+            // $20 single is a primary Buy button below; keep monthly/other options as text links only.
+            const linkOptions = o.id === "thumbnails" ? o.options.filter((x) => x.id !== "thumbnail-single") : o.options;
+            if (!linkOptions.length) return null;
+            return (
             <div className={`mt-6 border-t pt-4 text-sm ${isFeatured ? "border-paper/20" : "border-line"}`}>
               {o.packLabel && <p className="font-semibold">{o.packLabel}</p>}
               <ul className="mt-2 space-y-2">
-                {o.options.map((x) => (
+                {linkOptions.map((x) => (
                   <li key={x.id}>
                     <a
                       href={x.stripeLink}
@@ -69,7 +73,8 @@ export function OfferCards({ featured, current }: { featured?: ServiceId; curren
                 ))}
               </ul>
             </div>
-          )}
+            );
+          })()}
           {explainer[o.id].slug !== current && (
             <Link
               href={`/services/${explainer[o.id].slug}/`}
@@ -87,7 +92,24 @@ export function OfferCards({ featured, current }: { featured?: ServiceId; curren
               {x.label}<span className="sr-only">: {o.name}</span> <span aria-hidden="true">→</span>
             </Link>
           ))}
-          <BuyButton offer={o} className={`mt-6 ${isFeatured ? "btn-accent" : "btn-primary"} w-full`} />
+          {o.id === "thumbnails" && getOption("thumbnail-single") ? (
+            <div className="mt-6 flex flex-col gap-2">
+              <BuyButton
+                offer={getOption("thumbnail-single")!}
+                className={`${isFeatured ? "btn-accent" : "btn-primary"} w-full`}
+              >
+                Try 1 thumbnail · $20
+              </BuyButton>
+              <BuyButton offer={o} className={`${isFeatured ? "btn-ghost border-paper/30 text-paper hover:bg-paper/10" : "btn-ghost"} w-full`}>
+                {o.packLabel ?? `Buy now · ${formatPrice(o)}`}
+              </BuyButton>
+              <p className={`text-xs ${isFeatured ? "text-paper/70" : "text-muted"}`}>
+                First order: preview in 6h, or a full refund.
+              </p>
+            </div>
+          ) : (
+            <BuyButton offer={o} className={`mt-6 ${isFeatured ? "btn-accent" : "btn-primary"} w-full`} />
+          )}
         </article>
         );
       })}
