@@ -365,8 +365,19 @@ def check(
     prior = already_contacted(lead_h, channel) if lead_h else False
     claimed_follow = follow_up or kind in {"followup", "client", "non-sales"}
 
+    # Own-timeline original post (@ShipdayStudio proof/build-in-public posts via
+    # tools/zernio_schedule.py). Not addressed to any person: no lead, no @mentions,
+    # no freshness/style-notes; any media must still be protect.py previews.
+    if channel == "x-post":
+        effective_kind = "own-post"
+        if lead_h:
+            reasons.append("x-post is own-timeline only: --lead not allowed (use a DM/reply channel)")
+        if re.search(r"(?<![\w.])@[A-Za-z0-9_]{1,15}", text):
+            reasons.append("x-post must not @mention anyone (own-timeline post, not outreach)")
+        if transactional or follow_up or kind != "buyer-first":
+            reasons.append("x-post takes no --kind/--follow-up/--transactional")
     # Transactional email path (receipts/delivery to a paying buyer)
-    if transactional:
+    elif transactional:
         if channel != "email":
             reasons.append("transactional path is email-only")
         if not order_id or not re.match(r"^(cs_|sub_|pi_|in_|order_)[A-Za-z0-9_]+$", order_id):
@@ -442,7 +453,7 @@ def check(
         # follow-up: any media must still be valid protected images
         if media:
             reasons.extend(validate_media(media, lead_h, require_lead_match=False))
-    elif effective_kind == "transactional":
+    elif effective_kind in {"transactional", "own-post"}:
         if media:
             reasons.extend(validate_media(media, lead_h, require_lead_match=False))
     else:
@@ -729,7 +740,7 @@ def main(argv=None) -> int:
 
     c = sub.add_parser("check", help="run the gate; PASS prints gate_id")
     c.add_argument("--channel", required=True,
-                   choices=["x-dm", "x-reply", "reddit-comment", "reddit-dm", "email", "zernio-reply"])
+                   choices=["x-dm", "x-reply", "reddit-comment", "reddit-dm", "email", "zernio-reply", "x-post"])
     c.add_argument("--lead", default="")
     c.add_argument("--post-created", default=None)
     c.add_argument("--reply-count", type=int, default=None)
@@ -792,7 +803,8 @@ def main(argv=None) -> int:
             "channel": args.channel,
             "lead": normalize_handle(args.lead),
             "kind": (
-                "transactional" if args.transactional
+                "own-post" if args.channel == "x-post"
+                else "transactional" if args.transactional
                 else ("followup" if args.follow_up else args.kind)
             ),
             "text_hash": text_hash(text, args.media),
