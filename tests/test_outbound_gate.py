@@ -327,6 +327,20 @@ class OutboundGateFailures(unittest.TestCase):
         self.assertEqual(len(fails), 1, fails)
         self.assertIn("without gate_id", fails[0])
 
+    def test_audit_skips_not_posted_records(self):
+        rows = [
+            {"at": "2026-10-27T00:52:00Z", "type": "lead-reply-not-posted", "channel": "x-reply",
+             "lead": self.lead, "reason": "X API refused"},  # not a send: skip
+            {"at": "2026-10-27T00:52:30Z", "type": "reply-not-attempted", "channel": "x-reply",
+             "lead": self.lead},  # not a send: skip
+            {"at": "2026-10-27T00:53:00Z", "type": "dm", "channel": "x-dm",
+             "lead": self.lead, "status": "sent"},  # still FAIL: no gate_id
+        ]
+        self.reply.write_text("\n".join(json.dumps(r) for r in rows) + "\n")
+        fails = og.audit_reply_log(hours=24, now=self.now)
+        self.assertEqual(len(fails), 1, fails)
+        self.assertIn("type='dm'", fails[0])
+
     def test_privacy_and_intent_link_fail(self):
         ok, reasons, gid = og.check(**dict(
             self.base,

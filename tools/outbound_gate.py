@@ -700,7 +700,9 @@ def audit_reply_log(hours: float = 24.0, now: datetime | None = None) -> list[st
             if not is_outbound:
                 continue
             if typ in {"lead-dm-not-sent", "lead-dm-skip", "lead-skip", "lead-browser-pending",
+                       "lead-reply-not-posted", "reply-not-attempted",
                        "log-correction", "dm-resend-audit", "dm-fast-check", "fast-scan"}:
+                # records of a send that did NOT happen are not outbound
                 continue
             if is_transactional_row(obj):
                 continue
