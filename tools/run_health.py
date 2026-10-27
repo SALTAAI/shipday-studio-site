@@ -11,8 +11,9 @@
 check prints one line per routine that is OVERDUE (no stamp and no reply-log line within its period + grace),
 plus every silence gap > --gap-min minutes in data/reply-log.jsonl during the last --hours (an outage signal:
 the 5-15 minute routines write there around the clock), plus BUYER HANDOFF NOT SENT when a *-browser-pending
-row is older than 10 minutes with no matching sent or lapsed-not-sent row (AK t101u). Exit 0 = healthy,
-1 = something overdue, a gap, or a stale buyer handoff. The watchdog runs `check` every sweep; for each
+row is older than 10 minutes with no matching sent or lapsed-not-sent row (AK t101u), plus GATE AUDIT FAIL
+for outbound reply-log rows missing gate_id (AK t113u). Exit 0 = healthy,
+1 = something overdue, a gap, a stale buyer handoff, or a gate audit fail. The watchdog runs `check` every sweep; for each
 OVERDUE line it does the catch-up named in the CATCHUP column (FULFILLMENT.md §16.9) once, then stamps it.
 Works the same on pm-primary and hello-standby (box only, no Mac).
 State: data/run-stamps.json (part of data/, so it is backed up and travels with the kit).
@@ -240,6 +241,24 @@ def check(gap_min=60, hours=48, t_now=None, stamps=None, logs=None, log_path=Non
         if (b - a).total_seconds() / 60 > gap_min:
             issues.append(("GAP", "reply-log", f"silent {a.isoformat(timespec='minutes')} -> {b.isoformat(timespec='minutes')} ({(b - a).total_seconds() / 3600:.1f}h): box outage or every routine down", "check each OVERDUE routine above; tell AK once per gap"))
     issues.extend(buyer_handoff_issues(log_path=log_path, t_now=t_now, rows=rows))
+    # AK t113u: outbound rows without a consumed/recorded gate_id
+    try:
+        sys.path.insert(0, os.path.join(ROOT, "tools"))
+        import outbound_gate as _og  # noqa: WPS433
+        for fail in _og.audit_reply_log(hours=min(hours, 24), now=t_now):
+            issues.append((
+                "GATE AUDIT FAIL",
+                "outbound_gate",
+                fail,
+                "every outbound reply-log row needs gate_id (or transactional order_id); fix the sender or log lapsed-not-sent",
+            ))
+    except Exception as e:
+        issues.append((
+            "GATE AUDIT FAIL",
+            "outbound_gate",
+            f"audit could not run: {type(e).__name__}: {e}",
+            "fix outbound_gate.py import; re-run python3 tools/outbound_gate.py audit",
+        ))
     return issues
 
 
@@ -326,8 +345,8 @@ def main():
         for k, w, d, c in iss:
             print(f"{k:8} {w:16} {d} | CATCHUP: {c}")
         if not iss:
-            print("run-health OK: no overdue routine, no reply-log gap, no stale buyer handoff")
-    bad = {"OVERDUE", "GAP", "BUYER HANDOFF NOT SENT"}
+            print("run-health OK: no overdue routine, no reply-log gap, no stale buyer handoff, no gate audit fail")
+    bad = {"OVERDUE", "GAP", "BUYER HANDOFF NOT SENT", "GATE AUDIT FAIL"}
     return 1 if any(i[0] in bad for i in iss) else 0
 
 

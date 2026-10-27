@@ -35,6 +35,7 @@ STYLE = (
     "face: no-face gameplay\n"
     "references: https://youtube.com/watch?v=example\n"
     "channel vibe: high-energy catch highlights\n"
+    "ip-clear: yes — no logos, brand marks, or copyrighted skins\n"
 )
 
 
@@ -410,11 +411,14 @@ class SenderGateWiring(unittest.TestCase):
     def _issue(self, channel="x-dm"):
         # Use real utcnow for pass.at so verify (which defaults to utcnow) accepts it.
         now = og.utcnow()
+        post_created = (now - timedelta(minutes=5)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        dm_reason = "DMs closed: cannot message until they follow back" if channel == "x-reply" else ""
         ok, reasons, gid = og.check(
             channel=channel, text=self.text, lead=self.lead,
             account="@ShipdayStudio", account_id=og.SHIPDAY_X_ID,
-            post_created=(now - timedelta(minutes=5)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            post_created=post_created,
             reply_count=1, media=[str(self.prev)], kind="buyer-first", now=now,
+            dm_closed_reason=dm_reason,
         )
         self.assertTrue(ok, reasons)
         og.append_pass({
@@ -424,6 +428,11 @@ class SenderGateWiring(unittest.TestCase):
             "text_hash": og.text_hash(self.text, [str(self.prev)]),
             "media": [str(self.prev)],
             "media_hashes": og.media_hashes([str(self.prev)]),
+            "account": "@ShipdayStudio",
+            "account_id": og.SHIPDAY_X_ID,
+            "post_created": post_created,
+            "reply_count": 1,
+            "dm_closed_reason": dm_reason,
             "consumed": False,
         })
         return gid
@@ -497,6 +506,237 @@ class SenderGateWiring(unittest.TestCase):
         # session-encrypt path must call gate before helper
         self.assertIn('if [ "$cmd" = "session-encrypt" ]', sh)
         self.assertIn("REFUSED, outbound_gate", sh)
+
+
+
+class T113uNewGates(unittest.TestCase):
+    """AK t113u: expand_media, IP-clear, fake claims, dm-closed, chase, verify recheck, preflight."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.td = Path(self.tmp.name)
+        self.passes = self.td / "outbound-passes.jsonl"
+        self.reply = self.td / "reply-log.jsonl"
+        self.manifest = self.td / "protect-manifest.json"
+        self.leads = self.td / "leads"
+        self.leads.mkdir()
+        self.patches = [
+            mock.patch.object(og, "PASSES", self.passes),
+            mock.patch.object(og, "REPLY_LOG", self.reply),
+            mock.patch.object(og, "STYLE_NOTES", self.leads),
+            mock.patch.object(og, "MANIFEST", self.manifest),
+        ]
+        for p in self.patches:
+            p.start()
+        self.now = at("2026-10-27T01:00:00Z")
+        self.lead = "j0rdangutierrez"
+        (self.leads / self.lead).mkdir()
+        (self.leads / self.lead / "style-notes.md").write_text(
+            STYLE.format(handle=self.lead), encoding="utf-8"
+        )
+        self.prev = make_jpeg(self.leads / self.lead / "preview.jpg")
+        digest = hashlib.sha256(self.prev.read_bytes()).hexdigest()
+        self.manifest.write_text(json.dumps({
+            "outputs": {
+                digest: {
+                    "purpose": f"lead @{self.lead} pokemon go shiny hunt",
+                    "path": str(self.prev),
+                    "w": 320, "h": 180,
+                }
+            }
+        }))
+        self.reply.write_text("")
+        self.text = (
+            "Hi Jordan, saw your thumbnail post. Made two watermarked concepts "
+            "for your Pokemon GO video. Want one built around your footage?"
+        )
+        self.base = dict(
+            channel="x-dm",
+            text=self.text,
+            lead=self.lead,
+            account="@ShipdayStudio",
+            account_id=og.SHIPDAY_X_ID,
+            post_created=(self.now - timedelta(minutes=8)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            reply_count=2,
+            media=[str(self.prev)],
+            kind="buyer-first",
+            now=self.now,
+        )
+
+    def tearDown(self):
+        for p in self.patches:
+            p.stop()
+        self.tmp.cleanup()
+
+    def test_expand_media_comma_and_repeat(self):
+        self.assertEqual(og.expand_media(["a.jpg,b.jpg", "c.jpg"]), ["a.jpg", "b.jpg", "c.jpg"])
+        self.assertEqual(og.expand_media("a.jpg, b.jpg\nc.jpg"), ["a.jpg", "b.jpg", "c.jpg"])
+        self.assertEqual(og.expand_media(None), [])
+
+    def test_comma_media_cli_check_passes(self):
+        prev2 = make_jpeg(self.leads / self.lead / "preview2.jpg")
+        digest = hashlib.sha256(prev2.read_bytes()).hexdigest()
+        man = json.loads(self.manifest.read_text())
+        man["outputs"][digest] = {
+            "purpose": f"lead @{self.lead} second",
+            "path": str(prev2), "w": 320, "h": 180,
+        }
+        self.manifest.write_text(json.dumps(man))
+        media_arg = f"{self.prev},{prev2}"
+        rc = og.main([
+            "check", "--channel", "x-dm", "--lead", self.lead,
+            "--post-created", self.base["post_created"], "--reply-count", "2",
+            "--text", self.text, "--media", media_arg,
+            "--now", "2026-10-27T01:00:00Z",
+        ])
+        self.assertEqual(rc, 0)
+        row = json.loads(self.passes.read_text().strip().splitlines()[-1])
+        self.assertEqual(len(row["media"]), 2)
+
+    def test_ip_clear_missing_fails(self):
+        sn = self.leads / self.lead / "style-notes.md"
+        sn.write_text(
+            "# style notes for @j0rdangutierrez\n"
+            "niche: pokemon go\ncolours: green\nface: no-face\n"
+            "references: https://youtube.com/watch?v=example\n"
+        )
+        ok, reasons, gid = og.check(**self.base)
+        self.assertFalse(ok)
+        self.assertTrue(any("ip-clear" in r.lower() or "ip clear" in r.lower() for r in reasons), reasons)
+
+    def test_fake_claim_fails(self):
+        ok, reasons, gid = og.check(**dict(
+            self.base,
+            text=self.text + " We have 200+ happy clients and a 4.9 stars rating.",
+        ))
+        self.assertFalse(ok)
+        joined = " | ".join(reasons).lower()
+        self.assertTrue("fabricated" in joined or "client" in joined or "star" in joined, reasons)
+
+    def test_findful_privacy_fails(self):
+        ok, reasons, gid = og.check(**dict(
+            self.base, text=self.text + " Powered by Findful ops.",
+        ))
+        self.assertFalse(ok)
+        self.assertTrue(any("findful" in r.lower() for r in reasons), reasons)
+
+    def test_wrong_stripe_acct_in_text_fails(self):
+        ok, reasons, gid = og.check(**dict(
+            self.base,
+            text=self.text + " pay via acct_WRONGACCOUNT12345 please",
+        ))
+        self.assertFalse(ok)
+        self.assertTrue(any("stripe" in r.lower() or "acct_" in r.lower() for r in reasons), reasons)
+
+    def test_x_reply_requires_dm_closed_reason(self):
+        ok, reasons, gid = og.check(**dict(self.base, channel="x-reply", dm_closed_reason=""))
+        self.assertFalse(ok)
+        self.assertTrue(any("dm-closed" in r.lower() for r in reasons), reasons)
+        ok2, reasons2, gid2 = og.check(**dict(
+            self.base, channel="x-reply",
+            dm_closed_reason="DMs closed until they follow back",
+        ))
+        self.assertTrue(ok2, reasons2)
+
+    def test_followup_chase_limit(self):
+        # Prior follow-up already sent, no inbound reply
+        self.reply.write_text(json.dumps({
+            "at": "2026-10-26T12:00:00Z",
+            "type": "follow-up",
+            "kind": "followup",
+            "channel": "x-dm",
+            "lead": self.lead,
+            "status": "sent",
+            "gate_id": "deadbeef",
+        }) + "\n")
+        ok, reasons, gid = og.check(**dict(
+            self.base, kind="followup", follow_up=True, media=[],
+        ))
+        self.assertFalse(ok)
+        self.assertTrue(any("chase" in r.lower() or "follow-up" in r.lower() for r in reasons), reasons)
+
+    def test_verify_rechecks_age(self):
+        # Pass issued recently, but stored post_created is already >60 min old at verify
+        later = self.now + timedelta(minutes=5)
+        post_created = (later - timedelta(minutes=70)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        # check() itself would refuse age>60; forge a PASS row as if check ran earlier
+        gid = "deadbeef" + "a" * 24
+        og.append_pass({
+            "gate": "PASS", "gate_id": gid,
+            "at": later.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "channel": "x-dm", "lead": self.lead, "kind": "buyer-first",
+            "text_hash": og.text_hash(self.text, [str(self.prev)]),
+            "media": [str(self.prev)],
+            "media_hashes": og.media_hashes([str(self.prev)]),
+            "account": "@ShipdayStudio", "account_id": og.SHIPDAY_X_ID,
+            "post_created": post_created, "reply_count": 2,
+            "consumed": False,
+        })
+        vok, msg = og.verify_gate_id(
+            gid, text=self.text, media=[str(self.prev)],
+            lead=self.lead, channel="x-dm", now=later,
+        )
+        self.assertFalse(vok)
+        self.assertTrue("age" in msg.lower() or "60" in msg or "freshness" in msg.lower(), msg)
+
+    def test_verify_rechecks_media_missing(self):
+        post_created = self.base["post_created"]
+        ok, reasons, gid = og.check(**self.base)
+        self.assertTrue(ok, reasons)
+        og.append_pass({
+            "gate": "PASS", "gate_id": gid,
+            "at": self.now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "channel": "x-dm", "lead": self.lead, "kind": "buyer-first",
+            "text_hash": og.text_hash(self.text, [str(self.prev)]),
+            "media": [str(self.prev)],
+            "media_hashes": og.media_hashes([str(self.prev)]),
+            "account": "@ShipdayStudio", "account_id": og.SHIPDAY_X_ID,
+            "post_created": post_created, "reply_count": 2,
+            "consumed": False,
+        })
+        self.prev.unlink()
+        vok, msg = og.verify_gate_id(
+            gid, text=self.text, media=[str(self.prev)],
+            lead=self.lead, channel="x-dm", now=self.now,
+        )
+        self.assertFalse(vok)
+        self.assertTrue("media" in msg.lower() or "hash" in msg.lower() or "missing" in msg.lower(), msg)
+
+    def test_preflight_prints_pass_or_refuse(self):
+        buf = io.StringIO()
+        with mock.patch("sys.stdout", buf):
+            rc = og.main([
+                "preflight", "--channel", "x-dm", "--lead", self.lead,
+                "--post-created", self.base["post_created"], "--reply-count", "2",
+                "--text", self.text, "--media", str(self.prev),
+                "--now", "2026-10-27T01:00:00Z",
+            ])
+        self.assertEqual(rc, 0)
+        out = buf.getvalue().strip()
+        self.assertTrue(out.startswith("PASS "), out)
+
+        buf2 = io.StringIO()
+        with mock.patch("sys.stdout", buf2):
+            rc2 = og.main([
+                "preflight", "--channel", "x-dm", "--lead", self.lead,
+                "--post-created", self.base["post_created"], "--reply-count", "2",
+                "--text", self.text + " Findful secret", "--media", str(self.prev),
+                "--now", "2026-10-27T01:00:00Z", "--no-log",
+            ])
+        self.assertEqual(rc2, 1)
+        out2 = buf2.getvalue().strip()
+        self.assertTrue(out2.startswith("REFUSE "), out2)
+
+    def test_audit_flags_outbound_without_gate(self):
+        self.reply.write_text(json.dumps({
+            "at": "2026-10-27T00:50:00Z",
+            "type": "public-reply",
+            "channel": "x-reply-browser",
+            "status": "posted",
+            "lead": "drairfn",
+        }) + "\n")
+        fails = og.audit_reply_log(hours=24, now=self.now)
+        self.assertTrue(any("without gate_id" in f for f in fails), fails)
 
 
 class EmailPriceLint(unittest.TestCase):

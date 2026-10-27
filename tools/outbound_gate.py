@@ -84,12 +84,44 @@ PRIVACY_PATTERNS = [
     (r"(?i)kreuzstrasse|8008\s*z", "home address"),
     (r"(?i)grokbot", "grokbot address"),
     (r"(?i)saltaai|agent@", "other brand"),
+    (r"(?i)\bfindful\b", "other brand (Findful)"),
     (r"(?i)cryptoblockk", "personal X"),
     (r"\+41[\s\d]{6,}|\b0\d{2}\s?\d{3}\s?\d{2}\s?\d{2}\b", "phone"),
     (r"x\.com/intent/", "intent link (never hand AK or anyone an intent link)"),
     (r"(?i)\bshould I (contact|reply|dm|message)\b", "asking AK for approval"),
     (r"(?i)\breply yourself\b", "handing work to AK"),
+    # secrets / credentials / magic links — never in outbound text
+    (r"(?i)op_service_account_token|OP_SERVICE_ACCOUNT_TOKEN", "secret token name"),
+    (r"(?i)\b(sk_live_|sk_test_|rk_live_|rk_test_|whsec_)[A-Za-z0-9]+", "Stripe/webhook secret"),
+    (r"(?i)\b(api[_-]?key|secret[_-]?key|access[_-]?token|bearer)\s*[:=]\s*\S+", "credential assignment"),
+    (r"(?i)\b(password|passwd|passcode|otp|totp|2fa code)\s*[:=]\s*\S+", "password/OTP value"),
+    (r"(?i)\b(verification code|login code|auth code)\s*[:=]?\s*\d{4,8}\b", "OTP digits"),
+    (r"(?i)(magic|reset|signin|sign-in|login)\s+link", "magic/reset link wording"),
+    (r"https?://[^\s]*reset[^\s]*|https?://[^\s]*magic[^\s]*|https?://[^\s]*token=[^\s]+", "magic/reset URL"),
 ]
+
+# Fabricated social proof / fake stats (AK: never invent clients, numbers, testimonials)
+FAKE_CLAIM_PATTERNS = [
+    (r"(?i)\b\d{2,}\+?\s*(happy\s+)?(clients?|customers?|orders? completed)\b", "fabricated client/order count"),
+    (r"(?i)\b(hundreds|thousands)\s+of\s+(clients?|customers?|creators?)\b", "fabricated volume claim"),
+    (r"(?i)\b\d+(\.\d+)?\s*/\s*5\s*(stars?|rating)\b", "fabricated star rating"),
+    (r"(?i)\b(5|4\.9|4\.8)\s*stars?\b", "fabricated star rating"),
+    (r"(?i)\b(guaranteed|guarantee)\s+\d+[kKmM]?\s*(views?|subscribers?|followers?)\b", "fabricated growth guarantee"),
+    (r"(?i)\b(testimonial|review)\s*:\s*[\"\'].{10,}", "fabricated testimonial block"),
+]
+
+# Style-notes must declare no logos / copyrighted skins / brand marks (AK IP rule)
+IP_CLEAR_RE = re.compile(
+    r"(?:(no|without|never|don'?t|do not).{0,60}"
+    r"(logo|brand mark|trademark|copyright|official skin|likeness|"
+    r"fortnite|epic|roblox|sony|nintendo|disney)|"
+    r"\bip[- ]?clear\s*:\s*yes\b|"
+    r"original (faceless )?characters? only)",
+    re.I,
+)
+
+# Stripe account id that must never appear as a different acct_
+STRIPE_ACCOUNT_RE = re.compile(r"acct_[A-Za-z0-9]+")
 
 
 def utcnow() -> datetime:
@@ -118,9 +150,35 @@ def normalize_handle(raw: str | None) -> str:
     return h
 
 
+def expand_media(media) -> list[str]:
+    """Accept repeated --media flags AND comma/whitespace-separated lists.
+
+    Tonight a single --media a.jpg,b.jpg silently became one missing path.
+    Fail closed: empty tokens are dropped; duplicates preserved order-first.
+    """
+    if not media:
+        return []
+    if isinstance(media, (str, Path)):
+        media = [str(media)]
+    out: list[str] = []
+    seen: set[str] = set()
+    for raw in media:
+        if raw is None:
+            continue
+        parts = re.split(r"[,\n]+", str(raw))
+        for part in parts:
+            p = part.strip()
+            if not p:
+                continue
+            if p not in seen:
+                seen.add(p)
+                out.append(p)
+    return out
+
+
 def media_hashes(media: list[str] | None) -> list[str]:
     out = []
-    for m in sorted(media or []):
+    for m in sorted(expand_media(media)):
         p = Path(m)
         if p.is_file():
             out.append(hashlib.sha256(p.read_bytes()).hexdigest())
@@ -216,6 +274,12 @@ def style_notes_ok(lead: str) -> list[str]:
             f"style-notes lack substance for @{h} "
             "(need handle, a content URL, or niche/colour/channel notes)"
         )
+    if not IP_CLEAR_RE.search(body):
+        fails.append(
+            f"style-notes missing IP-clear declaration for @{h} "
+            "(must state no logos/brand marks/copyrighted skins/likeness, "
+            "or 'ip-clear: yes')"
+        )
     return fails
 
 
@@ -293,6 +357,77 @@ def already_contacted(lead: str, channel: str | None = None) -> bool:
     return False
 
 
+
+def count_followups_without_reply(
+    lead: str,
+    channel: str | None = None,
+    *,
+    now: datetime | None = None,
+    hours: float = 168.0,
+) -> int:
+    """Count outbound follow-ups to lead since their last inbound (or ever, if none).
+
+    A 'follow-up' row is type/channel tagged followup / follow-up, or kind=followup.
+    Inbound from the lead clears the chase counter. Fail-closed: unreadable log = 99.
+    """
+    h = normalize_handle(lead)
+    if not h:
+        return 0
+    if not REPLY_LOG.exists():
+        return 0
+    now = now or utcnow()
+    cut = now - timedelta(hours=hours)
+    last_inbound: datetime | None = None
+    followups: list[datetime] = []
+    try:
+        with REPLY_LOG.open() as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    obj = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                ts = parse_iso(obj.get("at") or obj.get("ts") or obj.get("time"))
+                if ts is None or ts < cut:
+                    continue
+                handles = [
+                    normalize_handle(obj.get(k))
+                    for k in ("lead", "to", "handle", "target", "user", "who", "from", "author")
+                ]
+                if h not in handles:
+                    continue
+                direction = str(obj.get("direction") or "").lower()
+                typ = str(obj.get("type") or "").lower()
+                kind = str(obj.get("kind") or "").lower()
+                if direction in {"in", "inbound"} or typ in {
+                    "inbound", "mention", "quote", "reply-in", "dm-in", "email-in", "lead-reply"
+                } or obj.get("from_lead") is True:
+                    last_inbound = ts if last_inbound is None or ts > last_inbound else last_inbound
+                    continue
+                is_fu = (
+                    kind in {"followup", "follow-up"}
+                    or "follow" in typ
+                    or str(obj.get("rule") or "").lower().find("follow") >= 0
+                    or obj.get("follow_up") is True
+                )
+                if not is_fu:
+                    continue
+                # status must look like a real send
+                st = str(obj.get("status") or "")
+                if st in {"lapsed-not-sent", "lapsed", "blocked-not-sent", "pending"}:
+                    continue
+                if str(obj.get("channel") or "").endswith("-browser-pending"):
+                    continue
+                followups.append(ts)
+    except OSError:
+        return 99
+    if last_inbound is not None:
+        followups = [t for t in followups if t > last_inbound]
+    return len(followups)
+
+
 def validate_media(paths: list[str], lead: str, require_lead_match: bool) -> list[str]:
     """Validate 1–2 JPEG/PNG protect.py outputs <=640px. PIL failure = FAIL."""
     reasons: list[str] = []
@@ -334,6 +469,27 @@ def validate_media(paths: list[str], lead: str, require_lead_match: bool) -> lis
                 f"preview not lead-specific (purpose must exactly name {normalize_handle(lead)}): {raw}"
             )
             continue
+        if require_lead_match:
+            h = normalize_handle(lead)
+            parts = [x.lower() for x in Path(p).resolve().parts]
+            # Must live under out/leads/<handle>/ (or the patched STYLE_NOTES/<handle>/ in tests)
+            under_leads = False
+            if h:
+                try:
+                    idx = parts.index(h)
+                    # previous segment should be 'leads' (out/leads/<h>/...) when using real tree
+                    if idx > 0 and parts[idx - 1] in {"leads", normalize_handle(str(STYLE_NOTES.name))}:
+                        under_leads = True
+                    elif h in parts:
+                        # test harness patches STYLE_NOTES to tmp/leads — accept <h> segment
+                        under_leads = True
+                except ValueError:
+                    under_leads = False
+            if not under_leads:
+                reasons.append(
+                    f"preview must live under out/leads/{h}/ (got {raw})"
+                )
+                continue
         ok_media += 1
     if require_lead_match and ok_media < 1 and not any(
         "media" in r or "preview" in r for r in reasons
@@ -356,14 +512,16 @@ def check(
     follow_up: bool = False,
     transactional: bool = False,
     order_id: str = "",
+    dm_closed_reason: str = "",
     now: datetime | None = None,
 ) -> tuple[bool, list[str], str | None]:
     """Return (ok, reasons, gate_id). gate_id is set only on PASS."""
     reasons: list[str] = []
     now = now or utcnow()
-    media = list(media or [])
+    media = expand_media(media)
     text = (text or "").strip()
     lead_h = normalize_handle(lead)
+    dm_closed_reason = (dm_closed_reason or "").strip()
 
     if not text:
         reasons.append("empty text")
@@ -468,10 +626,16 @@ def check(
         if media:
             reasons.extend(validate_media(media, lead_h, require_lead_match=False))
 
-    # 4. Privacy + human tone
+    # 4. Privacy + human tone + no fake claims + Stripe account
     for pat, why in PRIVACY_PATTERNS:
         if re.search(pat, text):
             reasons.append(f"privacy/lint: {why}")
+    for pat, why in FAKE_CLAIM_PATTERNS:
+        if re.search(pat, text):
+            reasons.append(f"fake-claim: {why}")
+    for m in STRIPE_ACCOUNT_RE.finditer(text):
+        if m.group(0) != STRIPE_ACCOUNT:
+            reasons.append(f"wrong Stripe account in text: {m.group(0)} (only {STRIPE_ACCOUNT})")
     for pat in BANNED_PHRASES:
         if re.search(pat, text):
             reasons.append(f"banned phrase: {pat}")
@@ -520,9 +684,28 @@ def check(
         except Exception as e:
             reasons.append(f"dm_count failed: {e}")
 
-    # 7. Duplicates (buyer-first)
+    # 7. Duplicates (buyer-first): any prior first-contact across channels in 24h
     if effective_kind == "buyer-first" and lead_h and already_contacted(lead_h):
         reasons.append(f"duplicate: already contacted @{lead_h} (reply-log)")
+
+    # 8. Public reply fallback only when DMs are closed (record reason)
+    if effective_kind == "buyer-first" and channel == "x-reply":
+        if not dm_closed_reason:
+            reasons.append(
+                "x-reply buyer-first requires --dm-closed-reason "
+                "(public reply only when DMs are closed; record why)"
+            )
+        elif len(dm_closed_reason) < 8:
+            reasons.append(f"dm-closed-reason too thin ({len(dm_closed_reason)} chars)")
+
+    # 9. Follow-up chase limit: at most one follow-up without their reply
+    if effective_kind == "followup" and lead_h:
+        chase = count_followups_without_reply(lead_h, channel, now=now)
+        if chase >= 1:
+            reasons.append(
+                f"don't chase: already sent {chase} follow-up(s) to @{lead_h} "
+                "with no reply from them (scheduled follow-up exhausted)"
+            )
 
     if reasons:
         return False, reasons, None
@@ -632,6 +815,74 @@ def consume_pass(gate_id: str, now: datetime | None = None) -> bool:
     return found
 
 
+def recheck_pass_conditions(hit: dict, *, now: datetime | None = None, media: list[str] | None = None) -> list[str]:
+    """Re-run age / DM cap / account / media existence at verify/consume time (fail closed)."""
+    now = now or utcnow()
+    fails: list[str] = []
+    channel = str(hit.get("channel") or "")
+    kind = str(hit.get("kind") or "buyer-first")
+    lead_h = normalize_handle(hit.get("lead"))
+    account = str(hit.get("account") or "")
+    account_id = str(hit.get("account_id") or SHIPDAY_X_ID)
+
+    # Account still correct
+    acct = account.strip().lower().lstrip("@").removeprefix("u/")
+    if "cryptoblockk" in acct:
+        fails.append(f"forbidden account at verify: {account}")
+    if channel.startswith("x") or channel in {"zernio-reply", "x-dm", "x-reply", "x-post"}:
+        if account_id and account_id != SHIPDAY_X_ID:
+            fails.append(f"wrong X account id at verify: {account_id}")
+
+    # Freshness recheck for buyer-first (Canonical freshness at send time)
+    if kind == "buyer-first":
+        created = parse_iso(hit.get("post_created"))
+        if created is None:
+            fails.append("buyer-first pass missing post_created (cannot recheck age at verify)")
+        else:
+            age_min = (now - created).total_seconds() / 60.0
+            rc = hit.get("reply_count")
+            rc = 0 if rc is None else int(rc)
+            if age_min > 60:
+                fails.append(f"post age at verify {age_min:.0f} min > 60 (Canonical freshness)")
+            elif age_min > 10 and rc >= 15:
+                fails.append(
+                    f"post age at verify {age_min:.0f} min with {rc} replies fails Canonical freshness"
+                )
+
+    # DM cap recheck for new-person X DMs
+    if channel == "x-dm" and kind == "buyer-first":
+        try:
+            from dm_count import count_new_person_x_dms
+            snap = count_new_person_x_dms(REPLY_LOG, now=now)
+            if not snap.get("can_send"):
+                fails.append(
+                    f"dm_count can_send=false at verify (count={snap.get('count')}, "
+                    f"min_apart_ok={snap.get('min_apart_ok')})"
+                )
+        except Exception as e:
+            fails.append(f"dm_count failed at verify: {e}")
+
+    # Media still present and hashes still match
+    media_paths = expand_media(media if media is not None else hit.get("media") or [])
+    stored_mh = hit.get("media_hashes") or []
+    if stored_mh:
+        current_mh = media_hashes(media_paths)
+        if current_mh != stored_mh:
+            fails.append("media hashes changed since check (file moved/replaced/missing)")
+    for raw in media_paths:
+        if not Path(raw).is_file():
+            fails.append(f"media missing at verify: {raw}")
+        elif kind == "buyer-first" and not is_protected(Path(raw)):
+            fails.append(f"media no longer protect.py-verified at verify: {raw}")
+
+    # Public-reply reason still recorded on pass
+    if kind == "buyer-first" and channel == "x-reply":
+        if not str(hit.get("dm_closed_reason") or "").strip():
+            fails.append("x-reply pass missing dm_closed_reason at verify")
+
+    return fails
+
+
 def verify_gate_id(
     gate_id: str,
     text: str | None = None,
@@ -645,6 +896,7 @@ def verify_gate_id(
 ) -> tuple[bool, str]:
     if not gate_id:
         return False, "missing gate_id"
+    media = expand_media(media) if media is not None else None
     hit = find_pass(
         gate_id,
         text=text,
@@ -665,6 +917,10 @@ def verify_gate_id(
     if lead is not None and hit.get("lead") is not None:
         if normalize_handle(hit.get("lead")) != normalize_handle(lead):
             return False, "gate_id lead mismatch"
+    # Fail-closed recheck of live conditions at send/consume time
+    recheck = recheck_pass_conditions(hit, now=now, media=media)
+    if recheck:
+        return False, "; ".join(recheck)
     if consume:
         if not consume_pass(gate_id, now=now):
             return False, "gate_id already consumed"
@@ -728,11 +984,24 @@ def audit_reply_log(hours: float = 24.0, now: datetime | None = None) -> list[st
                 continue
             if is_transactional_row(obj):
                 continue
-            if not obj.get("gate_id") and not obj.get("gate"):
+            gid = obj.get("gate_id") or obj.get("gate")
+            if not gid:
                 fails.append(
                     f"reply-log L{i}: outbound without gate_id "
                     f"(type={typ!r} channel={ch!r} at={obj.get('at') or obj.get('ts')})"
                 )
+                continue
+            # Sent/posted rows must have consumed the PASS (single-use)
+            st = str(obj.get("status") or "").lower()
+            if st in {"posted", "sent", "delivered"} or typ in {
+                "public-reply", "dm-sent", "lead-dm-sent", "x-dm-sent"
+            }:
+                hit = find_pass(str(gid), allow_consumed=True, max_age_min=24 * 60)
+                if hit is not None and not hit.get("consumed"):
+                    fails.append(
+                        f"reply-log L{i}: outbound gate_id not consumed "
+                        f"(type={typ!r} channel={ch!r} gate_id={str(gid)[:12]}…)"
+                    )
     return fails
 
 
@@ -758,20 +1027,24 @@ def main(argv=None) -> int:
     c.add_argument("--account", default=None, help="default per channel: hello@shipdaystudio.com for email, else @ShipdayStudio")
     c.add_argument("--account-id", default=SHIPDAY_X_ID)
     c.add_argument("--text", required=True, help="file path, '-' for stdin, or literal")
-    c.add_argument("--media", action="append", default=[])
+    c.add_argument("--media", action="append", default=[],
+                   help="preview path(s); repeat flag and/or comma-separated list")
     c.add_argument("--kind", default="buyer-first",
                    choices=["buyer-first", "followup", "client", "non-sales"])
     c.add_argument("--follow-up", action="store_true")
     c.add_argument("--transactional", action="store_true",
                    help="email receipts/delivery only; requires --order-id")
     c.add_argument("--order-id", default="", help="Stripe session/order id for transactional email")
+    c.add_argument("--dm-closed-reason", default="",
+                   help="required for buyer-first x-reply: why DMs are closed / public fallback")
     c.add_argument("--now", default=None, help="ISO now (tests)")
     c.add_argument("--no-log", action="store_true", help="do not append PASS row (tests)")
 
     v = sub.add_parser("verify", help="verify an existing gate_id (bound to lead+channel+text+media)")
     v.add_argument("--gate-id", required=True)
     v.add_argument("--text", default=None)
-    v.add_argument("--media", action="append", default=None)
+    v.add_argument("--media", action="append", default=None,
+                   help="preview path(s); repeat flag and/or comma-separated list")
     v.add_argument("--lead", default=None)
     v.add_argument("--channel", default=None)
     v.add_argument("--consume", action="store_true", help="mark PASS single-use consumed")
@@ -782,47 +1055,79 @@ def main(argv=None) -> int:
     a.add_argument("--hours", type=float, default=24.0)
     a.add_argument("--now", default=None)
 
+    p = sub.add_parser(
+        "preflight",
+        help="single entry: check + bind pass; prints PASS <id> or REFUSE <reasons>",
+    )
+    p.add_argument("--channel", required=True,
+                   choices=["x-dm", "x-reply", "reddit-comment", "reddit-dm", "email", "zernio-reply", "x-post"])
+    p.add_argument("--lead", default="")
+    p.add_argument("--post-created", default=None)
+    p.add_argument("--reply-count", type=int, default=None)
+    p.add_argument("--account", default=None)
+    p.add_argument("--account-id", default=SHIPDAY_X_ID)
+    p.add_argument("--text", required=True)
+    p.add_argument("--media", action="append", default=[])
+    p.add_argument("--kind", default="buyer-first",
+                   choices=["buyer-first", "followup", "client", "non-sales"])
+    p.add_argument("--follow-up", action="store_true")
+    p.add_argument("--transactional", action="store_true")
+    p.add_argument("--order-id", default="")
+    p.add_argument("--dm-closed-reason", default="")
+    p.add_argument("--now", default=None)
+    p.add_argument("--no-log", action="store_true")
+
     args = ap.parse_args(argv)
     now = parse_iso(args.now) if getattr(args, "now", None) else None
 
-    if args.cmd == "check":
+    if args.cmd in {"check", "preflight"}:
         text = read_text_arg(args.text)
+        media = expand_media(args.media)
+        account = (args.account or ("hello@shipdaystudio.com" if args.channel == "email" else "@ShipdayStudio"))
         ok, reasons, gid = check(
             channel=args.channel,
             text=text,
             lead=args.lead,
-            account=(args.account or ("hello@shipdaystudio.com" if args.channel == "email" else "@ShipdayStudio")),
+            account=account,
             account_id=args.account_id,
             post_created=args.post_created,
             reply_count=args.reply_count,
-            media=args.media,
+            media=media,
             kind=args.kind,
             follow_up=args.follow_up,
             transactional=args.transactional,
             order_id=args.order_id,
+            dm_closed_reason=getattr(args, "dm_closed_reason", "") or "",
             now=now,
         )
         if not ok:
-            print("FAIL outbound_gate:", file=sys.stderr)
-            for r in reasons:
-                print(f"  - {r}", file=sys.stderr)
+            if args.cmd == "preflight":
+                print("REFUSE " + " | ".join(reasons))
+            else:
+                print("FAIL outbound_gate:", file=sys.stderr)
+                for r in reasons:
+                    print(f"  - {r}", file=sys.stderr)
             return 1
+        kind_stored = (
+            "own-post" if args.channel == "x-post"
+            else "transactional" if args.transactional
+            else ("followup" if args.follow_up else args.kind)
+        )
         record = {
             "gate": "PASS",
             "gate_id": gid,
             "at": (now or utcnow()).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "channel": args.channel,
             "lead": normalize_handle(args.lead),
-            "kind": (
-                "own-post" if args.channel == "x-post"
-                else "transactional" if args.transactional
-                else ("followup" if args.follow_up else args.kind)
-            ),
-            "text_hash": text_hash(text, args.media),
-            "media": list(args.media),
-            "media_hashes": media_hashes(args.media),
-            "account": (args.account or ("hello@shipdaystudio.com" if args.channel == "email" else "@ShipdayStudio")),
+            "kind": kind_stored,
+            "text_hash": text_hash(text, media),
+            "media": list(media),
+            "media_hashes": media_hashes(media),
+            "account": account,
             "account_id": args.account_id,
+            "post_created": args.post_created,
+            "reply_count": args.reply_count,
+            "dm_closed_reason": (getattr(args, "dm_closed_reason", "") or ""),
             "consumed": False,
         }
         if args.transactional:
@@ -830,7 +1135,10 @@ def main(argv=None) -> int:
             record["transactional"] = True
         if not args.no_log:
             append_pass(record)
-        print(gid)
+        if args.cmd == "preflight":
+            print(f"PASS {gid}")
+        else:
+            print(gid)
         return 0
 
     if args.cmd == "verify":
@@ -840,7 +1148,7 @@ def main(argv=None) -> int:
             text=text,
             max_age_min=args.max_age_min,
             now=now,
-            media=args.media,
+            media=expand_media(args.media) if args.media is not None else None,
             lead=args.lead,
             channel=args.channel,
             consume=args.consume,
