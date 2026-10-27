@@ -10,13 +10,16 @@
 
 check prints one line per routine that is OVERDUE (no stamp and no reply-log line within its period + grace),
 plus every silence gap > --gap-min minutes in data/reply-log.jsonl during the last --hours (an outage signal:
-the 5-15 minute routines write there around the clock). Exit 0 = healthy, 1 = something overdue or a gap.
-The watchdog runs `check` every sweep; for each OVERDUE line it does the catch-up named in the CATCHUP column
-(FULFILLMENT.md §16.9) once, then stamps it. Works the same on pm-primary and hello-standby (box only, no Mac).
+the 5-15 minute routines write there around the clock), plus BUYER HANDOFF NOT SENT when a *-browser-pending
+row is older than 10 minutes with no matching sent or lapsed-not-sent row (AK t101u). Exit 0 = healthy,
+1 = something overdue, a gap, or a stale buyer handoff. The watchdog runs `check` every sweep; for each
+OVERDUE line it does the catch-up named in the CATCHUP column (FULFILLMENT.md §16.9) once, then stamps it.
+Works the same on pm-primary and hello-standby (box only, no Mac).
 State: data/run-stamps.json (part of data/, so it is backed up and travels with the kit).
 """
-import json, os, sys, argparse
+import json, os, sys, argparse, re
 from datetime import datetime, timezone, timedelta
+from pathlib import Path as _Path
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.environ.get("SHIPDAY_DATA_DIR", os.path.join(ROOT, "data"))
@@ -35,6 +38,15 @@ ROUTINES = {
     "channel-check":  (12, 4, ("channel-check",), "run the channel check now"),
     "lead-hunt":      (6, 3, ("lead-hunt", "lead_hunt", "lead-search"), "run one lead hunt now"),
 }
+
+BUYER_HANDOFF_MAX_MIN = 10
+PENDING_CHANNEL_SUFFIX = "-browser-pending"
+LAPSED_TYPES = {
+    "lead-dm-not-sent", "lead-dm-skip", "lead-skip", "lapsed-not-sent",
+    "lead-reply-not-posted", "reply-not-attempted",
+}
+SENT_TYPES = {"dm", "x-reply", "x-reply-browser", "reddit-comment", "reddit-dm", "email", "zernio-reply", "reply"}
+SENT_STATUSES = {"posted", "sent", "delivered"}
 
 
 def now():
@@ -56,10 +68,11 @@ def load_stamps():
         return {}
 
 
-def log_times():
+def log_times(log_path=None):
     out = []
+    path = log_path or LOG
     try:
-        for line in open(LOG, encoding="utf-8", errors="replace"):
+        for line in open(path, encoding="utf-8", errors="replace"):
             try:
                 d = json.loads(line)
             except Exception:
@@ -72,10 +85,143 @@ def log_times():
     return out
 
 
-def check(gap_min=60, hours=48, t_now=None, stamps=None, logs=None):
+def _norm_handle(obj):
+    for key in ("handle", "author", "lead", "to", "target", "user", "who"):
+        raw = obj.get(key)
+        if not raw:
+            continue
+        h = str(raw).strip()
+        if "://" in h or "/status/" in h:
+            # URL: take last path segment that looks like a handle when possible
+            m = re.search(r"(?:x|twitter)\.com/([^/]+)/status/", h, re.I)
+            if m:
+                return m.group(1).lstrip("@").lower()
+            continue
+        h = h.lstrip("@").removeprefix("u/").lower()
+        if h:
+            return h
+    return ""
+
+
+def _lead_key(obj):
+    """Stable key for matching pending → sent/lapsed for the same buyer post."""
+    for key in ("lead", "lead_url", "url", "target"):
+        raw = obj.get(key)
+        if raw and "/status/" in str(raw):
+            return str(raw).split("?")[0].rstrip("/").lower()
+    h = _norm_handle(obj)
+    return f"handle:{h}" if h else ""
+
+
+def load_log_rows(log_path=None):
+    rows = []
+    path = log_path or LOG
+    try:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    obj = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                t = parse(obj.get("at") or obj.get("ts") or "")
+                if t is None:
+                    continue
+                rows.append((t, obj))
+    except OSError:
+        pass
+    return rows
+
+
+def is_browser_pending(obj):
+    ch = str(obj.get("channel") or "").lower()
+    typ = str(obj.get("type") or "").lower()
+    status = str(obj.get("status") or "").lower()
+    if ch.endswith(PENDING_CHANNEL_SUFFIX) or "browser-pending" in ch:
+        return True
+    if typ in {"lead-browser-pending"} or typ.endswith("browser-pending"):
+        return True
+    if status.endswith("browser-pending"):
+        return True
+    return False
+
+
+def is_lapsed_row(obj):
+    typ = str(obj.get("type") or "").lower()
+    status = str(obj.get("status") or "").lower()
+    if typ in LAPSED_TYPES or status in {"lapsed-not-sent", "lapsed", "blocked-not-sent"}:
+        return True
+    if obj.get("lapsed") is True or obj.get("outcome") == "lapsed-not-sent":
+        return True
+    return False
+
+
+def is_sent_row(obj):
+    typ = str(obj.get("type") or "").lower()
+    ch = str(obj.get("channel") or "").lower()
+    status = str(obj.get("status") or "").lower()
+    if is_browser_pending(obj) or is_lapsed_row(obj):
+        return False
+    if typ in SENT_TYPES or status in SENT_STATUSES:
+        return True
+    if ch in {"x-dm", "x-chat", "x-reply", "x-reply-browser", "reddit-comment", "reddit-dm", "email", "zernio-reply"}:
+        if status in SENT_STATUSES or typ in SENT_TYPES:
+            return True
+    return False
+
+
+def buyer_handoff_issues(log_path=None, t_now=None, max_pending_min=BUYER_HANDOFF_MAX_MIN, rows=None):
+    """Flag *-browser-pending rows older than max_pending_min with no later sent/lapsed match (AK t101u)."""
+    t_now = t_now or now()
+    rows = load_log_rows(log_path) if rows is None else rows
+    issues = []
+    # Group resolutions by lead key
+    resolutions = {}  # key -> list of (t, kind) where kind in {sent, lapsed}
+    pendings = []  # (t, obj, key)
+    for t, obj in rows:
+        key = _lead_key(obj)
+        if not key:
+            continue
+        if is_lapsed_row(obj):
+            resolutions.setdefault(key, []).append((t, "lapsed"))
+        elif is_sent_row(obj):
+            resolutions.setdefault(key, []).append((t, "sent"))
+        if is_browser_pending(obj):
+            pendings.append((t, obj, key))
+
+    # For each pending, if age > max and no resolution at/after pending time, flag once per key
+    seen_keys = set()
+    for t, obj, key in sorted(pendings, key=lambda r: r[0]):
+        age_min = (t_now - t).total_seconds() / 60.0
+        if age_min <= max_pending_min:
+            continue
+        resolved = False
+        for rt, kind in resolutions.get(key, []):
+            if rt >= t:
+                resolved = True
+                break
+        if resolved:
+            continue
+        if key in seen_keys:
+            continue
+        seen_keys.add(key)
+        handle = _norm_handle(obj) or key
+        ch = obj.get("channel") or obj.get("type") or "browser-pending"
+        issues.append((
+            "BUYER HANDOFF NOT SENT",
+            handle,
+            f"pending since {t.strftime('%Y-%m-%dT%H:%M:%SZ')} ({age_min:.0f} min, channel={ch})",
+            "parent bot: dispatch the browser send now per RULES t98u/t101u (or append lapsed-not-sent if the post is >1h old); never ask AK for a go",
+        ))
+    return issues
+
+
+def check(gap_min=60, hours=48, t_now=None, stamps=None, logs=None, log_path=None, rows=None):
     t_now = t_now or now()
     stamps = load_stamps() if stamps is None else stamps
-    logs = log_times() if logs is None else logs
+    logs = log_times(log_path) if logs is None else logs
     issues = []
     for key, (period, grace, types, catchup) in ROUTINES.items():
         last = parse(stamps.get(key, {}).get("at", "")) if stamps.get(key) else None
@@ -90,10 +236,10 @@ def check(gap_min=60, hours=48, t_now=None, stamps=None, logs=None):
         if age_h > period + grace:
             issues.append(("OVERDUE", key, f"last run {last.isoformat(timespec='minutes')} ({age_h:.1f}h ago, period {period}h)", catchup))
     recent = sorted(t for t, _ in logs if t >= t_now - timedelta(hours=hours))
-    prev = t_now - timedelta(hours=hours) if not recent else None
     for a, b in zip(recent, recent[1:] + [t_now]):
         if (b - a).total_seconds() / 60 > gap_min:
             issues.append(("GAP", "reply-log", f"silent {a.isoformat(timespec='minutes')} -> {b.isoformat(timespec='minutes')} ({(b - a).total_seconds() / 3600:.1f}h): box outage or every routine down", "check each OVERDUE routine above; tell AK once per gap"))
+    issues.extend(buyer_handoff_issues(log_path=log_path, t_now=t_now, rows=rows))
     return issues
 
 
@@ -110,19 +256,57 @@ def main():
     a = ap.parse_args()
     if a.cmd in ("still-missing", "still_missing"):
         import still_missing as sm
-        # re-invoke with remaining args after the subcommand name
         rest = [x for x in sys.argv[1:] if x not in ("still-missing", "still_missing")]
         return sm.main(rest or ["open"])
     if a.selftest or a.cmd == "selftest":
         t0 = datetime(2026, 10, 26, 18, 0, tzinfo=timezone.utc)
         logs = [(t0 - timedelta(hours=17, minutes=m), "sweep") for m in range(0, 60, 15)] + [(t0 - timedelta(minutes=10), "sweep"), (t0 - timedelta(minutes=5), "watchdog")]
         st = {"funnel-audit": {"at": (t0 - timedelta(hours=35)).isoformat()}, "weekly-report": {"at": (t0 - timedelta(days=2)).isoformat()}}
-        iss = check(60, 48, t0, st, logs)
+        iss = check(60, 48, t0, st, logs, rows=[])  # empty rows: no handoff noise in base selftest
         kinds = {(i[0], i[1]) for i in iss}
         assert ("OVERDUE", "funnel-audit") in kinds, iss
         assert ("OVERDUE", "weekly-report") not in kinds, iss
         assert any(i[0] == "GAP" for i in iss), iss
         assert ("OVERDUE", "replies") not in kinds, iss
+        # t101u buyer handoff: pending >10 min, no sent/lapsed → flag; with lapsed → clear
+        pend_t = t0 - timedelta(minutes=25)
+        rows_stale = [(
+            pend_t,
+            {
+                "type": "lead",
+                "at": pend_t.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "handle": "buyerone",
+                "lead": "https://x.com/buyerone/status/1",
+                "channel": "x-dm-browser-pending",
+            },
+        )]
+        hi = buyer_handoff_issues(t_now=t0, rows=rows_stale)
+        assert any(i[0] == "BUYER HANDOFF NOT SENT" for i in hi), hi
+        rows_ok = rows_stale + [(
+            t0 - timedelta(minutes=5),
+            {
+                "type": "lapsed-not-sent",
+                "at": (t0 - timedelta(minutes=5)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "handle": "buyerone",
+                "lead": "https://x.com/buyerone/status/1",
+                "status": "lapsed-not-sent",
+            },
+        )]
+        hi2 = buyer_handoff_issues(t_now=t0, rows=rows_ok)
+        assert not any(i[0] == "BUYER HANDOFF NOT SENT" for i in hi2), hi2
+        # fresh pending (<10 min) must not flag
+        rows_fresh = [(
+            t0 - timedelta(minutes=3),
+            {
+                "type": "lead",
+                "at": (t0 - timedelta(minutes=3)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "handle": "buyertwo",
+                "lead": "https://x.com/buyertwo/status/2",
+                "channel": "x-reply-browser-pending",
+            },
+        )]
+        hi3 = buyer_handoff_issues(t_now=t0, rows=rows_fresh)
+        assert not any(i[0] == "BUYER HANDOFF NOT SENT" for i in hi3), hi3
         print("selftest OK")
         return 0
     if a.cmd == "stamp":
@@ -142,8 +326,9 @@ def main():
         for k, w, d, c in iss:
             print(f"{k:8} {w:16} {d} | CATCHUP: {c}")
         if not iss:
-            print("run-health OK: no overdue routine, no reply-log gap")
-    return 1 if any(i[0] in ("OVERDUE", "GAP") for i in iss) else 0
+            print("run-health OK: no overdue routine, no reply-log gap, no stale buyer handoff")
+    bad = {"OVERDUE", "GAP", "BUYER HANDOFF NOT SENT"}
+    return 1 if any(i[0] in bad for i in iss) else 0
 
 
 if __name__ == "__main__":

@@ -30,6 +30,8 @@ Fail-closed rules (pm probe A–J, 27 Oct 2026):
   - Style notes must exist, be non-empty (>=80 chars), and name the lead or their content.
   - Pass is bound to lead+channel+text_hash+media_hashes, single-use (consumed on verify
     --consume / sender send), and expires in 15 minutes.
+  - Parent bot sends buyer handoffs itself (AK t98u / t101u): never ask AK for a go; tell
+    AK after the fact as a statement. Asking AK first is a defect.
 """
 from __future__ import annotations
 
@@ -262,8 +264,13 @@ def already_contacted(lead: str, channel: str | None = None) -> bool:
             typ = str(obj.get("type") or "")
             ch = str(obj.get("channel") or "")
             if typ in {"lead-dm-not-sent", "lead-dm-skip", "lead-skip", "lead-browser-pending",
+                       "lapsed-not-sent", "lead-reply-not-posted", "reply-not-attempted",
                        "log-correction", "dm-resend-audit", "dm-fast-check", "fast-scan",
                        "transactional"}:
+                continue
+            if str(ch).endswith("-browser-pending") or "browser-pending" in str(ch):
+                continue
+            if str(obj.get("status") or "") in {"lapsed-not-sent", "lapsed", "blocked-not-sent"}:
                 continue
             is_out = (
                 typ in OUTBOUND_TYPES
@@ -711,9 +718,13 @@ def audit_reply_log(hours: float = 24.0, now: datetime | None = None) -> list[st
             if not is_outbound:
                 continue
             if typ in {"lead-dm-not-sent", "lead-dm-skip", "lead-skip", "lead-browser-pending",
-                       "lead-reply-not-posted", "reply-not-attempted",
+                       "lapsed-not-sent", "lead-reply-not-posted", "reply-not-attempted",
                        "log-correction", "dm-resend-audit", "dm-fast-check", "fast-scan"}:
                 # records of a send that did NOT happen are not outbound
+                continue
+            if str(ch).endswith("-browser-pending") or "browser-pending" in str(ch):
+                continue
+            if str(obj.get("status") or "") in {"lapsed-not-sent", "lapsed", "blocked-not-sent"}:
                 continue
             if is_transactional_row(obj):
                 continue
