@@ -178,7 +178,7 @@ export const offers: Offer[] = [
       "1 revision round",
     ],
     featured: true,
-    stripeLink: `https://buy.stripe.com/3cIeVebOc8eCaEPbIycjS00${SITE_REF}`,
+    stripeLink: `https://buy.stripe.com/5kQ00k4lE8K7gYR77AefC00${SITE_REF}`,
   },
   {
     id: "thumbnails",
@@ -187,7 +187,7 @@ export const offers: Offer[] = [
     turnaround: "24h",
     summary: "Four YouTube thumbnails built to be read at a glance.",
     includes: ["4 thumbnails, 1280×720", "Bold, legible titles", "Source files included", "1 revision round"],
-    stripeLink: `https://buy.stripe.com/9B6bJ2aK8amK9AL4g6cjS01${SITE_REF}`,
+    stripeLink: `https://buy.stripe.com/fZueVe5pI5xVgYR4ZsefC01${SITE_REF}`,
     packLabel: "4 thumbnails, $79 total",
     options: [
       {
@@ -198,7 +198,7 @@ export const offers: Offer[] = [
         price: 20,
         turnaround: "24h",
         includes: ["1 thumbnail, 1280×720", "Bold, legible title", "Source file included", "1 revision round"],
-        stripeLink: `https://buy.stripe.com/00w8wQ9G43Ym3cn3c2cjS04${SITE_REF}`,
+        stripeLink: `https://buy.stripe.com/00w6oIdWe8K74c59fIefC02${SITE_REF}`,
       },
       {
         id: "creator-lite",
@@ -209,7 +209,7 @@ export const offers: Offer[] = [
         unit: "/month",
         turnaround: "Ongoing",
         includes: ["4 thumbnails a month, 1280×720", "Up to 1 a week, each in 24h", "Source files included", "Cancel any time"],
-        stripeLink: `https://buy.stripe.com/8x2eVedWkamKbIT5kacjS06${SITE_REF}`,
+        stripeLink: `https://buy.stripe.com/00wfZi9FY8K79wpeA2efC06${SITE_REF}`,
       },
       {
         id: "creator-plan",
@@ -220,7 +220,7 @@ export const offers: Offer[] = [
         unit: "/month",
         turnaround: "Ongoing",
         includes: ["12 thumbnails a month, 1280×720", "Up to 3 a week, each in 24h", "Source files included", "Cancel any time"],
-        stripeLink: `https://buy.stripe.com/cNi28s9G4gL88wH7sicjS05${SITE_REF}`,
+        stripeLink: `https://buy.stripe.com/dRm00k19s0dBcIBajMefC03${SITE_REF}`,
       },
     ],
   },
@@ -231,7 +231,7 @@ export const offers: Offer[] = [
     turnaround: "48h",
     summary: "Three logo concepts. Pick one, get the final files.",
     includes: ["3 distinct concepts", "Final SVG + PNG files", "Light & dark versions", "1 revision round"],
-    stripeLink: `https://buy.stripe.com/00w14obOc9iG9AL9AqcjS02${SITE_REF}`,
+    stripeLink: `https://buy.stripe.com/6oU6oI5pIf8v9wp0JcefC04${SITE_REF}`,
     packLabel: "3 logo concepts, $149 total",
     options: [
       {
@@ -242,7 +242,7 @@ export const offers: Offer[] = [
         price: 199,
         turnaround: "48h",
         includes: ["Logo (2 concepts, final SVG + PNG)", "Channel banner, 2560×1440", "Profile picture, 800×800", "4 thumbnails, 1280×720", "1 revision round"],
-        stripeLink: `https://buy.stripe.com/cNi28s8C0gL814f9AqcjS07${SITE_REF}`,
+        stripeLink: `https://buy.stripe.com/cNi9AUg4m9ObaAt1NgefC07${SITE_REF}`,
       },
     ],
   },
@@ -254,7 +254,7 @@ export const offers: Offer[] = [
     turnaround: "Ongoing",
     summary: "Small edits and updates to your site, handled for you.",
     includes: ["Text & image swaps", "Small layout tweaks", "Dependency updates", "Cancel any time"],
-    stripeLink: `https://buy.stripe.com/6oUeVedWk9iG8wHdQGcjS03${SITE_REF}`,
+    stripeLink: `https://buy.stripe.com/5kQ5kE2dw6BZeQJcrUefC05${SITE_REF}`,
   },
 ];
 

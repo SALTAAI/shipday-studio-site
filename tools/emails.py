@@ -172,12 +172,12 @@ WELCOME_TIMING = {
 # Close-out upsell (FULFILLMENT.md §8). Every thumbnail delivery offers a recurring plan (RULES.md, 25 Oct 2026).
 # Links carry no client_reference_id: email follow-ups are tracked by the project record instead.
 UPSELL = {
-    "thumbnails": "If you upload every week, Creator Lite keeps it going: 4 thumbnails a month for $79/mo, up to 1 a week, each in 24h, cancel any time: https://buy.stripe.com/8x2eVedWkamKbIT5kacjS06 . Uploading 2 or more a week? The Creator plan covers 12 a month for $179/mo: https://buy.stripe.com/cNi28s9G4gL88wH7sicjS05",
-    "thumbnail_single": "If you upload every week, Creator Lite keeps it going: 4 thumbnails a month for $79/mo, up to 1 a week, each in 24h, cancel any time: https://buy.stripe.com/8x2eVedWkamKbIT5kacjS06",
-    "launch_kit": "Once the channel is rolling, Creator Lite keeps the thumbnails coming: 4 a month for $79/mo, up to 1 a week, each in 24h, cancel any time: https://buy.stripe.com/8x2eVedWkamKbIT5kacjS06",
-    "creator_lite": "If you start uploading more often, the Creator plan covers 12 thumbnails a month (up to 3 a week) for $179/mo: https://buy.stripe.com/cNi28s9G4gL88wH7sicjS05 . Reply first and we'll cancel Creator Lite at the end of your paid month, so you're never billed for both.",
-    "logo": "Starting a YouTube channel too? The Channel Launch Kit adds a banner, profile picture and 4 thumbnails around a new logo for $199: https://buy.stripe.com/cNi28s8C0gL814f9AqcjS07 . Or want a landing page that uses it? https://buy.stripe.com/3cIeVebOc8eCaEPbIycjS00",
-    "landing": "Want us to keep it updated? Upkeep is $49/month, cancel any time: https://buy.stripe.com/6oUeVedWk9iG8wHdQGcjS03",
+    "thumbnails": "If you upload every week, Creator Lite keeps it going: 4 thumbnails a month for $79/mo, up to 1 a week, each in 24h, cancel any time: https://buy.stripe.com/00wfZi9FY8K79wpeA2efC06 . Uploading 2 or more a week? The Creator plan covers 12 a month for $179/mo: https://buy.stripe.com/dRm00k19s0dBcIBajMefC03",
+    "thumbnail_single": "If you upload every week, Creator Lite keeps it going: 4 thumbnails a month for $79/mo, up to 1 a week, each in 24h, cancel any time: https://buy.stripe.com/00wfZi9FY8K79wpeA2efC06",
+    "launch_kit": "Once the channel is rolling, Creator Lite keeps the thumbnails coming: 4 a month for $79/mo, up to 1 a week, each in 24h, cancel any time: https://buy.stripe.com/00wfZi9FY8K79wpeA2efC06",
+    "creator_lite": "If you start uploading more often, the Creator plan covers 12 thumbnails a month (up to 3 a week) for $179/mo: https://buy.stripe.com/dRm00k19s0dBcIBajMefC03 . Reply first and we'll cancel Creator Lite at the end of your paid month, so you're never billed for both.",
+    "logo": "Starting a YouTube channel too? The Channel Launch Kit adds a banner, profile picture and 4 thumbnails around a new logo for $199: https://buy.stripe.com/cNi9AUg4m9ObaAt1NgefC07 . Or want a landing page that uses it? https://buy.stripe.com/5kQ00k4lE8K7gYR77AefC00",
+    "landing": "Want us to keep it updated? Upkeep is $49/month, cancel any time: https://buy.stripe.com/5kQ5kE2dw6BZeQJcrUefC05",
 }
 
 

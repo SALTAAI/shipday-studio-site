@@ -26,44 +26,44 @@ Policy: playbook + open tasks = **never chase silent leads** (watch-only). RULES
 **Media:** out/leads/drairfn/preview-1.jpg, preview-2.jpg  
 **Text:**
 ```
-Glad they work for the map. Full-res + 1 revision is $20 (preview in 6h or full refund): https://buy.stripe.com/00w8wQ9G43Ym3cn3c2cjS04?client_reference_id=x-dm
-Pack of 4 for more islands: $79 https://buy.stripe.com/9B6bJ2aK8amK9AL4g6cjS01?client_reference_id=x-dm
+Glad they work for the map. Full-res + 1 revision is $20 (preview in 6h or full refund): https://buy.stripe.com/00w6oIdWe8K74c59fIefC02?client_reference_id=x-dm
+Pack of 4 for more islands: $79 https://buy.stripe.com/fZueVe5pI5xVgYR4ZsefC01?client_reference_id=x-dm
 Send the map name + any preferred colours after pay to hello@shipdaystudio.com.
 ```
 
 ### A2 @TheNoahSunday
 ```
-Happy to lock one in. 1 thumbnail $20 (6h preview or refund): https://buy.stripe.com/00w8wQ9G43Ym3cn3c2cjS04?client_reference_id=x-dm
-Or 4 for $79: https://buy.stripe.com/9B6bJ2aK8amK9AL4g6cjS01?client_reference_id=x-dm
+Happy to lock one in. 1 thumbnail $20 (6h preview or refund): https://buy.stripe.com/00w6oIdWe8K74c59fIefC02?client_reference_id=x-dm
+Or 4 for $79: https://buy.stripe.com/fZueVe5pI5xVgYR4ZsefC01?client_reference_id=x-dm
 Which video first — first-nuke or free-mythic?
 ```
 
 ### A3 @ohhbxddy
 ```
-For the viewing-party thumb: $20 full-res + revision (6h preview or refund) https://buy.stripe.com/00w8wQ9G43Ym3cn3c2cjS04?client_reference_id=x-dm
+For the viewing-party thumb: $20 full-res + revision (6h preview or refund) https://buy.stripe.com/00w6oIdWe8K74c59fIefC02?client_reference_id=x-dm
 Drop the exact title + any face/frame after pay to hello@shipdaystudio.com.
 ```
 
 ### A4 @shreyanshmalviy
 ```
-For Redsheel (or confirm the name): logo pack 3 concepts SVG+PNG in 48h is $149 https://buy.stripe.com/00w14obOc9iG9AL9AqcjS02?client_reference_id=x-dm
+For Redsheel (or confirm the name): logo pack 3 concepts SVG+PNG in 48h is $149 https://buy.stripe.com/6oU6oI5pIf8v9wp0JcefC04?client_reference_id=x-dm
 What feel — wordmark, symbol, or both?
 ```
 
 ### A5 @garrett_abdulla / @T4TheOfficial — only if they DM us first
-Same $20/$79 as A1; Garrett/RET Media batch → Creator Lite $79/mo https://buy.stripe.com/8x2eVedWkamKbIT5kacjS06?client_reference_id=x-dm
+Same $20/$79 as A1; Garrett/RET Media batch → Creator Lite $79/mo https://buy.stripe.com/00wfZi9FY8K79wpeA2efC06?client_reference_id=x-dm
 
 ## B) Optional single soft bump (skip unless you want RULES allowance)
 
 ### B1 @ohhbxddy
 ```
-Still need that viewing-party thumbnail? One custom thumb is $20 with a 6h preview or full refund: https://buy.stripe.com/00w8wQ9G43Ym3cn3c2cjS04?client_reference_id=x-dm
+Still need that viewing-party thumbnail? One custom thumb is $20 with a 6h preview or full refund: https://buy.stripe.com/00w6oIdWe8K74c59fIefC02?client_reference_id=x-dm
 No rush — reply here if you want it.
 ```
 
 ### B2 @shreyanshmalviy
 ```
-Still after a logo asap? 3 concepts, SVG+PNG, 48h for $149: https://buy.stripe.com/00w14obOc9iG9AL9AqcjS02?client_reference_id=x-dm
+Still after a logo asap? 3 concepts, SVG+PNG, 48h for $149: https://buy.stripe.com/6oU6oI5pIf8v9wp0JcefC04?client_reference_id=x-dm
 Happy to start once you pick a feel.
 ```
 

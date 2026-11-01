@@ -110,7 +110,7 @@ def main():
     check(st == 200 and INDEXNOW_KEY in body, f"IndexNow key file {st}")
 
     # 5b. DM landing pages (T-0031): the $20 single leads, tagged, with its own OG card.
-    single = "https://buy.stripe.com/00w8wQ9G43Ym3cn3c2cjS04?client_reference_id=site"
+    single = "https://buy.stripe.com/00w6oIdWe8K74c59fIefC02?client_reference_id=site"
     for path, title, og in [
         ("/work/thumbnails/", "YouTube thumbnail examples: 1 for $20, 4 for $79", "/og/work-thumbnails.png"),
         ("/services/custom-youtube-thumbnail/", "Custom YouTube thumbnail for $20, in 24h", "/og/services/custom-youtube-thumbnail.png"),
